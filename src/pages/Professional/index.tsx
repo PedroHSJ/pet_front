@@ -53,7 +53,7 @@ const Professional = () => {
                                     return (
                                         <li
                                             key={professional.id}
-                                            className="py-4 cursor-pointer"
+                                            className="p-4 cursor-pointer hover:bg-gray-50 hover:rounded"
                                             onClick={() =>
                                                 handleProfessionalClick(
                                                     professional,
