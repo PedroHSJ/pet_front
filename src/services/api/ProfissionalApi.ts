@@ -11,4 +11,14 @@ const getAllProfessionals = async (): Promise<
     return data;
 };
 
+const postProfessional = async (
+    professional: IProfessional,
+): Promise<{ id: string }> => {
+    const { data } = await api.post<{ id: string }>(
+        '/professional',
+        professional,
+    );
+    return { id: data.id };
+};
+
 export { getAllProfessionals };

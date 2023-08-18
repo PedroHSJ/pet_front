@@ -2,13 +2,13 @@ import { useState } from 'react';
 import { IIndividual } from '../interfaces/IIndividual';
 import { handleGetErrorMessage } from '../utils';
 import { getIndividualByCpf } from '../services/api';
-import { IUser } from '../interfaces/IUser';
-import { getUserById } from '../services/api/UserApi';
+import { IUser, IUserDTO } from '../interfaces/IUser';
+import { getUserById, postUser } from '../services/api/UserApi';
 
 const useUser = () => {
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState('');
-    const [user, setUser] = useState<IUser | undefined>();
+    const [user, setUser] = useState<IUser[] | undefined>();
 
     const getById = async (id: string) => {
         setLoading(true);
@@ -22,11 +22,24 @@ const useUser = () => {
         }
     };
 
+    const create = async (user: IUserDTO) => {
+        setLoading(true);
+        try {
+            const { id } = await postUser(user);
+            return id;
+        } catch (err) {
+            setError(handleGetErrorMessage(err));
+        } finally {
+            setLoading(false);
+        }
+    };
+
     return {
         loading,
         error,
         user,
         getById,
+        create,
     };
 };
 

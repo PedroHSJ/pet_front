@@ -78,6 +78,10 @@ const AuthProvider = ({ children }: IAuthProviderProps) => {
             localStorage.setItem('@token', token);
             const jwtToken = jwt<{ id: string }>(token);
             localStorage.setItem('@user/id', jwtToken.id);
+
+            const userId = localStorage.getItem('@user/id');
+            const { items } = await getUserById(userId!);
+            setUser(items[0]);
             //localStorage.setItem('@user', JSON.stringify(user));
             setIsAuthorized(true);
         } catch (e) {

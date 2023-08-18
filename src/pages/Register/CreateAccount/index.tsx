@@ -1,12 +1,14 @@
-import CreateAccountCard from "../../../components/cards/Register/CreateAccountCard";
-import { Container } from "./styles";
+import GoBackButton from '../../../components/buttons/GoBackButton';
+import CreateAccountCard from '../../../components/cards/Register/CreateAccountCard';
+import { Container } from './styles';
 
-const CheckRegister = () => {
-	return (
-		<Container>
-			<CreateAccountCard />
-		</Container>
-	);
+const CreateAccount = () => {
+    return (
+        <Container>
+            <GoBackButton />
+            <CreateAccountCard />
+        </Container>
+    );
 };
 
-export default CheckRegister;
+export default CreateAccount;

@@ -7,3 +7,11 @@ export interface IProfessional extends IBaseInterface {
     crmv: string;
     phone?: string;
 }
+
+export interface IProfessionalDTO {
+    name: string;
+    email: string;
+    password: string;
+    crmv: string;
+    phone?: string;
+}
