@@ -23,6 +23,15 @@ const geProfessionalById = async (
     return data;
 };
 
+const getProfessinalByParams = async (
+    params: IProfessionalDTO,
+): Promise<ApiResponseInterface<IProfessional>> => {
+    const { data } = await api.get<
+        Promise<ApiResponseInterface<IProfessional>>
+    >(`professional`, { params });
+    return data;
+};
+
 const postProfessional = async (
     professional: IProfessionalDTO,
 ): Promise<{ id: string }> => {
@@ -33,4 +42,9 @@ const postProfessional = async (
     return { id: data.id };
 };
 
-export { getAllProfessionals, postProfessional, geProfessionalById };
+export {
+    getAllProfessionals,
+    postProfessional,
+    geProfessionalById,
+    getProfessinalByParams,
+};

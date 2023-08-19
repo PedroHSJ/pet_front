@@ -98,6 +98,7 @@ export function Header() {
     }, [professional]);
 
     const verifyRole = () => {
+        console.log('role', role);
         setNavItems([]);
         if (role === 'ADMIN') {
             setNavItems((prev) => [...prev!, ...navItemsAdmin]);

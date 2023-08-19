@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import {
     getAllProfessionals,
+    getProfessinalByParams,
     postProfessional,
 } from '../services/api/ProfissionalApi';
 import { IProfessional, IProfessionalDTO } from '../interfaces/IProfessional';
@@ -19,6 +20,21 @@ export const useProfessional = () => {
 
             setLoading(true);
             const { items, totalCount } = await getAllProfessionals();
+            setProfessionals(items);
+            setTotalCount(totalCount);
+        } catch (error) {
+            setError(handleGetErrorMessage(error));
+        } finally {
+            setLoading(false);
+        }
+    };
+
+    const getByParams = async (params: IProfessionalDTO) => {
+        try {
+            setError('');
+
+            setLoading(true);
+            const { items, totalCount } = await getProfessinalByParams(params);
             setProfessionals(items);
             setTotalCount(totalCount);
         } catch (error) {
@@ -50,6 +66,7 @@ export const useProfessional = () => {
         error,
         success,
         getAll,
+        getByParams,
         createProfessional,
     };
 };

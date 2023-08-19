@@ -6,6 +6,10 @@ import { Button } from '../../../components/buttons/Button';
 import { IProfessionalDTO } from '../../../interfaces/IProfessional';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { ProfessionalSchema } from '../../../validations/ProfessionalSchema';
+import { InputComponent } from '../../../components/forms/NewInput';
+import { useProfessional } from '../../../hooks/useProfessional';
+import { useEffect } from 'react';
+import { useComponent } from '../../../hooks/useComponent';
 
 export const NewProfessional = () => {
     const {
@@ -16,9 +20,32 @@ export const NewProfessional = () => {
         resolver: yupResolver(ProfessionalSchema),
     });
 
+    const { createProfessional, error, loading, success } = useProfessional();
+    const { dialog } = useComponent();
     const onSubmit = async (data: IProfessionalDTO) => {
         console.log(data);
+        createProfessional(data);
     };
+
+    useEffect(() => {
+        if (success) {
+            console.log('success');
+        }
+        return;
+    }, [success]);
+
+    useEffect(() => {
+        if (error) {
+            dialog('Erro', error, [
+                {
+                    text: 'Ok',
+                    styleButton: 'primary',
+                    onPress: () => {},
+                },
+            ]);
+        }
+        return;
+    }, [error]);
 
     return (
         <Template>
@@ -29,51 +56,48 @@ export const NewProfessional = () => {
                     </h1>
                 </div>
 
-                <div className=" mx-auto bg-gray-200 p-10 sm:px-6 lg:px-8 ">
+                <div className=" mx-auto p-10 sm:px-6 lg:px-8 ">
                     <Form onSubmit={handleSubmit(onSubmit)}>
-                        <div className="grid grid-cols-1 gap-6">
-                            <Input
-                                control={control}
-                                name="name"
-                                label="Nome"
-                                placeholder="Digite o nome"
-                                error={errors.name?.message}
-                                type="text"
-                            />
-                            <Input
-                                control={control}
-                                name="phone"
-                                label="Telefone"
-                                placeholder="Digite o telefone"
-                                error={errors.phone?.message}
-                                type="number"
-                            />
-                            <Input
-                                control={control}
-                                name="crmv"
-                                label="CRMV"
-                                placeholder="Digite o CRMV"
-                                error={errors.crmv?.message}
-                                type="number"
-                            />
-                            <Input
-                                control={control}
-                                name="email"
-                                label="Email"
-                                placeholder="Digite o email"
-                                error={errors.email?.message}
-                                type="email"
-                            />
-                            <Input
-                                control={control}
-                                name="password"
-                                label="Senha"
-                                placeholder="Digite a senha"
-                                error={errors.password?.message}
-                                type="password"
-                            />
-                        </div>
-                        <Button type="submit">Cadastrar</Button>
+                        <InputComponent
+                            control={control}
+                            name="name"
+                            label="Nome"
+                            error={errors.name?.message}
+                            type="text"
+                        />
+                        <InputComponent
+                            control={control}
+                            name="phone"
+                            label="Telefone"
+                            error={errors.phone?.message}
+                            type="text"
+                            mask="phone"
+                        />
+                        <InputComponent
+                            control={control}
+                            name="crmv"
+                            label="CRMV"
+                            error={errors.crmv?.message}
+                            type="string"
+                            mask="crmv"
+                        />
+                        <InputComponent
+                            control={control}
+                            name="email"
+                            label="Email"
+                            error={errors.email?.message}
+                            type="email"
+                        />
+                        <InputComponent
+                            control={control}
+                            name="password"
+                            label="Senha"
+                            error={errors.password?.message}
+                            type="password"
+                        />
+                        <Button loading={loading} style="primary" type="submit">
+                            Cadastrar
+                        </Button>
                     </Form>
                 </div>
             </div>

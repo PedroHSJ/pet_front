@@ -21,6 +21,15 @@ interface IInputProps extends InputHTMLAttributes<HTMLInputElement> {
     type: string;
     error?: string;
     variant?: variant;
+    mask?:
+        | 'phone'
+        | 'cpf'
+        | 'cnpj'
+        | 'cep'
+        | 'date'
+        | 'time'
+        | 'money'
+        | 'crmv';
 }
 
 export const InputComponent = ({
@@ -32,6 +41,7 @@ export const InputComponent = ({
     error,
     variant,
     placeholder,
+    mask,
 }: IInputProps) => {
     const [viewPass, setViewPass] = useState(true);
     const [changePassType, setChangePassType] = useState(type);
@@ -44,7 +54,64 @@ export const InputComponent = ({
     });
 
     const handleChangeValue = (value: string) => {
-        field.onChange(value);
+        field.onChange(handleChangeMask(value));
+    };
+
+    const handleChangeMask = (value: string) => {
+        if (mask === 'phone') {
+            return value
+                .replace(/\D/g, '')
+                .replace(/(\d{2})(\d)/, '($1) $2')
+                .replace(/(\d{4})(\d)/, '$1-$2')
+                .replace(/(\d{4})-(\d)(\d{4})/, '$1$2-$3')
+                .replace(/(-\d{4})\d+?$/, '$1');
+        }
+        if (mask === 'cpf') {
+            return value
+                .replace(/\D/g, '')
+
+                .replace(/(\d{3})(\d)/, '$1.$2')
+                .replace(/(\d{3})(\d)/, '$1.$2')
+                .replace(/(\d{3})(\d{1,2})$/, '$1-$2');
+        }
+        if (mask === 'cnpj') {
+            return value
+
+                .replace(/\D/g, '')
+                .replace(/(\d{2})(\d)/, '$1.$2')
+                .replace(/(\d{3})(\d)/, '$1.$2')
+                .replace(/(\d{3})(\d)/, '$1/$2')
+                .replace(/(\d{4})(\d{1,2})$/, '$1-$2');
+        }
+        if (mask === 'cep') {
+            return value.replace(/\D/g, '').replace(/(\d{5})(\d)/, '$1-$2');
+        }
+        if (mask === 'date') {
+            return value
+
+                .replace(/\D/g, '')
+                .replace(/(\d{2})(\d)/, '$1/$2')
+                .replace(/(\d{2})(\d)/, '$1/$2');
+        }
+        if (mask === 'time') {
+            return value
+
+                .replace(/\D/g, '')
+                .replace(/(\d{2})(\d)/, '$1:$2')
+                .replace(/(\d{2})(\d)/, '$1:$2');
+        }
+        if (mask === 'money') {
+            return value
+
+                .replace(/\D/g, '')
+                .replace(/(\d)(\d{2})$/, '$1,$2')
+                .replace(/(?=(\d{3})+(\D))\B/g, '.');
+        }
+        if (mask === 'crmv') {
+            //this field has only 5 digits
+            return value.replace(/\D/g, '').substr(0, 5);
+        }
+        return value;
     };
 
     return (
@@ -54,7 +121,9 @@ export const InputComponent = ({
                     <Input
                         value={field.value}
                         variant={variant}
-                        onChange={(e) => handleChangeValue(e.target.value)}
+                        onChange={(e) => {
+                            handleChangeValue(e.target.value);
+                        }}
                         size="md"
                         label={label}
                         disabled={disabled}
@@ -89,7 +158,9 @@ export const InputComponent = ({
                     <Input
                         value={field.value}
                         variant={variant}
-                        onChange={(e) => handleChangeValue(e.target.value)}
+                        onChange={(e) => {
+                            handleChangeValue(e.target.value);
+                        }}
                         size="md"
                         label={label}
                         disabled={disabled}

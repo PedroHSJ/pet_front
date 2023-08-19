@@ -2,14 +2,14 @@ import { useEffect } from 'react';
 import { Template } from '../../components/layouts/Template';
 import { useProfessional } from '../../hooks/useProfessional';
 import { Loading } from '../../components/resources/Loading';
-import Pagination from '../../components/pagination';
+import { Pagination } from '../../components/pagination';
 import { IProfessional } from '../../interfaces/IProfessional';
 import { Filter } from '../../components/filter';
 import { useAuth } from '../../hooks/auth';
 import { useNavigate } from 'react-router';
 
 const Professional = () => {
-    const { error, loading, professionals, getAll, totalCount } =
+    const { error, loading, professionals, getAll, totalCount, getByParams } =
         useProfessional();
     const { role } = useAuth();
     const navigate = useNavigate();
@@ -21,6 +21,10 @@ const Professional = () => {
     useEffect(() => {
         getAll();
     }, []);
+
+    const handleFilter = (data: any) => {
+        getByParams(data);
+    };
 
     const handleProfessionalClick = (row: IProfessional) => {
         console.log(row);
@@ -47,21 +51,30 @@ const Professional = () => {
                 ) : (
                     <div>
                         <div className="mx-auto max-w-7xl px-4 py-6 sm:px-6 lg:px-8">
-                            <div className="flex justify-between ">
-                                <h1 className="text-3xl font-bold tracking-tight text-gray-900">
-                                    Profissionais
-                                </h1>
-                                {role === 'ADMIN' && (
-                                    <button
-                                        type="button"
-                                        className="bg-primary text-sm flex-end text-white rounded p-2"
-                                        onClick={() => {
-                                            navigate('/cadastrarProfissional');
-                                        }}
-                                    >
-                                        Cadastrar
-                                    </button>
-                                )}
+                            <div className="flex-col">
+                                <div className="flex flex-row justify-between">
+                                    <h1 className="text-3xl font-bold tracking-tight text-gray-900">
+                                        Profissionais
+                                    </h1>
+                                    {role === 'ADMIN' && (
+                                        <button
+                                            type="button"
+                                            className="bg-primary text-sm flex-end text-white rounded p-2"
+                                            onClick={() => {
+                                                navigate(
+                                                    '/cadastrarProfissional',
+                                                );
+                                            }}
+                                        >
+                                            Cadastrar
+                                        </button>
+                                    )}
+                                </div>
+                                <Filter
+                                    onSubmit={(data) => {
+                                        handleFilter(data);
+                                    }}
+                                />
                             </div>
                             <ul
                                 role="list"
@@ -105,13 +118,14 @@ const Professional = () => {
                                 })}
                             </ul>
                         </div>
-                        {/* <Pagination
-                            currentPage={1}
-                            numButtons={4}
-                            onPageChange={() => {}}
-                            pageSize={10}
-                            totalCount={totalCount}
-                        /> */}
+                        <Pagination
+                            total={totalCount}
+                            limit={10}
+                            offset={0}
+                            setOffset={(offset) => {
+                                console.log(offset);
+                            }}
+                        />
                     </div>
                 )}
             </div>

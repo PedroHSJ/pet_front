@@ -116,6 +116,7 @@ export const ProfessionalCard = () => {
                     placeholder="(83) 9 9999-9999"
                     label="Telefone"
                     type="text"
+                    mask="phone"
                     error={errors.phone?.message}
                 />
                 <InputComponent
