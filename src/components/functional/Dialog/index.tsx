@@ -11,7 +11,7 @@ import {
 export interface IOptionsProp {
     text: string;
     onPress: () => void;
-    buttonColor?: string;
+    styleButton: 'primary' | 'secondary';
 }
 
 export interface IDataFlatListProp {
@@ -86,6 +86,7 @@ export const useDialog = (): IuseDialogReturn => {
                                 <ButtonsContainer>
                                     {!dialog.options && (
                                         <Button
+                                            style="primary"
                                             onClick={() => setDialogList([])}
                                             type="button"
                                         >
@@ -93,10 +94,9 @@ export const useDialog = (): IuseDialogReturn => {
                                         </Button>
                                     )}
                                     {dialog.options?.map((item) => {
-                                        console.log(item);
                                         return (
                                             <Button
-                                                color={item.buttonColor}
+                                                style={item.styleButton}
                                                 onClick={() =>
                                                     handlePressOption(
                                                         item,

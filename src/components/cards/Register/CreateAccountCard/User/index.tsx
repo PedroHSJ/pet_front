@@ -101,7 +101,9 @@ export const UserCard = () => {
                     options={roleOptions}
                     disabled
                 />
-                <Button type="submit">Entrar</Button>
+                <Button style="primary" type="submit">
+                    Cadastrar
+                </Button>
             </Form>
         </Container>
     );

@@ -14,7 +14,6 @@ export const Client = () => {
     }, []);
 
     const handleClickClient = (row: IClient) => {
-        console.log(row);
         navigate(`/editClient`, { state: row });
     };
 

@@ -14,6 +14,7 @@ interface IButtonProps extends Omit<ButtonProps, 'color'> {
     fullWidth?: boolean;
     rounded?: boolean;
     color?: string;
+    style: 'primary' | 'secondary';
 }
 
 export const Button = ({
@@ -23,20 +24,34 @@ export const Button = ({
     disabled,
     size,
     type,
-    color,
+    style,
 }: IButtonProps): JSX.Element => {
     return (
         <div className="w-full">
-            <ButtonMT
-                size={size}
-                disabled={loading || disabled}
-                onClick={onClick}
-                fullWidth
-                type={type}
-                className={color ? `bg-${color}` : 'bg-primary'}
-            >
-                {loading ? <Loading /> : <Label>{children}</Label>}
-            </ButtonMT>
+            {style === 'primary' && (
+                <ButtonMT
+                    size={size}
+                    disabled={loading || disabled}
+                    onClick={onClick}
+                    fullWidth
+                    type={type}
+                    className="bg-primary"
+                >
+                    {loading ? <Loading /> : <Label>{children}</Label>}
+                </ButtonMT>
+            )}
+            {style === 'secondary' && (
+                <ButtonMT
+                    size={size}
+                    disabled={loading || disabled}
+                    onClick={onClick}
+                    fullWidth
+                    type={type}
+                    className="bg-gray-400 text-black hover:bg-gray-500"
+                >
+                    {loading ? <Loading /> : <Label>{children}</Label>}
+                </ButtonMT>
+            )}
         </div>
     );
 };

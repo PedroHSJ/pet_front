@@ -11,7 +11,7 @@ import { useNavigate } from 'react-router';
 const Professional = () => {
     const { error, loading, professionals, getAll, totalCount } =
         useProfessional();
-    const { getRole } = useAuth();
+    const { role } = useAuth();
     const navigate = useNavigate();
 
     // useEffect(() => {
@@ -51,7 +51,7 @@ const Professional = () => {
                                 <h1 className="text-3xl font-bold tracking-tight text-gray-900">
                                     Profissionais
                                 </h1>
-                                {getRole() === 'ADMIN' && (
+                                {role === 'ADMIN' && (
                                     <button
                                         type="button"
                                         className="bg-primary text-sm flex-end text-white rounded p-2"

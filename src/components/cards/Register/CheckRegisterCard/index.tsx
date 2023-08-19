@@ -53,7 +53,9 @@ const CheckRegisterCard = () => {
                     options={roleOptions}
                 />
 
-                <Button type="submit">Entrar</Button>
+                <Button style="primary" type="submit">
+                    Próximo
+                </Button>
             </Form>
         </Container>
     );

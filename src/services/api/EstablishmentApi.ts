@@ -8,7 +8,6 @@ const getAllEstablishments = async (): Promise<
     const { data } = await api.get<ApiResponseInterface<IEstablishment>>(
         'establishment',
     );
-    console.log(api);
     return data;
 };
 

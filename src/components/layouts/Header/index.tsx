@@ -32,7 +32,7 @@ interface INavItem {
 
 export function Header() {
     const { dialog } = useComponent();
-    const { logout } = useAuth();
+    const { logout, role } = useAuth();
     const { user, professional } = useAuth();
     const [navItems, setNavItems] = useState<INavItem[] | null>(null);
 
@@ -94,26 +94,18 @@ export function Header() {
     ];
 
     useEffect(() => {
-        if (!user) return;
-
-        verifyRole(user!);
-    }, [user]);
-
-    useEffect(() => {
-        if (!professional) return;
-        verifyRole(professional!);
+        verifyRole();
     }, [professional]);
 
-    const verifyRole = (user: IUser | IProfessional) => {
+    const verifyRole = () => {
         setNavItems([]);
-        if (user?.role.name === 'ADMIN') {
+        if (role === 'ADMIN') {
             setNavItems((prev) => [...prev!, ...navItemsAdmin]);
-            setNavItems((prev) => [...prev!, ...commomItems]);
         }
-        if (user?.role.name === 'VETERINARIAN') {
+        if (role === 'VETERINARIAN') {
             setNavItems((prev) => [...prev!, ...professionalNavItems]);
-            setNavItems((prev) => [...prev!, ...commomItems]);
         }
+        setNavItems((prev) => [...prev!, ...commomItems]);
 
         //setNavItems((prev) => [...prev!, ...commomItems]);
     };
@@ -125,10 +117,12 @@ export function Header() {
                 onPress: () => {
                     logout();
                 },
+                styleButton: 'secondary',
             },
             {
                 text: 'Não',
                 onPress: () => {},
+                styleButton: 'primary',
             },
         ]);
     };

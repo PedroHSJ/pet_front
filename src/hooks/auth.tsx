@@ -1,6 +1,7 @@
 import {
     ReactNode,
     createContext,
+    useCallback,
     useContext,
     useEffect,
     useState,
@@ -29,7 +30,7 @@ interface AuthContextData {
     loginWithoutPassword: (cpfOrCns: string) => void;
     loginWithPassword: (data: ILoginFormWithPassword) => void;
     logout: () => void;
-    getRole: () => string;
+    role: string;
 }
 
 export const AuthContext = createContext({} as AuthContextData);
@@ -42,8 +43,8 @@ const AuthProvider = ({ children }: IAuthProviderProps) => {
     const [professional, setProfessional] = useState<IProfessional | null>(
         null,
     );
-
     const [scope, setScope] = useState('' as string);
+    const [role, setRole] = useState('' as string);
 
     useEffect(() => {
         const userToken = localStorage.getItem('@token');
@@ -53,16 +54,23 @@ const AuthProvider = ({ children }: IAuthProviderProps) => {
         if (expirationDate < new Date()) return;
         setIsAuthorized(true);
 
+        const localStorageUser = localStorage.getItem('@user');
+        const user = JSON.parse(localStorageUser!);
+        if (!user) return;
+        if (user.role.name === 'ADMIN') {
+            setUser(user);
+            setRole(user.role.name);
+            return;
+        }
+        setProfessional(user);
+        setRole(user.role.name);
+        return;
+
         // (async () => {
         //     const { items } = await getUserById(userId!);
         //     setUser(items[0]);
         // })();
     }, []);
-
-    useEffect(() => {
-        console.log('user', user);
-        console.log('professional', professional);
-    }, [user, professional]);
 
     const loginWithoutPassword = async (cpfOrCns: string) => {
         try {
@@ -92,8 +100,8 @@ const AuthProvider = ({ children }: IAuthProviderProps) => {
             localStorage.setItem('@user/id', jwtToken.id);
             const userId = localStorage.getItem('@user/id');
             if (!userId) return;
-            gettingUser(userId);
-            //localStorage.setItem('@user', JSON.stringify(user));
+            gettingUserOrProfile(userId, data.scope);
+            setScope(data.scope);
             setIsAuthorized(true);
             return;
         } catch (error) {
@@ -108,30 +116,21 @@ const AuthProvider = ({ children }: IAuthProviderProps) => {
         setIsAuthorized(false);
     };
 
-    const getRole = (): string => {
-        // if (!user) return '';
-        // return user?.role.name.toString();
-        const role = user
-            ? user?.role.name.toString()
-            : professional?.role.name.toString();
-        return role ? role : '';
-    };
-
-    const gettingUser = async (id: string) => {
+    const gettingUserOrProfile = async (id: string, scope: string) => {
         try {
-            const { items: user } = await getUserById(id);
-            const { items: professional } = await geProfessionalById(id);
-            console.log('gettingUser', user, professional);
-            if (user) {
+            if (scope === 'USER') {
+                const { items: user } = await getUserById(id);
+
                 setUser(user[0]);
-                setScope(user[0].role.name.toString());
+                setRole(user[0].role.name);
                 localStorage.setItem('@user', JSON.stringify(user[0]));
+                return;
             }
-            if (professional) {
-                setProfessional(professional[0]);
-                setScope(professional[0].role.name.toString());
-                localStorage.setItem('@user', JSON.stringify(professional[0]));
-            }
+
+            const { items: professional } = await geProfessionalById(id);
+            setProfessional(professional[0]);
+            setRole(professional[0].role.name);
+            localStorage.setItem('@user', JSON.stringify(professional[0]));
         } catch (e) {
             setError(handleGetErrorMessage(e));
         } finally {
@@ -139,28 +138,29 @@ const AuthProvider = ({ children }: IAuthProviderProps) => {
         }
     };
 
-    useEffect(() => {
-        const userId = localStorage.getItem('@user/id');
-        if (!userId) return;
-        gettingUser(userId);
-    }, []);
+    // useEffect(() => {
+    //     const userId = localStorage.getItem('@user/id');
+    //     if (!userId) return;
+    //     console.log('useEffect scope', scope);
+    //     gettingUserOrProfile(userId, scope);
+    // }, []);
 
-    useEffect(() => {
-        if (!scope) return;
-
-        switch (scope) {
-            case 'ADMIN':
-                const user = localStorage.getItem('@user');
-                setUser(JSON.parse(user!));
-                break;
-            case 'VETERINARIAN':
-                const professional = localStorage.getItem('@user');
-                setProfessional(JSON.parse(professional!));
-                break;
-            default:
-                break;
-        }
-    }, [scope]);
+    // useEffect(() => {
+    //     if (!scope) return;
+    //     console.log('scope', scope);
+    //     switch (scope) {
+    //         case 'ADMIN':
+    //             const user = localStorage.getItem('@user');
+    //             setUser(JSON.parse(user!));
+    //             break;
+    //         case 'VETERINARIAN':
+    //             const professional = localStorage.getItem('@user');
+    //             setProfessional(JSON.parse(professional!));
+    //             break;
+    //         default:
+    //             break;
+    //     }
+    // }, [scope]);
 
     return (
         <AuthContext.Provider
@@ -170,10 +170,10 @@ const AuthProvider = ({ children }: IAuthProviderProps) => {
                 isAuthorized,
                 user,
                 professional,
+                role,
                 loginWithoutPassword,
                 loginWithPassword,
                 logout,
-                getRole,
             }}
         >
             {children}

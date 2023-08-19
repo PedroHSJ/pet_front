@@ -12,9 +12,6 @@ const Establishment = () => {
         getAllEstablishments();
     }, []);
 
-    useEffect(() => {
-        console.log(establishments);
-    }, [establishments]);
     return (
         <Template>
             <div className="bg-white shadow">

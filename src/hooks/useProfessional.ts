@@ -37,7 +37,6 @@ export const useProfessional = () => {
             setSuccess(true);
         } catch (error) {
             setSuccess(false);
-            console.log('hook', error);
             setError(handleGetErrorMessage(error));
         } finally {
             setLoading(false);

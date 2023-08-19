@@ -9,15 +9,10 @@ import { SelectComponent } from '../../components/forms/NewSelectInput';
 
 const Home = () => {
     const { getSchedules, error, loading, schedules } = useSchedule();
-    const { getRole } = useAuth();
     const { handleSubmit, control } = useForm();
 
     useEffect(() => {
         getSchedules();
-    }, []);
-
-    useEffect(() => {
-        console.log(getRole());
     }, []);
 
     const onSubmit = async (data: any) => {

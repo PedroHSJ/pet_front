@@ -42,10 +42,6 @@ const CreateAccount = () => {
         });
     }, [state]);
 
-    useEffect(() => {
-        console.log(roleChoosed);
-    }, [roleChoosed]);
-
     return (
         <MainContainer>
             {roleChoosed === Role.ADMIN && <UserCard />}

@@ -42,7 +42,6 @@ export const SelectComponent = ({
     });
 
     const handleChangeValue = (value: string) => {
-        console.log(value);
         field.onChange(value);
     };
 

@@ -55,7 +55,6 @@ export const ProfessionalCard = () => {
             role: data.role,
             phone: data.phone,
         };
-        console.log(professional);
         createProfessional(professional);
 
         //navigate('/login');
@@ -143,7 +142,7 @@ export const ProfessionalCard = () => {
                     options={roleOptions}
                     disabled
                 />
-                <Button type="submit" loading={loading}>
+                <Button style="primary" type="submit" loading={loading}>
                     Cadastrar
                 </Button>
             </Form>

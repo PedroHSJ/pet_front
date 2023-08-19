@@ -37,7 +37,7 @@ const LoginWithPassword = () => {
             dialog(
                 'Atenção',
                 'Aceite os termos de consentimento livre primeiro',
-                [{ text: 'OK', onPress: () => {} }],
+                [{ text: 'OK', onPress: () => {}, styleButton: 'primary' }],
             );
             return;
         }
@@ -52,6 +52,7 @@ const LoginWithPassword = () => {
             {
                 text: 'OK',
                 onPress: () => {},
+                styleButton: 'primary',
             },
         ]);
     }, [error]);
@@ -104,7 +105,7 @@ const LoginWithPassword = () => {
                         }
                     />
                 </ViewTerms>
-                <Button type="submit" loading={loading}>
+                <Button style="primary" type="submit" loading={loading}>
                     Entrar
                 </Button>
             </Form>
