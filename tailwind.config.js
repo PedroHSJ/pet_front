@@ -8,9 +8,14 @@ export default withMT({
         './src/**/*.{js,ts,jsx,tsx}', // <= no spaces
     ],
     theme: {
+        colors: {
+            ...colors,
+        },
         extend: {
             colors: {
-                ...colors, // Adicione suas cores personalizadas aqui
+                ...colors,
+
+                // Adicione suas cores personalizadas aqui
             },
         },
     },

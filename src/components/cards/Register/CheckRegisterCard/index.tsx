@@ -3,25 +3,19 @@ import { yupResolver } from '@hookform/resolvers/yup';
 import { useForm } from 'react-hook-form';
 import { useNavigate } from 'react-router-dom';
 import { Form } from '../../../forms/Form';
-import Input from '../../../forms/Input';
 import { Button } from '../../../buttons/Button';
 import { useComponent } from '../../../../hooks/useComponent';
-import {
-    IChoseRole,
-    IRegisterForm,
-} from '../../../../interfaces/IRegisterForm';
-import { Register } from '../../../../validations/RegisterSchema';
+import { IChoseRole } from '../../../../interfaces/IRegisterForm';
 import LogoPrimary from '../../../../assets/images/pet_logo.png';
 import { Container, Title, LogoImage } from './styles';
 
 import {
-    errorTitleText,
     requiredFieldsText,
     warningText,
 } from '../../../../constants/messages';
-import { SelectInput } from '../../../forms/SelectInput';
 import { Role } from '../../../../interfaces/IRole';
 import { choseRoleSchema } from '../../../../validations/choseRoleSchema';
+import { SelectComponent } from '../../../forms/NewSelectInput';
 
 const CheckRegisterCard = () => {
     const navigate = useNavigate();
@@ -34,8 +28,8 @@ const CheckRegisterCard = () => {
         resolver: yupResolver(choseRoleSchema),
     });
     const roleOptions = [
-        { key: Role.ADMIN, label: 'Administrador' },
-        { key: Role.VETERINARIAN, label: 'Veterinário' },
+        { value: Role.ADMIN, label: 'Administrador' },
+        { value: Role.VETERINARIAN, label: 'Veterinário' },
     ];
 
     const onSubmit = async (data: IChoseRole) => {
@@ -55,12 +49,11 @@ const CheckRegisterCard = () => {
                 Escolha o tipo de usuário que deseja cadastrar na plataforma
             </Title>
             <Form onSubmit={handleSubmit(onSubmit)}>
-                <SelectInput
+                <SelectComponent
                     label="Tipo de usuário"
                     name="role"
                     control={control}
                     options={roleOptions}
-                    error={errors.role?.message}
                 />
 
                 <Button type="submit">Entrar</Button>

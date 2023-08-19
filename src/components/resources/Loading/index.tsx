@@ -1,17 +1,18 @@
 import { useTheme } from 'styled-components';
-import { Container, Spinner } from './styles';
+import { Container } from './styles';
+import { Spinner } from '@material-tailwind/react';
 
 interface ILoadingProps {
     color?: string;
     size: number;
 }
 
-export const Loading = ({ color, size }: ILoadingProps): JSX.Element => {
+export const Loading = (): JSX.Element => {
     const { colors } = useTheme();
 
     return (
         <Container>
-            <Spinner color={color ? color : colors.primary} size={size} />
+            <Spinner />
         </Container>
     );
 };

@@ -1,45 +1,33 @@
 import { useEffect } from 'react';
 import useSchedule from '../../hooks/useSchedule';
 import { Template } from '../../components/layouts/Template';
+import { useAuth } from '../../hooks/auth';
+import { Form } from '../../components/forms/Form';
+import { useForm } from 'react-hook-form';
+import { InputComponent } from '../../components/forms/NewInput';
+import { SelectComponent } from '../../components/forms/NewSelectInput';
 
 const Home = () => {
     const { getSchedules, error, loading, schedules } = useSchedule();
+    const { getRole } = useAuth();
+    const { handleSubmit, control } = useForm();
+
     useEffect(() => {
         getSchedules();
     }, []);
 
-    // return (
-    //     <Container>
-    //         <h1 className="text-3xl font-bold underline">Hello world!</h1>
-    //         {schedules.map((schedule, index) => (
-    //             <Link to={`/schedule/${schedule.id}`}>
-    //                 <ScheduleCard key={schedule.id} schedule={schedule} />
-    //             </Link>
-    //         ))}
-    //     </Container>
-    // );
-    const user = {
-        name: 'Tom Cook',
-        email: 'tom@example.com',
-        imageUrl:
-            'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80',
-    };
-    const navigation = [
-        { name: 'Dashboard', href: '#', current: true },
-        { name: 'Team', href: '#', current: false },
-        { name: 'Projects', href: '#', current: false },
-        { name: 'Calendar', href: '#', current: false },
-        { name: 'Reports', href: '#', current: false },
-    ];
-    const userNavigation = [
-        { name: 'Your Profile', href: '#' },
-        { name: 'Settings', href: '#' },
-        { name: 'Sign out', href: '#' },
-    ];
+    useEffect(() => {
+        console.log(getRole());
+    }, []);
 
-    function classNames(...classes) {
-        return classes.filter(Boolean).join(' ');
-    }
+    const onSubmit = async (data: any) => {
+        console.log(data);
+    };
+
+    const options = [
+        { value: '1', label: '1' },
+        { value: '2', label: '2' },
+    ];
 
     return (
         <>
@@ -52,6 +40,17 @@ const Home = () => {
                             </h1>
                         </div>
                     </header>
+
+                    <Form onSubmit={handleSubmit(onSubmit)}>
+                        <SelectComponent
+                            control={control}
+                            name="name"
+                            label="Nome"
+                            placeholder="Digite o nome"
+                            options={options}
+                        />
+                        <button type="submit">Enviar</button>
+                    </Form>
                 </>
             </Template>
         </>

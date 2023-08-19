@@ -21,10 +21,11 @@ interface AuthContextData {
     loading: boolean;
     error: string;
     isAuthorized: boolean;
+    user: IUser | null;
     loginWithoutPassword: (cpfOrCns: string) => void;
     loginWithPassword: (data: ILoginFormWithPassword) => void;
     logout: () => void;
-    user: IUser | null;
+    getRole: () => string;
 }
 
 export const AuthContext = createContext({} as AuthContextData);
@@ -85,7 +86,12 @@ const AuthProvider = ({ children }: IAuthProviderProps) => {
             //localStorage.setItem('@user', JSON.stringify(user));
             setIsAuthorized(true);
         } catch (e) {
-            setError(handleGetErrorMessage(e));
+            console.log(e);
+            if (e.response.data.statusCode === 400) {
+                setError('Usuário ou senha incorretos');
+            } else {
+                setError(e.response.data.message.message);
+            }
         } finally {
             setLoading(false);
         }
@@ -94,6 +100,11 @@ const AuthProvider = ({ children }: IAuthProviderProps) => {
     const logout = async () => {
         localStorage.clear();
         setIsAuthorized(false);
+    };
+
+    const getRole = (): string => {
+        if (!user) return '';
+        return user?.role.name.toString();
     };
 
     return (
@@ -106,6 +117,7 @@ const AuthProvider = ({ children }: IAuthProviderProps) => {
                 loginWithoutPassword,
                 loginWithPassword,
                 logout,
+                getRole,
             }}
         >
             {children}

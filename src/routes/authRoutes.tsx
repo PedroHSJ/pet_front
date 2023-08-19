@@ -7,6 +7,7 @@ import Establishment from '../pages/Establishment';
 import Profile from '../pages/Profile';
 import { Client } from '../pages/Client';
 import { EditClient } from '../pages/Client/EditClient';
+import { NewProfessional } from '../pages/Professional/NewProfessional';
 
 export const AuthRoutes = createBrowserRouter([
     {
@@ -20,6 +21,10 @@ export const AuthRoutes = createBrowserRouter([
     {
         path: '/profissionais',
         element: <Professional />,
+    },
+    {
+        path: '/cadastrarProfissional',
+        element: <NewProfessional />,
     },
     {
         path: '/estabelecimentos',

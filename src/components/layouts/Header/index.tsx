@@ -84,7 +84,7 @@ export function Header() {
     ];
 
     useEffect(() => {
-        console.log(user);
+        if (!user) return;
         verifyRole(user!);
     }, [user]);
 

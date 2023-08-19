@@ -4,10 +4,15 @@ import { useProfessional } from '../../hooks/useProfessional';
 import { Loading } from '../../components/resources/Loading';
 import Pagination from '../../components/pagination';
 import { IProfessional } from '../../interfaces/IProfessional';
+import { Filter } from '../../components/filter';
+import { useAuth } from '../../hooks/auth';
+import { useNavigate } from 'react-router';
 
 const Professional = () => {
     const { error, loading, professionals, getAll, totalCount } =
         useProfessional();
+    const { getRole } = useAuth();
+    const navigate = useNavigate();
 
     // useEffect(() => {
     //     console.log(professionals);
@@ -42,9 +47,22 @@ const Professional = () => {
                 ) : (
                     <div>
                         <div className="mx-auto max-w-7xl px-4 py-6 sm:px-6 lg:px-8">
-                            <h1 className="text-3xl font-bold tracking-tight text-gray-900">
-                                Profissionais
-                            </h1>
+                            <div className="flex justify-between ">
+                                <h1 className="text-3xl font-bold tracking-tight text-gray-900">
+                                    Profissionais
+                                </h1>
+                                {getRole() === 'ADMIN' && (
+                                    <button
+                                        type="button"
+                                        className="bg-primary text-sm flex-end text-white rounded p-2"
+                                        onClick={() => {
+                                            navigate('/cadastrarProfissional');
+                                        }}
+                                    >
+                                        Cadastrar
+                                    </button>
+                                )}
+                            </div>
                             <ul
                                 role="list"
                                 className="divide-y divide-gray-100"

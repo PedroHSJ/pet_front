@@ -1,10 +1,17 @@
 import styled from 'styled-components';
 
-export const Container = styled.div`
+interface ContainerProps {
+    hasError: boolean;
+}
+
+export const Container = styled.div<ContainerProps>`
     width: 100%;
     margin: 25px 0;
     border-radius: 8px;
     background-color: ${({ theme }) => theme.colors?.white};
+
+    border: ${({ hasError, theme }) =>
+        hasError ? `1px solid ${theme.colors?.error}` : 'none'};
 `;
 
 export const Label = styled.h4`
@@ -31,7 +38,7 @@ export const TextInput = styled.input`
 `;
 
 export const TextError = styled.p`
-    margin-top: 6px;
+    margin: 10px;
     font-size: small;
     font-weight: bold;
     color: ${({ theme }) => theme.colors?.error};

@@ -13,5 +13,5 @@ export interface IProfessionalDTO {
     email: string;
     password: string;
     crmv: string;
-    phone?: string;
+    phone: string;
 }

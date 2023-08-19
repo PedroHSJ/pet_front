@@ -1,8 +1,5 @@
 import { useLocation, useNavigate } from 'react-router';
-import {
-    IChoseRole,
-    IRegisterForm,
-} from '../../../../../interfaces/IRegisterForm';
+import { IChoseRole } from '../../../../../interfaces/IRegisterForm';
 import useUser from '../../../../../hooks/useUser';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { useForm } from 'react-hook-form';
@@ -19,6 +16,8 @@ import { Form } from '../../../../forms/Form';
 import Input from '../../../../forms/Input';
 import { SelectInput } from '../../../../forms/SelectInput';
 import { Button } from '../../../../buttons/Button';
+import { InputComponent } from '../../../../forms/NewInput';
+import { SelectComponent } from '../../../../forms/NewSelectInput';
 
 export const UserCard = () => {
     const location = useLocation();
@@ -36,8 +35,8 @@ export const UserCard = () => {
     });
 
     const roleOptions = [
-        { key: Role.ADMIN, label: 'Administrador' },
-        { key: Role.VETERINARIAN, label: 'Veterinário' },
+        { value: Role.ADMIN, label: 'Administrador' },
+        { value: Role.VETERINARIAN, label: 'Veterinário' },
     ];
 
     const onSubmit = async (data: IRegisterForm) => {
@@ -59,8 +58,10 @@ export const UserCard = () => {
 
     useEffect(() => {
         roleOptions.forEach((option) => {
-            if (option.key === state.role) {
-                const role: Role = Role[option.key];
+            if (option.value === state.role) {
+                console.log(option.value);
+                const role: Role = Role[option.value];
+                console.log(role);
                 setValue('role', role);
             }
         });
@@ -72,32 +73,29 @@ export const UserCard = () => {
                 Informe os dados a seguir para realizar seu primeiro acesso.
             </Title>
             <Form onSubmit={handleSubmit(onSubmit)}>
-                <Input
+                <InputComponent
                     control={control}
                     name="name"
-                    placeholder="Digite o nome completo"
-                    label="Digite o nome completo"
+                    label="Nome completo"
                     type="text"
                     error={errors.name?.message}
                 />
-                <Input
+                <InputComponent
                     control={control}
                     name="email"
-                    placeholder="email@email.com"
-                    label="Digite o email"
+                    label="Email"
                     type="text"
                     error={errors.email?.message}
                 />
-                <Input
+                <InputComponent
                     control={control}
                     name="password"
-                    placeholder="Digite a senha"
-                    label="Digite a senha"
+                    label="Senha"
                     type="password"
                     error={errors.password?.message}
                 />
 
-                <SelectInput
+                <SelectComponent
                     control={control}
                     label="Tipo de usuário"
                     name="role"
