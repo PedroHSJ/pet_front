@@ -12,6 +12,7 @@ import { handleGetErrorMessage, removeMask } from '../utils';
 import { IUser } from '../interfaces/IUser';
 import useUser from './useUser';
 import { getUserById } from '../services/api/UserApi';
+import { AxiosError } from 'axios';
 
 interface IAuthProviderProps {
     children: ReactNode;
@@ -86,12 +87,7 @@ const AuthProvider = ({ children }: IAuthProviderProps) => {
             //localStorage.setItem('@user', JSON.stringify(user));
             setIsAuthorized(true);
         } catch (e) {
-            console.log(e);
-            if (e.response.data.statusCode === 400) {
-                setError('Usuário ou senha incorretos');
-            } else {
-                setError(e.response.data.message.message);
-            }
+            setError(handleGetErrorMessage(e));
         } finally {
             setLoading(false);
         }

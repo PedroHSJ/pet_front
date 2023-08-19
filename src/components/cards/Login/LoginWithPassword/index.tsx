@@ -5,17 +5,11 @@ import { useAuth } from '../../../../hooks/auth';
 import { useComponent } from '../../../../hooks/useComponent';
 import { Container, Logo, ViewTerms } from '../styles';
 import { Form } from '../../../forms/Form';
-import Input from '../../../forms/Input';
 import { Button } from '../../../buttons/Button';
 import LogoVerticalPrimary from '../../../../assets/images/pet_logo.png';
 import { ILoginFormWithPassword } from '../../../../interfaces/ILoginForm';
 import { LoginSchemaWithPassword } from '../../../../validations/LoginSchema';
-import {
-    errorTitleText,
-    requiredFieldsText,
-    warningText,
-} from '../../../../constants/messages';
-import { CheckBoxTerm } from '../../../forms/CheckBoxTerm';
+import { errorTitleText } from '../../../../constants/messages';
 import { InputComponent } from '../../../forms/NewInput';
 import { Checkbox, Typography } from '@material-tailwind/react';
 

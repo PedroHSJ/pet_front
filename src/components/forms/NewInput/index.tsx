@@ -1,4 +1,4 @@
-import { InputHTMLAttributes, useRef, useState } from 'react';
+import { InputHTMLAttributes, useEffect, useRef, useState } from 'react';
 import {
     Control,
     FieldValue,
@@ -51,6 +51,7 @@ export const InputComponent = ({
             {type === 'password' ? (
                 <>
                     <Input
+                        value={field.value}
                         variant={variant}
                         onChange={(e) => handleChangeValue(e.target.value)}
                         size="md"
@@ -85,6 +86,7 @@ export const InputComponent = ({
             ) : (
                 <>
                     <Input
+                        value={field.value}
                         variant={variant}
                         onChange={(e) => handleChangeValue(e.target.value)}
                         size="md"
