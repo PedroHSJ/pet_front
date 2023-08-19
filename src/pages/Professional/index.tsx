@@ -74,55 +74,61 @@ const Professional = () => {
                                 </span>
                             </div>
                         )}
-                        <ul role="list" className="divide-y divide-gray-100">
-                            {professionals.map((professional) => {
-                                return (
-                                    <li
-                                        key={professional.id}
-                                        className="p-4 cursor-pointer hover:bg-gray-50 hover:rounded"
-                                        onClick={() =>
-                                            handleProfessionalClick(
-                                                professional,
-                                            )
-                                        }
-                                    >
-                                        <div className="flex space-x-3">
-                                            <img
-                                                className="h-12 w-12 rounded-full"
-                                                src={
-                                                    'https://avatars.githubusercontent.com/u/60005589?v=4'
-                                                }
-                                                alt=""
-                                            />
-                                            <div className="flex-1 space-y-1 justify-center">
-                                                <div className="flex items-center justify-between">
-                                                    <h3 className="text-sm font-medium text-gray-900">
-                                                        {professional.name}
-                                                    </h3>
+                        {!loading && (
+                            <ul
+                                role="list"
+                                className="divide-y divide-gray-100"
+                            >
+                                {professionals.map((professional) => {
+                                    return (
+                                        <li
+                                            key={professional.id}
+                                            className="p-4 cursor-pointer hover:bg-gray-50 hover:rounded"
+                                            onClick={() =>
+                                                handleProfessionalClick(
+                                                    professional,
+                                                )
+                                            }
+                                        >
+                                            <div className="flex space-x-3">
+                                                <img
+                                                    className="h-12 w-12 rounded-full"
+                                                    src={
+                                                        'https://avatars.githubusercontent.com/u/60005589?v=4'
+                                                    }
+                                                    alt=""
+                                                />
+                                                <div className="flex-1 space-y-1 justify-center">
+                                                    <div className="flex items-center justify-between">
+                                                        <h3 className="text-sm font-medium text-gray-900">
+                                                            {professional.name}
+                                                        </h3>
+                                                    </div>
+                                                    <p className="text-sm text-gray-500">
+                                                        {professional.email}
+                                                    </p>
+                                                    <p className="text-sm text-gray-500">
+                                                        {professional.phone?.replace(
+                                                            /(\d{2})(\d{5})(\d{4})/,
+                                                            '($1) $2-$3',
+                                                        )}
+                                                    </p>
                                                 </div>
-                                                <p className="text-sm text-gray-500">
-                                                    {professional.email}
-                                                </p>
-                                                <p className="text-sm text-gray-500">
-                                                    {professional.phone?.replace(
-                                                        /(\d{2})(\d{5})(\d{4})/,
-                                                        '($1) $2-$3',
-                                                    )}
-                                                </p>
+                                                <div className="flex flex-col justify-center">
+                                                    <p className="text-sm text-gray-500">
+                                                        {professional.role.name}
+                                                    </p>
+                                                    <p className="text-sm text-gray-500">
+                                                        CRMV:{' '}
+                                                        {professional.crmv}
+                                                    </p>
+                                                </div>
                                             </div>
-                                            <div className="flex flex-col justify-center">
-                                                <p className="text-sm text-gray-500">
-                                                    {professional.role.name}
-                                                </p>
-                                                <p className="text-sm text-gray-500">
-                                                    CRMV: {professional.crmv}
-                                                </p>
-                                            </div>
-                                        </div>
-                                    </li>
-                                );
-                            })}
-                        </ul>
+                                        </li>
+                                    );
+                                })}
+                            </ul>
+                        )}
                     </div>
                     <Pagination
                         page={1}
