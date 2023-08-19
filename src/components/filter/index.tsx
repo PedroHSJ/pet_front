@@ -16,7 +16,7 @@ export const Filter = ({ onSubmit }: IFilterProps) => {
     } = useForm({});
 
     return (
-        <div className="flex bg-background shadow rounded my-4">
+        <div className="flex shadow rounded my-4">
             <div className=" flex-1 mx-auto  px-4 py-6 sm:px-6 lg:px-8 ">
                 <Form onSubmit={handleSubmit(onSubmit)}>
                     <InputComponent
