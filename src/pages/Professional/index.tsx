@@ -68,7 +68,7 @@ const Professional = () => {
                               flex-col
                               "
                             >
-                                <Loading size={30} />
+                                <Loading />
                                 <span className="text-xl font-bold tracking-tight text-gray-900">
                                     Carregando...
                                 </span>
