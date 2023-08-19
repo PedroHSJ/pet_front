@@ -31,6 +31,7 @@ export const InputComponent = ({
     type,
     error,
     variant,
+    placeholder,
 }: IInputProps) => {
     const [viewPass, setViewPass] = useState(true);
     const [changePassType, setChangePassType] = useState(type);

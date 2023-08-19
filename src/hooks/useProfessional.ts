@@ -1,25 +1,56 @@
 import { useState } from 'react';
-import { getAllProfessionals } from '../services/api/ProfissionalApi';
-import { IProfessional } from '../interfaces/IProfessional';
+import {
+    getAllProfessionals,
+    postProfessional,
+} from '../services/api/ProfissionalApi';
+import { IProfessional, IProfessionalDTO } from '../interfaces/IProfessional';
+import { handleGetErrorMessage } from '../utils';
 
 export const useProfessional = () => {
     const [loading, setLoading] = useState(false);
     const [professionals, setProfessionals] = useState<IProfessional[]>([]);
     const [error, setError] = useState('');
+    const [success, setSuccess] = useState(false);
     const [totalCount, setTotalCount] = useState(0);
 
     const getAll = async () => {
         try {
+            setError('');
+
             setLoading(true);
             const { items, totalCount } = await getAllProfessionals();
             setProfessionals(items);
             setTotalCount(totalCount);
         } catch (error) {
-            setError(error as string);
+            setError(handleGetErrorMessage(error));
         } finally {
             setLoading(false);
         }
     };
 
-    return { loading, professionals, totalCount, error, getAll };
+    const createProfessional = async (professional: IProfessionalDTO) => {
+        try {
+            setError('');
+            setSuccess(false);
+            setLoading(true);
+            await postProfessional(professional);
+            setSuccess(true);
+        } catch (error) {
+            setSuccess(false);
+            console.log('hook', error);
+            setError(handleGetErrorMessage(error));
+        } finally {
+            setLoading(false);
+        }
+    };
+
+    return {
+        loading,
+        professionals,
+        totalCount,
+        error,
+        success,
+        getAll,
+        createProfessional,
+    };
 };

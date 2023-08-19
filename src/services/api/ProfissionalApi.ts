@@ -1,5 +1,8 @@
 import { api } from '.';
-import { IProfessional } from '../../interfaces/IProfessional';
+import {
+    IProfessional,
+    IProfessionalDTO,
+} from '../../interfaces/IProfessional';
 import { ApiResponseInterface } from '../../interfaces/IResponse';
 
 const getAllProfessionals = async (): Promise<
@@ -11,8 +14,17 @@ const getAllProfessionals = async (): Promise<
     return data;
 };
 
+const geProfessionalById = async (
+    id: string,
+): Promise<ApiResponseInterface<IProfessional>> => {
+    const { data } = await api.get<
+        Promise<ApiResponseInterface<IProfessional>>
+    >(`professional/${id}`);
+    return data;
+};
+
 const postProfessional = async (
-    professional: IProfessional,
+    professional: IProfessionalDTO,
 ): Promise<{ id: string }> => {
     const { data } = await api.post<{ id: string }>(
         '/professional',
@@ -21,4 +33,4 @@ const postProfessional = async (
     return { id: data.id };
 };
 
-export { getAllProfessionals };
+export { getAllProfessionals, postProfessional, geProfessionalById };

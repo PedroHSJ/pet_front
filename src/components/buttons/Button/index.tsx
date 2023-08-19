@@ -1,4 +1,4 @@
-import { ReactNode } from 'react';
+import { ReactNode, useEffect } from 'react';
 import { Loading } from '../../resources/Loading';
 import { ButtonContainer, Label } from './styles';
 import { useTheme } from 'styled-components';
@@ -13,7 +13,7 @@ interface IButtonProps extends Omit<ButtonProps, 'color'> {
     size?: 'sm' | 'md' | 'lg';
     fullWidth?: boolean;
     rounded?: boolean;
-    color?: 'primary';
+    color?: string;
 }
 
 export const Button = ({
@@ -25,16 +25,15 @@ export const Button = ({
     type,
     color,
 }: IButtonProps): JSX.Element => {
-    const { colors } = useTheme();
     return (
-        <div className="w-full bg-primary">
+        <div className="w-full">
             <ButtonMT
                 size={size}
                 disabled={loading || disabled}
                 onClick={onClick}
                 fullWidth
                 type={type}
-                className="bg-primary"
+                className={color ? `bg-${color}` : 'bg-primary'}
             >
                 {loading ? <Loading /> : <Label>{children}</Label>}
             </ButtonMT>

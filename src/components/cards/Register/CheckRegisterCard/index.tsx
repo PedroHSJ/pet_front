@@ -16,6 +16,7 @@ import {
 import { Role } from '../../../../interfaces/IRole';
 import { choseRoleSchema } from '../../../../validations/choseRoleSchema';
 import { SelectComponent } from '../../../forms/NewSelectInput';
+import { roleOptions } from '../../../../utils/options';
 
 const CheckRegisterCard = () => {
     const navigate = useNavigate();
@@ -27,10 +28,6 @@ const CheckRegisterCard = () => {
     } = useForm<IChoseRole>({
         resolver: yupResolver(choseRoleSchema),
     });
-    const roleOptions = [
-        { value: Role.ADMIN, label: 'Administrador' },
-        { value: Role.VETERINARIAN, label: 'Veterinário' },
-    ];
 
     const onSubmit = async (data: IChoseRole) => {
         navigate('/createAccount', { state: data });

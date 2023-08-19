@@ -1,19 +1,19 @@
-import { AxiosResponse } from "axios";
-import { api } from ".";
-import { IResponseToken } from "../../interfaces/IResponseToken";
-import { ILoginFormWithPassword } from "../../interfaces/ILoginForm";
+import { AxiosResponse } from 'axios';
+import { api } from '.';
+import { IResponseToken } from '../../interfaces/IResponseToken';
+import { ILoginFormWithPassword } from '../../interfaces/ILoginForm';
 
 const loginWithPass = async (data: ILoginFormWithPassword) => {
-  const response = await api.post<unknown, AxiosResponse<IResponseToken>>(
-    "/auth",
-    {
-      email: data.email,
-      password: data.password,
-      scope: "USER",
-    }
-  );
+    const response = await api.post<unknown, AxiosResponse<IResponseToken>>(
+        '/auth',
+        {
+            email: data.email,
+            password: data.password,
+            scope: data.scope,
+        },
+    );
 
-  return response.data;
+    return response.data;
 };
 
 export { loginWithPass };

@@ -9,9 +9,15 @@ import { Button } from '../../../buttons/Button';
 import LogoVerticalPrimary from '../../../../assets/images/pet_logo.png';
 import { ILoginFormWithPassword } from '../../../../interfaces/ILoginForm';
 import { LoginSchemaWithPassword } from '../../../../validations/LoginSchema';
-import { errorTitleText } from '../../../../constants/messages';
+import {
+    errorTitleText,
+    requiredFieldsText,
+    warningText,
+} from '../../../../constants/messages';
 import { InputComponent } from '../../../forms/NewInput';
 import { Checkbox, Typography } from '@material-tailwind/react';
+import { SelectComponent } from '../../../forms/NewSelectInput';
+import { scopeOptions } from '../../../../utils/options';
 
 const LoginWithPassword = () => {
     // const { CheckBox, isCheck } = CheckBoxTerm();
@@ -42,14 +48,13 @@ const LoginWithPassword = () => {
     useEffect(() => {
         if (!error) return;
         console.log(error);
-        dialog(errorTitleText, error);
+        dialog(errorTitleText, error, [
+            {
+                text: 'OK',
+                onPress: () => {},
+            },
+        ]);
     }, [error]);
-
-    useEffect(() => {
-        // if (!Object.keys(errors).length) return;
-        // dialog(warningText, requiredFieldsText);
-        console.log(errors);
-    }, [errors]);
 
     return (
         <Container>
@@ -68,6 +73,14 @@ const LoginWithPassword = () => {
                     label="Senha"
                     type="password"
                     error={errors.password?.message}
+                />
+                <SelectComponent
+                    control={control}
+                    name="scope"
+                    label="Tipo de usuário"
+                    error={errors.scope?.message}
+                    options={scopeOptions}
+                    defaultValueComponent={scopeOptions[1]}
                 />
                 <ViewTerms>
                     <Checkbox

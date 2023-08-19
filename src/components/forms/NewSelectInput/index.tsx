@@ -18,6 +18,7 @@ interface IInputProps extends InputHTMLAttributes<HTMLInputElement> {
     control: Control<FieldValue<FieldValues>>;
     disabled?: boolean;
     options: IOptions[];
+    defaultValueComponent?: IOptions;
 }
 
 interface IOptions {
@@ -31,6 +32,7 @@ export const SelectComponent = ({
     control,
     disabled,
     options,
+    defaultValueComponent,
 }: IInputProps) => {
     const form = useForm();
     const { field } = useController({
@@ -52,9 +54,17 @@ export const SelectComponent = ({
     //     });
     // }, [field.value, fieldState]);
 
+    useEffect(() => {
+        if (defaultValueComponent) {
+            field.onChange(defaultValueComponent.value);
+        }
+        return;
+    }, [defaultValueComponent]);
+
     return (
-        <div className="w-full my-2 ">
+        <div className="w-full my-3 ">
             <Select
+                defaultValue={defaultValueComponent?.value}
                 label={label}
                 disabled={disabled}
                 onChange={handleChangeValue}

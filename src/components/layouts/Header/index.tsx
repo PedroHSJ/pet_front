@@ -21,6 +21,7 @@ import { useComponent } from '../../../hooks/useComponent';
 import { useAuth } from '../../../hooks/auth';
 import { useEffect, useState } from 'react';
 import { IUser } from '../../../interfaces/IUser';
+import { IProfessional } from '../../../interfaces/IProfessional';
 
 interface INavItem {
     name: string;
@@ -32,7 +33,7 @@ interface INavItem {
 export function Header() {
     const { dialog } = useComponent();
     const { logout } = useAuth();
-    const { user } = useAuth();
+    const { user, professional } = useAuth();
     const [navItems, setNavItems] = useState<INavItem[] | null>(null);
 
     const navItemsAdmin = [
@@ -83,17 +84,38 @@ export function Header() {
         },
     ];
 
+    const professionalNavItems = [
+        {
+            name: 'Configurações',
+            icon: Cog6ToothIcon,
+            current: false,
+            href: '/configuracoes',
+        },
+    ];
+
     useEffect(() => {
         if (!user) return;
+
         verifyRole(user!);
     }, [user]);
 
-    const verifyRole = (user: IUser) => {
+    useEffect(() => {
+        if (!professional) return;
+        verifyRole(professional!);
+    }, [professional]);
+
+    const verifyRole = (user: IUser | IProfessional) => {
+        setNavItems([]);
         if (user?.role.name === 'ADMIN') {
-            setNavItems(navItemsAdmin);
+            setNavItems((prev) => [...prev!, ...navItemsAdmin]);
+            setNavItems((prev) => [...prev!, ...commomItems]);
+        }
+        if (user?.role.name === 'VETERINARIAN') {
+            setNavItems((prev) => [...prev!, ...professionalNavItems]);
+            setNavItems((prev) => [...prev!, ...commomItems]);
         }
 
-        setNavItems((prev) => [...prev!, ...commomItems]);
+        //setNavItems((prev) => [...prev!, ...commomItems]);
     };
 
     const handleLogout = () => {

@@ -8,12 +8,13 @@ export const MainContainer = styled.div`
     flex: 1;
     width: 100%;
     padding: 20px;
+    background-color: ${({ theme }) => theme.colors?.primary};
 `;
 
 export const Container = styled.div`
     display: flex;
     flex-direction: column;
-    width: 32%;
+    width: 40%;
     min-width: 350px;
     padding: 20px;
     border-radius: 8px;
@@ -22,8 +23,7 @@ export const Container = styled.div`
     @media (max-width: 820px) {
         width: 100%;
         max-width: 820px;
-        border-radius: 0;
-        min-height: 88vh;
+        border-radius: 8px;
     }
 `;
 export const Title = styled.div`

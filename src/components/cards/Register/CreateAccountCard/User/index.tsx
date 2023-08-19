@@ -59,9 +59,7 @@ export const UserCard = () => {
     useEffect(() => {
         roleOptions.forEach((option) => {
             if (option.value === state.role) {
-                console.log(option.value);
                 const role: Role = Role[option.value];
-                console.log(role);
                 setValue('role', role);
             }
         });

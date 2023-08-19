@@ -1,4 +1,5 @@
 import { IBaseInterface } from './IBaseInterface';
+import { IRole } from './IRole';
 
 export interface IProfessional extends IBaseInterface {
     name: string;
@@ -6,6 +7,7 @@ export interface IProfessional extends IBaseInterface {
     password: string;
     crmv: string;
     phone?: string;
+    role: IRole;
 }
 
 export interface IProfessionalDTO {
@@ -14,4 +16,5 @@ export interface IProfessionalDTO {
     password: string;
     crmv: string;
     phone: string;
+    role: string;
 }
