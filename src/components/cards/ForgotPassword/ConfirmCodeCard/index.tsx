@@ -4,7 +4,6 @@ import { useNavigate } from 'react-router-dom';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { useComponent } from '../../../../hooks/useComponent';
 import { Button } from '../../../buttons/Button';
-import Input from '../../../forms/Input';
 import { Form } from '../../../forms/Form';
 import LogoPrimary from '../../../../assets/images/LogoPrimary.png';
 import {
@@ -14,7 +13,7 @@ import {
     ForwardContainer,
     ForwardText,
     ForwardButton,
-    ForwardButtonLabel
+    ForwardButtonLabel,
 } from './styles';
 import {
     errorTitleText,
@@ -23,6 +22,7 @@ import {
 } from '../../../../constants/messages';
 import { ForgotPasswordSchema } from '../../../../validations/ForgotPasswordSchema';
 import { IForgotPasswordForm } from '../../../../interfaces/IForgotPasswordForm';
+import { InputComponent } from '../../../forms/NewInput';
 
 interface IConfirmCodeCardProps {
     form: IForgotPasswordForm;
@@ -51,9 +51,11 @@ const ConfirmCodeCard = ({ form }: IConfirmCodeCardProps) => {
     return (
         <Container>
             <Logo src={LogoPrimary} />
-            <Title>Código de autenticação enviado. Verifique sua caixa de entrada</Title>
+            <Title>
+                Código de autenticação enviado. Verifique sua caixa de entrada
+            </Title>
             <Form onSubmit={handleSubmit(onSubmit)}>
-                <Input
+                <InputComponent
                     control={control}
                     name="code"
                     placeholder="Digite o código"
@@ -64,12 +66,17 @@ const ConfirmCodeCard = ({ form }: IConfirmCodeCardProps) => {
                 <ForwardContainer>
                     <ForwardText>Não recebeu o código?</ForwardText>
                     <ForwardButton>
-                        <ForwardButtonLabel>
-                            Re-enviar
-                        </ForwardButtonLabel>
+                        <ForwardButtonLabel>Re-enviar</ForwardButtonLabel>
                     </ForwardButton>
                 </ForwardContainer>
-                <Button type="submit" /* loading={loading} */>Confirmar</Button>
+                <Button
+                    type="submit"
+                    /* loading={loading} */ style={
+                        'primary'
+                    } /* loading={loading} */
+                >
+                    Confirmar
+                </Button>
             </Form>
         </Container>
     );

@@ -1,9 +1,12 @@
 import styled from 'styled-components';
 
-export const Container = styled.div`
+interface IContainerProps {
+    flexDirection?: string;
+}
+
+export const Container = styled.div<IContainerProps>`
     display: flex;
-    flex-direction: row;
-    background-color: green;
+    flex-direction: ${(props) => props.flexDirection || 'column'};
     height: 100vh;
     overflow: hidden;
     margin: 0;

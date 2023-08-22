@@ -1,6 +1,6 @@
 import { useForm } from 'react-hook-form';
 import { Form } from '../../../components/forms/Form';
-import Input from '../../../components/forms/Input';
+import Input from '../../../components/forms/OldInput';
 import { Template } from '../../../components/layouts/Template';
 import { Button } from '../../../components/buttons/Button';
 import { IProfessionalDTO } from '../../../interfaces/IProfessional';

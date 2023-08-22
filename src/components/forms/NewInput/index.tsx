@@ -42,6 +42,7 @@ export const InputComponent = ({
     variant,
     placeholder,
     mask,
+    ...rest
 }: IInputProps) => {
     const [viewPass, setViewPass] = useState(true);
     const [changePassType, setChangePassType] = useState(type);
@@ -147,6 +148,7 @@ export const InputComponent = ({
                                 />
                             )
                         }
+                        {...rest}
                         error={!!error}
                     />
                     <span className="text-sm text-error font-bold">
@@ -166,6 +168,7 @@ export const InputComponent = ({
                         disabled={disabled}
                         type={type}
                         error={!!error}
+                        {...rest}
                     />
                     <span className="text-sm text-error font-bold">
                         {error}

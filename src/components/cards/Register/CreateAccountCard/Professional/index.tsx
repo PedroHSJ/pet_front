@@ -14,7 +14,7 @@ import {
 } from '../../../../../constants/messages';
 import { Container, Title } from '../styles';
 import { Form } from '../../../../forms/Form';
-import Input from '../../../../forms/Input';
+import Input from '../../../../forms/OldInput';
 import { SelectInput } from '../../../../forms/SelectInput';
 import { Button } from '../../../../buttons/Button';
 import { RegisterProfessional } from '../../../../../validations/RegisterSchema';
