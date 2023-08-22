@@ -105,6 +105,7 @@ const AuthProvider = ({ children }: IAuthProviderProps) => {
             setIsAuthorized(true);
             return;
         } catch (error) {
+            console.log('error', error);
             setError(handleGetErrorMessage(error));
         } finally {
             setLoading(false);
