@@ -4,7 +4,7 @@ import { ButtonContainer, Label } from './styles';
 import { useTheme } from 'styled-components';
 import { ButtonProps, Button as ButtonMT } from '@material-tailwind/react';
 
-interface IButtonProps extends Omit<ButtonProps, 'color'> {
+interface IButtonProps {
     children: ReactNode;
     onClick?: () => void;
     loading?: boolean;
