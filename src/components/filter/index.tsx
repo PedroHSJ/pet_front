@@ -3,6 +3,7 @@ import { Form } from '../forms/Form';
 import { Button } from '../buttons/Button';
 import { InputComponent } from '../forms/NewInput';
 import { useEffect, useState } from 'react';
+import { SelectComponent } from '../forms/NewSelectInput';
 
 interface IOptions {
     name?: string;
@@ -10,6 +11,7 @@ interface IOptions {
     phone?: string;
     crmv?: string;
     cnpj?: string;
+    active?: string;
 }
 
 interface IFilterProps {
@@ -72,6 +74,18 @@ export const Filter = ({ options, onSubmit }: IFilterProps) => {
                                 name="cnpj"
                                 label={options.cnpj}
                                 type="text"
+                            />
+                        )}
+                        {options?.active && (
+                            <SelectComponent
+                                className="bg-red-500"
+                                control={control}
+                                name="active"
+                                label="Status"
+                                options={[
+                                    { label: 'Ativo', value: '1' },
+                                    { label: 'Inativo', value: '0' },
+                                ]}
                             />
                         )}
                     </div>

@@ -11,4 +11,18 @@ const getAllEstablishments = async (): Promise<
     return data;
 };
 
-export { getAllEstablishments };
+const getEstablishmentByParams = async ({
+    params,
+    page,
+}: IGetByParams<IEstablishment>): Promise<
+    ApiResponseInterface<IEstablishment>
+> => {
+    //convert string to boolean
+    if (params?.active) params.active = params.active === '1';
+    const { data } = await api.get<
+        Promise<ApiResponseInterface<IEstablishment>>
+    >(`establishment`, { params: { ...params, page } });
+    return data;
+};
+
+export { getAllEstablishments, getEstablishmentByParams };

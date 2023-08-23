@@ -7,11 +7,6 @@ import {
 import { IProfessional, IProfessionalDTO } from '../interfaces/IProfessional';
 import { handleGetErrorMessage } from '../utils';
 
-interface IGetProfessionalByParams {
-    params?: IProfessional | undefined;
-    page?: number;
-}
-
 export const useProfessional = () => {
     const [loading, setLoading] = useState(false);
     const [professionals, setProfessionals] = useState<IProfessional[]>([]);
@@ -34,7 +29,10 @@ export const useProfessional = () => {
         }
     };
 
-    const getByParams = async ({ params, page }: IGetProfessionalByParams) => {
+    const getByParams = async ({
+        params,
+        page,
+    }: IGetByParams<IProfessionalDTO>) => {
         try {
             setLoading(true);
             const { items, totalCount } = await getProfessinalByParams({
