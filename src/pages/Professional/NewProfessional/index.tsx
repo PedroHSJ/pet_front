@@ -1,6 +1,5 @@
 import { useForm } from 'react-hook-form';
 import { Form } from '../../../components/forms/Form';
-import Input from '../../../components/forms/OldInput';
 import { Template } from '../../../components/layouts/Template';
 import { Button } from '../../../components/buttons/Button';
 import { IProfessionalDTO } from '../../../interfaces/IProfessional';
@@ -10,6 +9,8 @@ import { InputComponent } from '../../../components/forms/NewInput';
 import { useProfessional } from '../../../hooks/useProfessional';
 import { useEffect } from 'react';
 import { useComponent } from '../../../hooks/useComponent';
+import { toast } from 'react-toastify';
+import { useNavigate } from 'react-router';
 
 export const NewProfessional = () => {
     const {
@@ -19,7 +20,7 @@ export const NewProfessional = () => {
     } = useForm<IProfessionalDTO>({
         resolver: yupResolver(ProfessionalSchema),
     });
-
+    const navigate = useNavigate();
     const { createProfessional, error, loading, success } = useProfessional();
     const { dialog } = useComponent();
     const onSubmit = async (data: IProfessionalDTO) => {
@@ -29,20 +30,15 @@ export const NewProfessional = () => {
 
     useEffect(() => {
         if (success) {
-            console.log('success');
+            toast.success('Profissional cadastrado com sucesso!');
+            navigate(-1);
         }
         return;
     }, [success]);
 
     useEffect(() => {
         if (error) {
-            dialog('Erro', error, [
-                {
-                    text: 'Ok',
-                    styleButton: 'primary',
-                    onPress: () => {},
-                },
-            ]);
+            toast.error(error);
         }
         return;
     }, [error]);

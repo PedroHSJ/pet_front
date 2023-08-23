@@ -6,6 +6,15 @@ import { Pagination } from '../../components/pagination';
 import { IProfessional } from '../../interfaces/IProfessional';
 import { useAuth } from '../../hooks/auth';
 import { useNavigate } from 'react-router';
+import {
+    Avatar,
+    List,
+    ListItem,
+    ListItemPrefix,
+    Typography,
+} from '@material-tailwind/react';
+import { formatPhoneNumber } from '../../utils/format';
+import { Filter } from '../../components/filter';
 
 const Professional = () => {
     const { error, loading, professionals, getAll, totalCount, getByParams } =
@@ -22,7 +31,7 @@ const Professional = () => {
     }, []);
 
     const handleFilter = (data: any) => {
-        getByParams(data);
+        getByParams({ params: data });
     };
 
     const handleProfessionalClick = (row: IProfessional) => {
@@ -51,6 +60,15 @@ const Professional = () => {
                                     </button>
                                 )}
                             </div>
+                            <Filter
+                                options={{
+                                    name: 'Nome',
+                                    crmv: 'CRMV',
+                                }}
+                                onSubmit={(data) => {
+                                    handleFilter(data);
+                                }}
+                            />
                         </div>
                         {loading && (
                             <div
@@ -68,7 +86,7 @@ const Professional = () => {
                                 </span>
                             </div>
                         )}
-                        {!loading && (
+                        {/* {!loading && (
                             <ul
                                 role="list"
                                 className="divide-y divide-gray-500"
@@ -122,6 +140,55 @@ const Professional = () => {
                                     );
                                 })}
                             </ul>
+                        )} */}
+
+                        {!loading && (
+                            <List>
+                                {professionals.map((professional) => {
+                                    return (
+                                        <ListItem
+                                            key={professional.id}
+                                            onClick={() =>
+                                                handleProfessionalClick(
+                                                    professional,
+                                                )
+                                            }
+                                        >
+                                            <ListItemPrefix>
+                                                <Avatar
+                                                    variant="circular"
+                                                    alt="candice"
+                                                    src="https://avatars.githubusercontent.com/u/60005589?v=4"
+                                                />
+                                            </ListItemPrefix>
+                                            <div>
+                                                <Typography
+                                                    variant="h6"
+                                                    color="blue-gray"
+                                                >
+                                                    {professional.name}
+                                                </Typography>
+                                                <Typography
+                                                    variant="small"
+                                                    color="gray"
+                                                    className="font-normal"
+                                                >
+                                                    {professional.email}
+                                                </Typography>
+                                                <Typography
+                                                    variant="small"
+                                                    color="gray"
+                                                    className="font-normal"
+                                                >
+                                                    {formatPhoneNumber(
+                                                        professional.phone,
+                                                    )}
+                                                </Typography>
+                                            </div>
+                                        </ListItem>
+                                    );
+                                })}
+                            </List>
                         )}
                     </div>
                     <Pagination

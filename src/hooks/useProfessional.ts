@@ -7,8 +7,9 @@ import {
 import { IProfessional, IProfessionalDTO } from '../interfaces/IProfessional';
 import { handleGetErrorMessage } from '../utils';
 
-interface IGetByParams extends Partial<IProfessionalDTO> {
-    page: number;
+interface IGetProfessionalByParams {
+    params?: IProfessional | undefined;
+    page?: number;
 }
 
 export const useProfessional = () => {
@@ -33,10 +34,13 @@ export const useProfessional = () => {
         }
     };
 
-    const getByParams = async (params: IGetByParams) => {
+    const getByParams = async ({ params, page }: IGetProfessionalByParams) => {
         try {
             setLoading(true);
-            const { items, totalCount } = await getProfessinalByParams(params);
+            const { items, totalCount } = await getProfessinalByParams({
+                ...params,
+                page,
+            });
             setProfessionals(items);
             setTotalCount(totalCount);
         } catch (error) {

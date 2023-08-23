@@ -14,10 +14,11 @@ import {
     Typography,
 } from '@material-tailwind/react';
 import { formatDate } from '../../utils/format';
+import { useNavigate } from 'react-router-dom';
 
 export const Schedule = () => {
     const { getSchedules, schedules, loading } = useSchedule();
-
+    const navigate = useNavigate();
     useEffect(() => {
         getSchedules();
     }, []);
@@ -58,7 +59,14 @@ export const Schedule = () => {
                                 <List>
                                     {schedules.map((schedule) => {
                                         return (
-                                            <ListItem>
+                                            <ListItem
+                                                onClick={() => {
+                                                    navigate(
+                                                        '/agendamento/info',
+                                                        { state: schedule },
+                                                    );
+                                                }}
+                                            >
                                                 <div>
                                                     <div className="flex flex-row">
                                                         <Typography

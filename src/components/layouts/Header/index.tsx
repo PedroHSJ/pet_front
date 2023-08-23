@@ -121,12 +121,6 @@ export function Header() {
             current: true,
             href: '/agendamentos',
         },
-        {
-            name: 'Configurações',
-            icon: Cog6ToothIcon,
-            current: false,
-            href: '/configuracoes',
-        },
     ];
 
     useEffect(() => {

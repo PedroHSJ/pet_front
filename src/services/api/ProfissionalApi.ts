@@ -24,7 +24,7 @@ const geProfessionalById = async (
 };
 
 const getProfessinalByParams = async (
-    params: IProfessionalDTO,
+    params,
 ): Promise<ApiResponseInterface<IProfessional>> => {
     const { data } = await api.get<
         Promise<ApiResponseInterface<IProfessional>>

@@ -14,26 +14,24 @@ interface IOptions {
 
 interface IFilterProps {
     options?: IOptions;
+    onSubmit: (data: any) => void;
 }
 
-export const Filter = ({ options }: IFilterProps) => {
+export const Filter = ({ options, onSubmit }: IFilterProps) => {
     const {
         control,
         handleSubmit,
         formState: { errors },
     } = useForm({});
 
-    const onSubmit = async (data: any) => {
-        console.log(data);
-    };
-
     return (
         <div className="flex shadow rounded my-4">
             <div className=" flex-1 mx-auto  px-4 py-6 sm:px-6 lg:px-8 ">
                 <Form onSubmit={handleSubmit(onSubmit)}>
-                    <div className="flex gap-2  bg-red-50">
+                    <div className="flex gap-2  ">
                         {options?.name && (
                             <InputComponent
+                                className="flex-1"
                                 control={control}
                                 name="name"
                                 label={options.name}
@@ -42,6 +40,7 @@ export const Filter = ({ options }: IFilterProps) => {
                         )}
                         {options?.email && (
                             <InputComponent
+                                className="flex-1"
                                 control={control}
                                 name="email"
                                 label={options.email}
@@ -50,6 +49,7 @@ export const Filter = ({ options }: IFilterProps) => {
                         )}
                         {options?.phone && (
                             <InputComponent
+                                className="flex-1"
                                 control={control}
                                 name="phone"
                                 label={options.phone}
@@ -58,6 +58,7 @@ export const Filter = ({ options }: IFilterProps) => {
                         )}
                         {options?.crmv && (
                             <InputComponent
+                                className="flex-1"
                                 control={control}
                                 name="crmv"
                                 label={options.crmv}
@@ -66,6 +67,7 @@ export const Filter = ({ options }: IFilterProps) => {
                         )}
                         {options?.cnpj && (
                             <InputComponent
+                                className="flex-1"
                                 control={control}
                                 name="cnpj"
                                 label={options.cnpj}
