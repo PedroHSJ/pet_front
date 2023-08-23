@@ -4,7 +4,6 @@ import { useProfessional } from '../../hooks/useProfessional';
 import { Loading } from '../../components/resources/Loading';
 import { Pagination } from '../../components/pagination';
 import { IProfessional } from '../../interfaces/IProfessional';
-import { Filter } from '../../components/filter';
 import { useAuth } from '../../hooks/auth';
 import { useNavigate } from 'react-router';
 
@@ -52,11 +51,6 @@ const Professional = () => {
                                     </button>
                                 )}
                             </div>
-                            <Filter
-                                onSubmit={(data) => {
-                                    handleFilter(data);
-                                }}
-                            />
                         </div>
                         {loading && (
                             <div
@@ -77,13 +71,13 @@ const Professional = () => {
                         {!loading && (
                             <ul
                                 role="list"
-                                className="divide-y divide-gray-100"
+                                className="divide-y divide-gray-500"
                             >
                                 {professionals.map((professional) => {
                                     return (
                                         <li
                                             key={professional.id}
-                                            className="p-4 cursor-pointer hover:bg-gray-50 hover:rounded"
+                                            className="p-4 cursor-pointer hover:bg-gray-200 hover:rounded hover:shadow-lg hover:border-transparent hover:transform hover:scale-105 transition-all duration-200"
                                             onClick={() =>
                                                 handleProfessionalClick(
                                                     professional,

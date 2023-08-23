@@ -6,6 +6,7 @@ import { Form } from '../../components/forms/Form';
 import { useForm } from 'react-hook-form';
 import { InputComponent } from '../../components/forms/NewInput';
 import { SelectComponent } from '../../components/forms/NewSelectInput';
+import { Filter } from '../../components/filter';
 
 const Home = () => {
     const { getSchedules, error, loading, schedules } = useSchedule();
@@ -35,18 +36,17 @@ const Home = () => {
                             </h1>
                         </div>
                     </header>
-
-                    <Form onSubmit={handleSubmit(onSubmit)}>
-                        <SelectComponent
-                            control={control}
-                            name="name"
-                            label="Nome"
-                            placeholder="Digite o nome"
-                            options={options}
-                        />
-                        <button type="submit">Enviar</button>
-                    </Form>
                 </>
+                <Filter
+                    key={1}
+                    options={{
+                        name: 'Nome completo',
+                        phone: 'Telefone',
+                        email: 'E-mail',
+                        crmv: 'CRMV',
+                        cnpj: 'CNPJ',
+                    }}
+                />
             </Template>
         </>
     );

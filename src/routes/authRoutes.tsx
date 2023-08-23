@@ -8,6 +8,7 @@ import Profile from '../pages/Profile';
 import { Client } from '../pages/Client';
 import { EditClient } from '../pages/Client/EditClient';
 import { NewProfessional } from '../pages/Professional/NewProfessional';
+import { Schedule } from '../pages/Schedule';
 
 export const AuthRoutes = createBrowserRouter([
     {
@@ -43,6 +44,10 @@ export const AuthRoutes = createBrowserRouter([
         element: <EditClient />,
     },
     //schedule id
+    {
+        path: '/agendamentos',
+        element: <Schedule />,
+    },
     {
         path: '/schedule/:id',
         element: <Video />,

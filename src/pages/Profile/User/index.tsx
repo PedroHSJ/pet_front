@@ -1,3 +1,10 @@
+import {
+    Avatar,
+    Card,
+    CardBody,
+    CardHeader,
+    Typography,
+} from '@material-tailwind/react';
 import { IUser } from '../../../interfaces/IUser';
 
 interface IProfileUserProps {
@@ -6,37 +13,48 @@ interface IProfileUserProps {
 
 export const ProfileUser = ({ user }: IProfileUserProps) => {
     return (
-        <div className="bg-white shadow h-screen">
-            <div className="mx-auto  px-4 py-6 sm:px-6 lg:px-8 ">
-                <h1 className="text-3xl font-bold tracking-tight text-gray-900">
-                    Olá, {user?.name}!
-                </h1>
-                {/* CARD WITH INFOS */}
-                <div className="mt-5">
-                    {/* CARD 1 */}
-                    <div className="bg-white overflow-hidden shadow rounded-lg">
-                        <div className="px-4 py-5 sm:p-6">
-                            <dl>
-                                <dt className="text-sm font-medium text-gray-500 truncate">
-                                    Nome
-                                </dt>
-                                <dd className="mt-1 text-3xl font-semibold text-gray-900">
+        <header className="bg-white shadow">
+            <div className="mx-auto max-w-7xl px-4 py-6 sm:px-6 lg:px-8">
+                <Card
+                    color="transparent"
+                    shadow={false}
+                    className="w-full max-w-[26rem]"
+                >
+                    <CardHeader
+                        color="transparent"
+                        floated={false}
+                        shadow={false}
+                        className="mx-0 flex items-center gap-4 pt-0 pb-8"
+                    >
+                        <Avatar
+                            size="lg"
+                            variant="circular"
+                            src="https://images.unsplash.com/photo-1633332755192-727a05c4013d?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1480&q=80"
+                            alt="tania andrew"
+                        />
+                        <div className="flex w-full flex-col gap-0.5">
+                            <div className="flex items-center justify-between">
+                                <Typography variant="h5" color="blue-gray">
                                     {user?.name}
-                                </dd>
-                            </dl>
+                                </Typography>
+                            </div>
+                            <Typography color="blue-gray">
+                                {/* ICONE DE EMAIL */}
 
-                            <dl className="mt-4">
-                                <dt className="text-sm font-medium text-gray-500 truncate">
-                                    Email
-                                </dt>
-                                <dd className="mt-1 text-3xl font-semibold text-gray-900">
-                                    {user?.email}
-                                </dd>
-                            </dl>
+                                {user?.email}
+                            </Typography>
                         </div>
-                    </div>
-                </div>
+                    </CardHeader>
+                    <CardBody className="mb-6 p-0">
+                        <Typography>
+                            &quot;I found solution to all my design needs from
+                            Creative Tim. I use them as a freelancer in my hobby
+                            projects for fun! And its really affordable, very
+                            humble guys !!!&quot;
+                        </Typography>
+                    </CardBody>
+                </Card>
             </div>
-        </div>
+        </header>
     );
 };

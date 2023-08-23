@@ -20,6 +20,7 @@ import {
     UserIcon,
     XMarkIcon,
     Bars3Icon,
+    CalendarIcon,
 } from '@heroicons/react/24/solid';
 import { Link, NavLink } from 'react-router-dom';
 import { useComponent } from '../../../hooks/useComponent';
@@ -115,6 +116,12 @@ export function Header() {
 
     const professionalNavItems = [
         {
+            name: 'Agendamentos',
+            icon: CalendarIcon,
+            current: true,
+            href: '/agendamentos',
+        },
+        {
             name: 'Configurações',
             icon: Cog6ToothIcon,
             current: false,
@@ -142,10 +149,6 @@ export function Header() {
 
         //setNavItems((prev) => [...prev!, ...commomItems]);
     };
-
-    useEffect(() => {
-        console.log(navItems);
-    }, [navItems]);
 
     const handleLogout = () => {
         dialog('Você deseja sair?', 'Sair', [

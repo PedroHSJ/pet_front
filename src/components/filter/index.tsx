@@ -1,5 +1,4 @@
 import { useForm } from 'react-hook-form';
-import Input from '../forms/OldInput';
 import { Form } from '../forms/Form';
 import { Button } from '../buttons/Button';
 import { InputComponent } from '../forms/NewInput';
@@ -89,5 +88,3 @@ Filter.defaultProps = {
     email: false,
     phone: false,
 };
-
-export { Filter };

@@ -3,14 +3,22 @@ import { Template } from '../../components/layouts/Template';
 import { useEstablishment } from '../../hooks/useEstablishment';
 import { Loading } from '../../components/resources/Loading';
 import { cnpjMask } from '../../utils/mask';
+import { Pagination } from '../../components/pagination';
 
 const Establishment = () => {
-    const { error, loading, establishments, getAllEstablishments } =
+    const { error, loading, establishments, totalCount, getAllEstablishments } =
         useEstablishment();
 
     useEffect(() => {
         getAllEstablishments();
     }, []);
+
+    useEffect(() => {
+        console.log(establishments);
+        establishments.forEach((estab) => {
+            console.log(estab.active);
+        });
+    }, [establishments]);
 
     return (
         <Template>
@@ -38,20 +46,56 @@ const Establishment = () => {
                             </h1>
                             <ul
                                 role="list"
-                                className="divide-y divide-gray-100"
+                                className="divide-y divide-gray-500"
                             >
                                 {establishments.map((estab) => {
                                     return (
                                         <li
                                             key={estab.id}
-                                            className="py-4 cursor-pointer"
+                                            className="p-4 cursor-pointer hover:bg-gray-200 hover:rounded hover:shadow-lg hover:border-transparent hover:transform hover:scale-105 transition-all duration-200"
                                         >
-                                            <div className="flex space-x-3">
-                                                <div className="flex-1 space-y-1 justify-center">
+                                            <div className="flex space-x-3 ">
+                                                <div className="flex-1 space-y-1 justify-center ">
                                                     <div className="flex items-center justify-between">
                                                         <h3 className="text-sm font-medium text-gray-900">
                                                             {estab.name}
                                                         </h3>
+
+                                                        {estab.active && (
+                                                            <span
+                                                                className="
+                                                     inline-flex
+                                                     items-center
+                                                     px-2.5
+                                                     py-0.5
+                                                     rounded-full
+                                                     text-xs
+                                                     font-medium
+                                                     bg-green-100
+                                                     text-green-800
+                                                     "
+                                                            >
+                                                                Ativo
+                                                            </span>
+                                                        )}
+
+                                                        {!estab.active && (
+                                                            <span
+                                                                className="
+                                                        inline-flex
+                                                        items-center
+                                                        px-2.5
+                                                        py-0.5
+                                                        rounded-full
+                                                        text-xs
+                                                        font-medium
+                                                        bg-red-100
+                                                        text-red-800
+                                                        "
+                                                            >
+                                                                Inativo
+                                                            </span>
+                                                        )}
                                                     </div>
                                                     <p className="text-sm text-gray-500">
                                                         {cnpjMask(estab.cnpj)}
@@ -62,14 +106,14 @@ const Establishment = () => {
                                     );
                                 })}
                             </ul>
+                            <Pagination
+                                page={1}
+                                total={totalCount}
+                                onChange={(page) => {
+                                    console.log(page);
+                                }}
+                            />
                         </div>
-                        {/* <Pagination
-                        currentPage={1}
-                        numButtons={4}
-                        onPageChange={() => {}}
-                        pageSize={10}
-                        totalCount={totalCount}
-                    /> */}
                     </div>
                 )}
             </div>

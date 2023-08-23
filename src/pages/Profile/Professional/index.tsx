@@ -1,4 +1,5 @@
 import { IProfessional } from '../../../interfaces/IProfessional';
+import { formatPhoneNumber } from '../../../utils/format';
 
 interface IProfileProfessionalProps {
     professional: IProfessional | null;
@@ -42,7 +43,7 @@ export const ProfileProfessional = ({
                                 Número de telefone
                             </dt>
                             <dd className="mt-1 text-xl font-semibold text-gray-900">
-                                {professional?.phone}
+                                {formatPhoneNumber(professional?.phone)}
                             </dd>
                         </dl>
                         <dl className="mt-4">
