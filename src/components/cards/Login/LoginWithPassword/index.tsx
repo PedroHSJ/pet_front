@@ -47,7 +47,6 @@ const LoginWithPassword = () => {
 
     useEffect(() => {
         if (!error) return;
-        console.log('use effect', error);
         dialog(errorTitleText, error, [
             {
                 text: 'OK',

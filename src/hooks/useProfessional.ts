@@ -32,7 +32,7 @@ export const useProfessional = () => {
     const getByParams = async ({
         params,
         page,
-    }: IGetByParams<IProfessionalDTO>) => {
+    }: IGetByParams<IProfessionalGetByParams>) => {
         try {
             setLoading(true);
             const { items, totalCount } = await getProfessinalByParams({

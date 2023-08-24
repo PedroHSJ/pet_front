@@ -24,7 +24,6 @@ export const NewProfessional = () => {
     const { createProfessional, error, loading, success } = useProfessional();
     const { dialog } = useComponent();
     const onSubmit = async (data: IProfessionalDTO) => {
-        console.log(data);
         createProfessional(data);
     };
 
