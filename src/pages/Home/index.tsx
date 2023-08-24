@@ -1,4 +1,4 @@
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import useSchedule from '../../hooks/useSchedule';
 import { Template } from '../../components/layouts/Template';
 import { useAuth } from '../../hooks/auth';
@@ -7,23 +7,33 @@ import { useForm } from 'react-hook-form';
 import { InputComponent } from '../../components/forms/NewInput';
 import { SelectComponent } from '../../components/forms/NewSelectInput';
 import { Filter } from '../../components/filter';
-
+import { useVerificationCode } from '../../hooks/useVerificationCode';
+import { toast } from 'react-toastify';
+import { Button, Input } from '@material-tailwind/react';
+import { compare } from 'bcryptjs';
 const Home = () => {
-    const { getSchedules, error, loading, schedules } = useSchedule();
-    const { handleSubmit, control } = useForm();
+    const { getVerificationCode, verificationCode, error, loading } =
+        useVerificationCode();
+    const [text, setText] = useState('');
+    const [textCompared, setTextCompared] = useState<boolean>();
 
     useEffect(() => {
-        getSchedules();
-    }, []);
+        console.log(verificationCode);
+    }, [verificationCode]);
 
-    const onSubmit = async (data: any) => {
-        console.log(data);
-    };
+    useEffect(() => {
+        if (!error) return;
+        toast.error(error);
+    }, [error]);
 
-    const options = [
-        { value: '1', label: '1' },
-        { value: '2', label: '2' },
-    ];
+    useEffect(() => {
+        console.log(text);
+        (async () => {
+            const textCompared = await compare(text, verificationCode);
+            setTextCompared(textCompared);
+            console.log(textCompared);
+        })();
+    }, [text]);
 
     return (
         <>
@@ -34,19 +44,34 @@ const Home = () => {
                             <h1 className="text-3xl font-bold tracking-tight text-gray-900">
                                 Dashboard
                             </h1>
+                            {loading && <p>Carregando...</p>}
+                            {!loading && verificationCode && (
+                                <>
+                                    <p>{verificationCode}</p>
+                                    <p>{text}</p>
+                                    <p>{textCompared}</p>
+                                </>
+                            )}
                         </div>
+                        <Button
+                            color="blue"
+                            size="md"
+                            onClick={() =>
+                                getVerificationCode(
+                                    'pedrohenriquesj.pro@gmail.com',
+                                )
+                            }
+                        >
+                            Enviar código
+                        </Button>
+
+                        <Input
+                            onChange={(e) => setText(e.target.value)}
+                            value={text}
+                            type="text"
+                        />
                     </header>
                 </>
-                <Filter
-                    key={1}
-                    options={{
-                        name: 'Nome completo',
-                        phone: 'Telefone',
-                        email: 'E-mail',
-                        crmv: 'CRMV',
-                        cnpj: 'CNPJ',
-                    }}
-                />
             </Template>
         </>
     );
