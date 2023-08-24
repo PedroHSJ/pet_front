@@ -3,35 +3,31 @@ import {
     IChoseRole,
     IRegisterProfessionalForm,
 } from '../../../../../interfaces/IRegisterForm';
-import { useComponent } from '../../../../../hooks/useComponent';
 import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { Role } from '../../../../../interfaces/IRole';
-import { useEffect } from 'react';
-import {
-    requiredFieldsText,
-    warningText,
-} from '../../../../../constants/messages';
+import { useEffect, useState } from 'react';
 import { Container, Title } from '../styles';
 import { Form } from '../../../../forms/Form';
-import Input from '../../../../forms/OldInput';
-import { SelectInput } from '../../../../forms/SelectInput';
 import { Button } from '../../../../buttons/Button';
 import { RegisterProfessional } from '../../../../../validations/RegisterSchema';
 import { InputComponent } from '../../../../forms/NewInput';
 import { SelectComponent } from '../../../../forms/NewSelectInput';
 import { useProfessional } from '../../../../../hooks/useProfessional';
-import {
-    IProfessional,
-    IProfessionalDTO,
-} from '../../../../../interfaces/IProfessional';
+import { IProfessionalDTO } from '../../../../../interfaces/IProfessional';
+import { toast } from 'react-toastify';
 
 export const ProfessionalCard = () => {
     const location = useLocation();
     const state = location.state as IChoseRole;
     const navigate = useNavigate();
-    const { dialog } = useComponent();
-    const { createProfessional, error, loading, success } = useProfessional();
+    const {
+        error,
+        loading,
+        success,
+        getByParams,
+        verifyEmailProfessionalExist,
+    } = useProfessional();
     const {
         control,
         handleSubmit,
@@ -40,6 +36,9 @@ export const ProfessionalCard = () => {
     } = useForm<IRegisterProfessionalForm>({
         resolver: yupResolver(RegisterProfessional),
     });
+    const [professional, setProfessional] = useState<IProfessionalDTO>(
+        {} as IProfessionalDTO,
+    );
 
     const roleOptions = [
         { value: Role.ADMIN, label: 'Administrador' },
@@ -47,6 +46,11 @@ export const ProfessionalCard = () => {
     ];
 
     const onSubmit = async (data: IRegisterProfessionalForm) => {
+        const emailAlreadyExists = await verifyEmailProfessionalExist(
+            data.email,
+        );
+        if (emailAlreadyExists) return toast.error('Email já cadastrado');
+
         const professional: IProfessionalDTO = {
             name: data.name,
             email: data.email,
@@ -55,29 +59,11 @@ export const ProfessionalCard = () => {
             role: data.role,
             phone: data.phone,
         };
-        createProfessional(professional);
-
+        setProfessional(professional);
+        navigate('/register/confirmCode', { state: professional });
         //navigate('/login');
         // loginWithPassword(data);
     };
-
-    useEffect(() => {
-        if (success) {
-            dialog('Sucesso', 'Profissional cadastrado com sucesso.');
-            navigate('/login');
-        }
-    }, [success]);
-
-    useEffect(() => {
-        if (!Object.keys(errors).length) return;
-        dialog(warningText, requiredFieldsText);
-    }, [errors]);
-
-    useEffect(() => {
-        if (!error) return;
-        console.log(error);
-        dialog('Erro ao cadastrar profissional.', error);
-    }, [error]);
 
     useEffect(() => {
         roleOptions.forEach((option) => {
@@ -144,7 +130,7 @@ export const ProfessionalCard = () => {
                     disabled
                 />
                 <Button style="primary" type="submit" loading={loading}>
-                    Cadastrar
+                    Próximo
                 </Button>
             </Form>
         </Container>

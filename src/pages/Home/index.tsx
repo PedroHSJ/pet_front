@@ -1,4 +1,4 @@
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import useSchedule from '../../hooks/useSchedule';
 import { Template } from '../../components/layouts/Template';
 import { useAuth } from '../../hooks/auth';
@@ -7,24 +7,11 @@ import { useForm } from 'react-hook-form';
 import { InputComponent } from '../../components/forms/NewInput';
 import { SelectComponent } from '../../components/forms/NewSelectInput';
 import { Filter } from '../../components/filter';
-
+import { useVerificationCode } from '../../hooks/useVerificationCode';
+import { toast } from 'react-toastify';
+import { Button, Input } from '@material-tailwind/react';
+import { compare } from 'bcryptjs';
 const Home = () => {
-    const { getSchedules, error, loading, schedules } = useSchedule();
-    const { handleSubmit, control } = useForm();
-
-    useEffect(() => {
-        getSchedules();
-    }, []);
-
-    const onSubmit = async (data: any) => {
-        console.log(data);
-    };
-
-    const options = [
-        { value: '1', label: '1' },
-        { value: '2', label: '2' },
-    ];
-
     return (
         <>
             <Template>
@@ -37,16 +24,6 @@ const Home = () => {
                         </div>
                     </header>
                 </>
-                <Filter
-                    key={1}
-                    options={{
-                        name: 'Nome completo',
-                        phone: 'Telefone',
-                        email: 'E-mail',
-                        crmv: 'CRMV',
-                        cnpj: 'CNPJ',
-                    }}
-                />
             </Template>
         </>
     );

@@ -32,6 +32,15 @@ const getProfessinalByParams = async (
     return data;
 };
 
+const verifyEmailProfessional = async (
+    email: string,
+): Promise<ApiResponseInterface<IProfessional>> => {
+    const { data } = await api.get<
+        Promise<ApiResponseInterface<IProfessional>>
+    >(`/professional/verify-email/${email}`);
+    return data;
+};
+
 const postProfessional = async (
     professional: IProfessionalDTO,
 ): Promise<{ id: string }> => {
@@ -47,4 +56,5 @@ export {
     postProfessional,
     getProfessionalById,
     getProfessinalByParams,
+    verifyEmailProfessional,
 };

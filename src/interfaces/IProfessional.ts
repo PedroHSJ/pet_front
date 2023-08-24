@@ -17,3 +17,10 @@ export interface IProfessionalDTO {
     crmv: string;
     phone: string;
 }
+
+export interface IProfessionalGetByParams {
+    name?: string;
+    email?: string;
+    crmv?: string;
+    phone?: string;
+}
