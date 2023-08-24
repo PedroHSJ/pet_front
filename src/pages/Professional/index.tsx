@@ -17,8 +17,9 @@ import { formatPhoneNumber } from '../../utils/format';
 import { Filter } from '../../components/filter';
 
 const Professional = () => {
-    const { error, loading, professionals, getAll, totalCount, getByParams } =
-        useProfessional();
+    const { error, loading, professionals, getAll, totalCount, 
+            getByParams, pageSize, setPageSize} = useProfessional();
+
     const { role } = useAuth();
     const navigate = useNavigate();
 
@@ -191,9 +192,11 @@ const Professional = () => {
                             </List>
                         )}
                     </div>
+
                     <Pagination
                         page={1}
                         total={totalCount}
+                        pageSize={pageSize}
                         onChange={(page) => {
                             getByParams({ page });
                         }}

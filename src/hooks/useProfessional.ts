@@ -13,11 +13,11 @@ export const useProfessional = () => {
     const [error, setError] = useState('');
     const [success, setSuccess] = useState(false);
     const [totalCount, setTotalCount] = useState(0);
+    const [pageSize, setPageSize] = useState(10);
 
     const getAll = async () => {
         try {
             setError('');
-
             setLoading(true);
             const { items, totalCount } = await getAllProfessionals();
             setProfessionals(items);
@@ -32,15 +32,18 @@ export const useProfessional = () => {
     const getByParams = async ({
         params,
         page,
+        pageSize,
     }: IGetByParams<IProfessionalDTO>) => {
         try {
             setLoading(true);
             const { items, totalCount } = await getProfessinalByParams({
                 ...params,
                 page,
+                pageSize,
             });
             setProfessionals(items);
             setTotalCount(totalCount);
+            if(pageSize) setPageSize(pageSize);
         } catch (error) {
             setError(handleGetErrorMessage(error));
         } finally {
@@ -72,5 +75,7 @@ export const useProfessional = () => {
         getAll,
         getByParams,
         createProfessional,
+        pageSize,
+        setPageSize,
     };
 };
