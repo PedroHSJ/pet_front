@@ -14,6 +14,6 @@ export const RegisterProfessional = yup.object().shape({
     email: yup.string().email('Email inválido').required(REQUIRED),
     password: yup.string().required(REQUIRED),
     crmv: yup.string().required(REQUIRED),
-    phone: yup.string().max(11).required(REQUIRED),
+    phone: yup.string().max(15).required(REQUIRED),
     role: yup.string().oneOf(Object.values(Role)).required(REQUIRED),
 });
