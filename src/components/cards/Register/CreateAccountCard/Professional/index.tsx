@@ -3,35 +3,31 @@ import {
     IChoseRole,
     IRegisterProfessionalForm,
 } from '../../../../../interfaces/IRegisterForm';
-import { useComponent } from '../../../../../hooks/useComponent';
 import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { Role } from '../../../../../interfaces/IRole';
 import { useEffect, useState } from 'react';
-import {
-    requiredFieldsText,
-    warningText,
-} from '../../../../../constants/messages';
 import { Container, Title } from '../styles';
 import { Form } from '../../../../forms/Form';
-import Input from '../../../../forms/OldInput';
-import { SelectInput } from '../../../../forms/SelectInput';
 import { Button } from '../../../../buttons/Button';
 import { RegisterProfessional } from '../../../../../validations/RegisterSchema';
 import { InputComponent } from '../../../../forms/NewInput';
 import { SelectComponent } from '../../../../forms/NewSelectInput';
 import { useProfessional } from '../../../../../hooks/useProfessional';
-import {
-    IProfessional,
-    IProfessionalDTO,
-} from '../../../../../interfaces/IProfessional';
+import { IProfessionalDTO } from '../../../../../interfaces/IProfessional';
 import { toast } from 'react-toastify';
 
 export const ProfessionalCard = () => {
     const location = useLocation();
     const state = location.state as IChoseRole;
     const navigate = useNavigate();
-    const { error, loading, success, getByParams } = useProfessional();
+    const {
+        error,
+        loading,
+        success,
+        getByParams,
+        verifyEmailProfessionalExist,
+    } = useProfessional();
     const {
         control,
         handleSubmit,
@@ -48,14 +44,12 @@ export const ProfessionalCard = () => {
         { value: Role.ADMIN, label: 'Administrador' },
         { value: Role.VETERINARIAN, label: 'Veterinário' },
     ];
-    const emailExists = async (email: string) => {
-        const professional = getByParams({ params: { email: email } });
-        return !!professional;
-    };
 
     const onSubmit = async (data: IRegisterProfessionalForm) => {
-        // const emailAlreadyExists = await emailExists(data.email);
-        // if (emailAlreadyExists) return toast.error('Email já cadastrado');
+        const emailAlreadyExists = await verifyEmailProfessionalExist(
+            data.email,
+        );
+        if (emailAlreadyExists) return toast.error('Email já cadastrado');
 
         const professional: IProfessionalDTO = {
             name: data.name,

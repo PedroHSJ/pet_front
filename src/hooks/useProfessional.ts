@@ -3,6 +3,7 @@ import {
     getAllProfessionals,
     getProfessinalByParams,
     postProfessional,
+    verifyEmailProfessional,
 } from '../services/api/ProfissionalApi';
 import { IProfessional, IProfessionalDTO } from '../interfaces/IProfessional';
 import { handleGetErrorMessage } from '../utils';
@@ -63,6 +64,19 @@ export const useProfessional = () => {
         }
     };
 
+    const verifyEmailProfessionalExist = async (email: string) => {
+        try {
+            setError('');
+            setLoading(true);
+            const { items } = await verifyEmailProfessional(email);
+            return !!items;
+        } catch (error) {
+            setError(handleGetErrorMessage(error));
+        } finally {
+            setLoading(false);
+        }
+    };
+
     return {
         loading,
         professionals,
@@ -72,5 +86,6 @@ export const useProfessional = () => {
         getAll,
         getByParams,
         createProfessional,
+        verifyEmailProfessionalExist,
     };
 };
