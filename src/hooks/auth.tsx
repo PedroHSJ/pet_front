@@ -15,7 +15,7 @@ import useUser from './useUser';
 import { getUserById } from '../services/api/UserApi';
 import { AxiosError } from 'axios';
 import { IProfessional } from '../interfaces/IProfessional';
-import { geProfessionalById } from '../services/api/ProfissionalApi';
+import { getProfessionalById } from '../services/api/ProfissionalApi';
 import { Role } from '../interfaces/IRole';
 interface IAuthProviderProps {
     children: ReactNode;
@@ -127,7 +127,7 @@ const AuthProvider = ({ children }: IAuthProviderProps) => {
                 return;
             }
 
-            const { items: professional } = await geProfessionalById(id);
+            const { items: professional } = await getProfessionalById(id);
             setProfessional(professional[0]);
             setRole(professional[0].role.name);
             localStorage.setItem('@user', JSON.stringify(professional[0]));

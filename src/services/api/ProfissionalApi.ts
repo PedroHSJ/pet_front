@@ -14,7 +14,7 @@ const getAllProfessionals = async (): Promise<
     return data;
 };
 
-const geProfessionalById = async (
+const getProfessionalById = async (
     id: string,
 ): Promise<ApiResponseInterface<IProfessional>> => {
     const { data } = await api.get<
@@ -54,7 +54,7 @@ const postProfessional = async (
 export {
     getAllProfessionals,
     postProfessional,
-    geProfessionalById,
+    getProfessionalById,
     getProfessinalByParams,
     verifyEmailProfessional,
 };
