@@ -4,6 +4,7 @@ import { loginWithoutPass } from './LoginWithOutPasswordApi';
 import { getConfig } from './ConfigApi';
 import { recoverPassword } from './PasswordApi';
 import { getIndividualByCpf } from './IndividualApi';
+import { getCep } from './CepApi';
 
 const api = axios.create({
     baseURL: import.meta.env.VITE_BASE_URL_API,
@@ -29,4 +30,5 @@ export {
     getConfig,
     recoverPassword,
     getIndividualByCpf,
+    getCep,
 };

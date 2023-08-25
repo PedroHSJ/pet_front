@@ -1,8 +1,9 @@
 import { useState } from 'react';
-import { IEstablishment } from '../interfaces/IEstablishment';
-import { getEstablishmentByParams as getEstablishmentByParamsApi } from '../services/api/EstablishmentApi';
-import { getAllEstablishments as getAllEstablishmentsApi } from '../services/api/EstablishmentApi';
+import { IEstablishment, IEstablishmentDTO } from '../interfaces/IEstablishment';
+import { getEstablishmentByParams as getEstablishmentByParamsApi, postEstablishment, getAllEstablishments as getAllEstablishmentsApi } from '../services/api/EstablishmentApi';
+import { handleGetErrorMessage } from '../utils';
 export const useEstablishment = () => {
+    const [success, setSuccess] = useState(false);
     const [loading, setLoading] = useState(false);
     const [establishments, setEstablishments] = useState<IEstablishment[]>([]);
     const [error, setError] = useState('');
@@ -12,7 +13,6 @@ export const useEstablishment = () => {
         try {
             setLoading(true);
             const { items, totalCount } = await getAllEstablishmentsApi();
-
             setEstablishments(items);
             setTotalCount(totalCount);
         } catch (error) {
@@ -42,12 +42,29 @@ export const useEstablishment = () => {
         }
     };
 
+    const createEstablishment = async (estab: IEstablishmentDTO) => {
+        try {
+            setError('');
+            setSuccess(false);
+            setLoading(true);
+            await postEstablishment(estab);
+            setSuccess(true);
+        } catch (error) {
+            setSuccess(false);
+            setError(handleGetErrorMessage(error));
+        } finally {
+            setLoading(false);
+        }
+    };
+
     return {
         loading,
         establishments,
         error,
         totalCount,
+        success,
         getAllEstablishments,
         getEstablishmentByParams,
+        createEstablishment,
     };
 };
