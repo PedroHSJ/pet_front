@@ -11,7 +11,7 @@ import { useNavigate } from 'react-router';
 
 import { IEstablishmentDTO } from '../../../interfaces/IEstablishment';
 import { EstablishmentSchema } from '../../../validations/EstablishmentSchema';
-import { useProfessional } from '../../../hooks/useProfessional';
+import { useEstablishment } from '../../../hooks/useEstablishment';
 
 export const NewEstablishment = () => {
     const {
@@ -22,16 +22,17 @@ export const NewEstablishment = () => {
         resolver: yupResolver(EstablishmentSchema)
     });
     const navigate = useNavigate();
-    const { createProfessional, error, loading, success } = useProfessional();
+    
+    const { createEstablishment, success, loading, error} = useEstablishment();
     const { dialog } = useComponent();
 
     const onSubmit = async (data: IEstablishmentDTO) => {
-        //createProfessional(data);
+        createEstablishment(data);
     };
 
     useEffect(() => {
         if (success) {
-            toast.success('Profissional cadastrado com sucesso!');
+            toast.success('Estabelecimento cadastrado com sucesso!');
             navigate(-1);
         }
         return;
@@ -49,7 +50,7 @@ export const NewEstablishment = () => {
             <div className="bg-white shadow h-screen">
                 <div className="mx-auto  px-4 py-6 sm:px-6 lg:px-8 ">
                     <h1 className="text-3xl font-bold tracking-tight text-gray-900">
-                        Cadastrar Profissional
+                        Cadastrar Estabelecimento
                     </h1>
                 </div>
 
@@ -58,40 +59,25 @@ export const NewEstablishment = () => {
                         <InputComponent
                             control={control}
                             name="name"
-                            label="Nome"
+                            label="Digite o Nome"
                             error={errors.name?.message}
                             type="text"
                         />
-                        {/* <InputComponent
+                         <InputComponent
                             control={control}
-                            name="phone"
-                            label="Telefone"
-                            error={errors.phone?.message}
+                            name="cnpj"
+                            label="Digite o CNPJ"
+                            error={errors.cnpj?.message}
                             type="text"
-                            mask="phone"
                         />
                         <InputComponent
                             control={control}
-                            name="crmv"
-                            label="CRMV"
-                            error={errors.crmv?.message}
-                            type="string"
-                            mask="crmv"
+                            name="address.postalCode"
+                            label="Digite o CEP"
+                            error={errors.address?.postalCode?.message}
+                            type="text"
                         />
-                        <InputComponent
-                            control={control}
-                            name="email"
-                            label="Email"
-                            error={errors.email?.message}
-                            type="email"
-                        />
-                        <InputComponent
-                            control={control}
-                            name="password"
-                            label="Senha"
-                            error={errors.password?.message}
-                            type="password"
-                        /> */}
+                        
                         <Button loading={loading} style="primary" type="submit">
                             Cadastrar
                         </Button>

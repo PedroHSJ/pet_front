@@ -1,5 +1,5 @@
 import { api } from '.';
-import { IEstablishment } from '../../interfaces/IEstablishment';
+import { IEstablishment, IEstablishmentDTO } from '../../interfaces/IEstablishment';
 import { ApiResponseInterface } from '../../interfaces/IResponse';
 
 const getAllEstablishments = async (): Promise<
@@ -25,4 +25,14 @@ const getEstablishmentByParams = async ({
     return data;
 };
 
-export { getAllEstablishments, getEstablishmentByParams };
+const postEstablishment = async (
+    estab: IEstablishmentDTO,
+): Promise<{ id: string }> => {
+    const { data } = await api.post<{ id: string }>(
+        '/estabelecimento',
+        estab,
+    );
+    return { id: data.id };
+};
+
+export { getAllEstablishments, getEstablishmentByParams, postEstablishment };
