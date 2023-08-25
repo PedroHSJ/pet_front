@@ -12,23 +12,42 @@ import { useNavigate } from 'react-router';
 import { IEstablishmentDTO } from '../../../interfaces/IEstablishment';
 import { EstablishmentSchema } from '../../../validations/EstablishmentSchema';
 import { useEstablishment } from '../../../hooks/useEstablishment';
+import { useCep } from '../../../hooks/useCep';
+import { SelectComponent } from '../../../components/forms/NewSelectInput';
 
 export const NewEstablishment = () => {
     const {
         control,
         handleSubmit,
+        setValue,
+        watch,
         formState: { errors },
     } = useForm<IEstablishmentDTO>({
         resolver: yupResolver(EstablishmentSchema)
     });
     const navigate = useNavigate();
-    
     const { createEstablishment, success, loading, error} = useEstablishment();
+    const { getCep, cep, error: errorCep, loading: loadingCep  } = useCep();
     const { dialog } = useComponent();
+
+    const inputCep = watch("address.postalCode");
 
     const onSubmit = async (data: IEstablishmentDTO) => {
         createEstablishment(data);
     };
+
+    useEffect(() => {
+		if (!inputCep) return;
+		getCep(inputCep);
+	}, [inputCep]);
+
+    useEffect(() => {
+		if (!cep) return;
+		setValue('address.state', cep.state);
+		setValue('address.city', cep?.city);
+		setValue('address.neighborhood', cep.neighborhood);
+		setValue('address.street', cep.street);
+	}, [cep]);
 
     useEffect(() => {
         if (success) {
@@ -44,6 +63,13 @@ export const NewEstablishment = () => {
         }
         return;
     }, [error]);
+
+    useEffect(() => {
+        if (errorCep) {
+            toast.error(errorCep);
+        }
+        return;
+    }, [errorCep]);
 
     return (
         <Template>
@@ -75,6 +101,48 @@ export const NewEstablishment = () => {
                             name="address.postalCode"
                             label="Digite o CEP"
                             error={errors.address?.postalCode?.message}
+                            type="text"
+                        />
+                        <InputComponent
+                            control={control}
+                            name="address.state"
+                            label="Digite a UF do estado"
+                            error={errors.address?.state?.message}
+                            type="text"
+                        />
+                        <InputComponent
+                            control={control}
+                            name="address.city"
+                            label="Digite a cidade"
+                            error={errors.address?.city?.message}
+                            type="text"
+                        />
+                        <InputComponent
+                            control={control}
+                            name="address.neighborhood"
+                            label="Digite o bairro"
+                            error={errors.address?.neighborhood?.message}
+                            type="text"
+                        />
+                        <InputComponent
+                            control={control}
+                            name="address.street"
+                            label="Digite a rua"
+                            error={errors.address?.street?.message}
+                            type="text"
+                        />
+                        <InputComponent
+                            control={control}
+                            name="address.number"
+                            label="Digite o número"
+                            error={errors.address?.number?.message}
+                            type="text"
+                        />
+                        <InputComponent
+                            control={control}
+                            name="address.complement"
+                            label="Digite o complemento"
+                            error={errors.address?.complement?.message}
                             type="text"
                         />
                         

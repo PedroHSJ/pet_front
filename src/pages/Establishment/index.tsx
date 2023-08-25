@@ -4,6 +4,8 @@ import { useEstablishment } from '../../hooks/useEstablishment';
 import { Loading } from '../../components/resources/Loading';
 import { cnpjMask } from '../../utils/mask';
 import { Pagination } from '../../components/pagination';
+import EstablishmentImage from '../../assets/images/Establishment.png';
+
 import {
     Avatar,
     List,
@@ -87,7 +89,7 @@ const Establishment = () => {
                                             <Avatar
                                                 variant="circular"
                                                 alt="error"
-                                                src="https://avatars.githubusercontent.com/u/60005589?v=4"
+                                                src={EstablishmentImage}
                                             />
                                         </ListItemPrefix>
                                         

@@ -13,7 +13,6 @@ export const useEstablishment = () => {
         try {
             setLoading(true);
             const { items, totalCount } = await getAllEstablishmentsApi();
-
             setEstablishments(items);
             setTotalCount(totalCount);
         } catch (error) {
