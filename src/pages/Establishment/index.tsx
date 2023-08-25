@@ -5,12 +5,15 @@ import { Loading } from '../../components/resources/Loading';
 import { cnpjMask } from '../../utils/mask';
 import { Pagination } from '../../components/pagination';
 import {
+    Avatar,
     List,
     ListItem,
     ListItemPrefix,
     ListItemSuffix,
 } from '@material-tailwind/react';
 import { Filter } from '../../components/filter';
+import { useAuth } from '../../hooks/auth';
+import { useNavigate } from 'react-router';
 
 const Establishment = () => {
     const {
@@ -21,7 +24,9 @@ const Establishment = () => {
         getAllEstablishments,
         getEstablishmentByParams,
     } = useEstablishment();
-
+    const { role } = useAuth();
+    const navigate = useNavigate();
+    
     useEffect(() => {
         getAllEstablishments();
     }, []);
@@ -31,9 +36,23 @@ const Establishment = () => {
             <div className="bg-white shadow">
                 <div>
                     <div className="mx-auto max-w-7xl px-4 py-6 sm:px-6 lg:px-8 ">
-                        <h1 className="text-3xl font-bold tracking-tight text-gray-900">
-                            Estabelecimentos
-                        </h1>
+                        <div className="flex flex-row justify-between">
+                            <h1 className="text-3xl font-bold tracking-tight text-gray-900">
+                                Estabelecimentos
+                            </h1>
+                            {role === 'ADMIN' && (
+                                <button
+                                    type="button"
+                                    className="bg-primary text-sm flex-end text-white rounded p-2"
+                                    onClick={() => {
+                                        navigate('/cadastrarEstabelecimento');
+                                    }}
+                                >
+                                    Cadastrar
+                                </button>
+                            )}
+                        </div>
+                        
                         <Filter
                             options={{
                                 cnpj: 'CNPJ',
@@ -47,12 +66,12 @@ const Establishment = () => {
                         {loading && (
                             <div
                                 className="
-                        flex 
-                        items-center 
-                        justify-center 
-                        h-screen
-                        flex-col
-                        "
+                                flex 
+                                items-center 
+                                justify-center 
+                                h-screen
+                                flex-col
+                                "
                             >
                                 <Loading />
                                 <span className="text-xl font-bold tracking-tight text-gray-900">
@@ -63,7 +82,15 @@ const Establishment = () => {
                         <List>
                             {establishments.map((estab) => {
                                 return (
-                                    <ListItem>
+                                    <ListItem key={estab.id} onClick={() => {}}>
+                                        <ListItemPrefix>
+                                            <Avatar
+                                                variant="circular"
+                                                alt="error"
+                                                src="https://avatars.githubusercontent.com/u/60005589?v=4"
+                                            />
+                                        </ListItemPrefix>
+                                        
                                         <div>
                                             <h3 className="text-sm font-medium text-gray-900">
                                                 {estab.name}
@@ -72,6 +99,7 @@ const Establishment = () => {
                                                 {cnpjMask(estab.cnpj)}
                                             </p>
                                         </div>
+                                        
                                         <ListItemSuffix>
                                             {estab.active && (
                                                 <span
@@ -114,13 +142,13 @@ const Establishment = () => {
                             })}
                         </List>
 
-                        <Pagination
+                        {/* <Pagination
                             page={1}
                             total={totalCount}
                             onChange={(page) => {
                                 getEstablishmentByParams({ page });
                             }}
-                        />
+                        /> */}
                     </div>
                 </div>
             </div>
