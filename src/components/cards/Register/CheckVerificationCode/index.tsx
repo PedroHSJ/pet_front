@@ -12,7 +12,7 @@ import { Button } from '../../../buttons/Button';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { IProfessionalDTO } from '../../../../interfaces/IProfessional';
 import { Loading } from '../../../resources/Loading';
-import { Typography } from '@material-tailwind/react';
+import { Progress, Typography } from '@material-tailwind/react';
 import { useProfessional } from '../../../../hooks/useProfessional';
 
 interface ICheckVerificationCodeCard {
@@ -22,7 +22,7 @@ interface ICheckVerificationCodeCard {
 const CheckVerificationCodeCard = () => {
     const { getVerificationCode, verificationCode, error, loading } =
         useVerificationCode();
-    const [text, setText] = useState('');
+    const [progressValue, setProgressValue] = useState(0);
     const [textCompared, setTextCompared] = useState<boolean>();
     const { control, handleSubmit } = useForm();
     const location = useLocation();
@@ -40,10 +40,10 @@ const CheckVerificationCodeCard = () => {
         toast.error(error);
     }, [error]);
 
-    useEffect(() => {
-        if (!professional) return;
-        getVerificationCode(professional.email);
-    }, [professional]);
+    // useEffect(() => {
+    //     if (!professional) return;
+    //     getVerificationCode(professional.email);
+    // }, [professional]);
 
     const onSubmit = async (data: ICheckVerificationCodeCard) => {
         const { code } = data;
@@ -71,18 +71,22 @@ const CheckVerificationCodeCard = () => {
         <Container>
             <LogoImage src={LogoPrimary} alt="Logo" />
             <Title>
-                Digite o código de verificação enviado para o seu e-mail
-            </Title>
-            <Form onSubmit={handleSubmit(onSubmit)}>
-                {loading && (
-                    <div className="flex justify-center">
-                        <Loading />
-                        <Typography color="blueGray" size="lg">
-                            Enviando código...
-                        </Typography>
-                    </div>
+                {loading ? (
+                    <Title>
+                        Enviando código de verificação para o seu email...
+                    </Title>
+                ) : (
+                    <Title>
+                        Digite o código de verificação enviado para o seu email
+                    </Title>
                 )}
-
+            </Title>
+            {loading && (
+                <div className="flex justify-center my-10">
+                    <Loading />
+                </div>
+            )}
+            <Form onSubmit={handleSubmit(onSubmit)}>
                 {!loading && (
                     <>
                         <InputComponent
