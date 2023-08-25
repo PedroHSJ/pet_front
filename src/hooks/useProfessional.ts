@@ -5,7 +5,7 @@ import {
     postProfessional,
     verifyEmailProfessional,
 } from '../services/api/ProfissionalApi';
-import { IProfessional, IProfessionalDTO } from '../interfaces/IProfessional';
+import { IProfessional, IProfessionalDTO, IProfessionalGetByParams } from '../interfaces/IProfessional';
 import { handleGetErrorMessage } from '../utils';
 
 export const useProfessional = () => {
@@ -14,7 +14,6 @@ export const useProfessional = () => {
     const [error, setError] = useState('');
     const [success, setSuccess] = useState(false);
     const [totalCount, setTotalCount] = useState(0);
-    const [pageSize, setPageSize] = useState(10);
 
     const getAll = async () => {
         try {
@@ -44,7 +43,6 @@ export const useProfessional = () => {
             });
             setProfessionals(items);
             setTotalCount(totalCount);
-            if(pageSize) setPageSize(pageSize);
         } catch (error) {
             setError(handleGetErrorMessage(error));
         } finally {
@@ -89,8 +87,6 @@ export const useProfessional = () => {
         getAll,
         getByParams,
         createProfessional,
-        pageSize,
-        setPageSize,
         verifyEmailProfessionalExist,
     };
 };
