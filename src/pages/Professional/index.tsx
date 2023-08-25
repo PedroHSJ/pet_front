@@ -18,8 +18,8 @@ import { formatPhoneNumber } from '../../utils/format';
 import { Filter } from '../../components/filter';
 
 const Professional = () => {
-    const { error, loading, professionals, getAll, totalCount, 
-            getByParams} = useProfessional();
+    const { error, loading, professionals, getAll, totalCount, getByParams } =
+        useProfessional();
 
     const [itemsPerPage, setItemsPerPage] = useState(10);
 
@@ -44,13 +44,13 @@ const Professional = () => {
 
     //PAGINAÇÃO
     const handlePageChange = (page: any) => {
-        getByParams({ page});
+        getByParams({ page });
     };
 
     const handlePaginationChange = (value: number) => {
         setItemsPerPage(value);
         getByParams({ page: 1, pageSize: value });
-    }
+    };
 
     return (
         <Template>
@@ -206,26 +206,17 @@ const Professional = () => {
                         )}
                     </div>
 
-                    <div className="flex flex-col md:flex-row justify-center items-center space-y-2 md:space-y-0 md:space-x-2">
-                        <span className="text-lg font-semibold text-primary">Total {totalCount ? totalCount : 'ERRO'}</span>
-                        <select
-                            value={itemsPerPage}
-                            onChange={(e) => handlePaginationChange(Number(e.target.value))}
-                            className="bg-white border-2 border-primary focus:border-primary_hover rounded-md shadow-md px-4 py-2 text-sm font-medium text-gray-700 focus:outline-none focus:ring-2 transition duration-150 ease-in-out"
-                        >
-                            <option value="10">10</option>
-                            <option value="15">15</option>
-                        </select>
-                        <Pagination
-                            page={1}
-                            total={totalCount}
-                            pageSize={itemsPerPage}
-                            onChange={(page) => {
-                                handlePageChange(page);
-                            }}
-                        />
-                    </div>
-                    
+                    <Pagination
+                        page={1}
+                        total={totalCount}
+                        pageSize={itemsPerPage}
+                        onChange={(page) => {
+                            handlePageChange(page);
+                        }}
+                        onPaginationChange={(value) => {
+                            handlePaginationChange(value);
+                        }}
+                    />
                 </div>
             </div>
         </Template>

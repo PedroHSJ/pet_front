@@ -4,6 +4,7 @@ import useSchedule from '../../hooks/useSchedule';
 import { Loading } from '../../components/resources/Loading';
 import {
     Avatar,
+    Button,
     Card,
     CardBody,
     CardFooter,
