@@ -11,6 +11,7 @@ import {
     List,
     ListItem,
     ListItemPrefix,
+    Select,
     Typography,
 } from '@material-tailwind/react';
 import { formatPhoneNumber } from '../../utils/format';
@@ -205,20 +206,16 @@ const Professional = () => {
                         )}
                     </div>
 
-                    <div>
+                    <div className="flex flex-col md:flex-row justify-center items-center space-y-2 md:space-y-0 md:space-x-2">
+                        <span className="text-lg font-semibold text-primary">Total {totalCount ? totalCount : 'ERRO'}</span>
                         <select
                             value={itemsPerPage}
                             onChange={(e) => handlePaginationChange(Number(e.target.value))}
+                            className="bg-white border-2 border-primary focus:border-primary_hover rounded-md shadow-md px-4 py-2 text-sm font-medium text-gray-700 focus:outline-none focus:ring-2 transition duration-150 ease-in-out"
                         >
-                            <option value="10">10 por página</option>
-                            <option value="15">15 por página</option>
+                            <option value="10">10</option>
+                            <option value="15">15</option>
                         </select>
-                        <br />
-                        <span>ItemsPerPage {itemsPerPage} </span>
-                        <br />
-                        <span>TotalCount {totalCount}</span>
-                    
-
                         <Pagination
                             page={1}
                             total={totalCount}
