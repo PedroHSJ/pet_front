@@ -119,13 +119,13 @@ export function Pagination({
                     >
                         <ArrowLeftIcon strokeWidth={2} className="h-4 w-4" />
                     </IconButton>
-                    <Typography color="gray" className="font-normal">
+                    {/* <Typography color="gray" className="font-normal">
                         Página{' '}
                         <strong className="text-gray-900">{active}</strong> de{' '}
                         <strong className="text-gray-900">
                             {totalPages ? totalPages : '1'}
                         </strong>
-                    </Typography>
+                    </Typography> */}
                     <IconButton
                         size="sm"
                         variant="outlined"
