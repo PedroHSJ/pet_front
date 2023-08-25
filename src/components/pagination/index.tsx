@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { Button, IconButton } from '@material-tailwind/react';
+import { Button, IconButton, Typography } from '@material-tailwind/react';
 import { ArrowRightIcon, ArrowLeftIcon } from '@heroicons/react/24/outline';
 
 interface IPaginationProps {
@@ -43,31 +43,53 @@ export function Pagination({ page, total, pageSize, onChange }: IPaginationProps
         };
         
     return (
-        <div className="flex justify-center items-center py-4  ">
-            <Button
-                variant="text"
-                className="flex items-center gap-2 "
+        // <div className="flex justify-center items-center py-4  ">
+        //     <Button
+        //         variant="text"
+        //         className="flex items-center gap-2 "
+        //         onClick={prev}
+        //         disabled={active === 1}
+        //     >
+        //         <ArrowLeftIcon strokeWidth={2} className="h-4 w-4" /> Anterior
+        //     </Button>
+        //     <div className="flex items-center gap-2">
+        //         {Array.from({ length: totalPages }).map((_, index) => (
+        //             <IconButton {...getItemProps(index + 1)} key={index}>
+        //                 {index + 1}
+        //             </IconButton>
+        //         ))}
+        //     </div>
+        //     <Button
+        //         variant="text"
+        //         className="flex items-center gap-2"
+        //         onClick={next}
+        //         disabled={active === totalPages}
+        //     >
+        //         Próximo
+        //         <ArrowRightIcon strokeWidth={2} className="h-4 w-4" />
+        //     </Button>
+        // </div>
+        <div className="flex items-center gap-8">
+            <IconButton
+                size="sm"
+                variant="outlined"
                 onClick={prev}
                 disabled={active === 1}
             >
-                <ArrowLeftIcon strokeWidth={2} className="h-4 w-4" /> Anterior
-            </Button>
-            <div className="flex items-center gap-2">
-                {Array.from({ length: totalPages }).map((_, index) => (
-                    <IconButton {...getItemProps(index + 1)} key={index}>
-                        {index + 1}
-                    </IconButton>
-                ))}
-            </div>
-            <Button
-                variant="text"
-                className="flex items-center gap-2"
+                <ArrowLeftIcon strokeWidth={2} className="h-4 w-4" />
+            </IconButton>
+            <Typography color="gray" className="font-normal">
+                Page <strong className="text-gray-900">{active}</strong> of{" "}
+                <strong className="text-gray-900">{totalPages}</strong>
+            </Typography>
+            <IconButton
+                size="sm"
+                variant="outlined"
                 onClick={next}
                 disabled={active === totalPages}
             >
-                Próximo
                 <ArrowRightIcon strokeWidth={2} className="h-4 w-4" />
-            </Button>
+            </IconButton>
         </div>
     );
 }
