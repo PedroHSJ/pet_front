@@ -79,8 +79,8 @@ export function Pagination({ page, total, pageSize, onChange }: IPaginationProps
                 <ArrowLeftIcon strokeWidth={2} className="h-4 w-4" />
             </IconButton>
             <Typography color="gray" className="font-normal">
-                Page <strong className="text-gray-900">{active}</strong> of{" "}
-                <strong className="text-gray-900">{totalPages}</strong>
+                Página <strong className="text-gray-900">{active}</strong> de{" "}
+                <strong className="text-gray-900">{totalPages ? totalPages : '1'}</strong>
             </Typography>
             <IconButton
                 size="sm"
