@@ -47,16 +47,7 @@ export const Filter = ({ onSubmit }: IFilterProps) => {
                         defaultValueComponent={tabValue}
                         name="active"
                         control={control}
-                        options={[
-                            {
-                                label: 'Ativo',
-                                value: '1',
-                            },
-                            {
-                                label: 'Inativo',
-                                value: '2',
-                            },
-                        ]}
+                        options={active}
                     />
 
                     <InputComponent

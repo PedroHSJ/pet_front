@@ -35,7 +35,11 @@ const Establishment = () => {
     const navigate = useNavigate();
 
     useEffect(() => {
-        getAllEstablishments();
+        getEstablishmentByParams({
+            params: {
+                active: true,
+            },
+        });
     }, []);
 
     //PAGINAÇÃO

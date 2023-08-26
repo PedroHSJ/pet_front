@@ -1,6 +1,13 @@
 import { useState } from 'react';
-import { IEstablishment, IEstablishmentDTO } from '../interfaces/IEstablishment';
-import { getEstablishmentByParams as getEstablishmentByParamsApi, postEstablishment, getAllEstablishments as getAllEstablishmentsApi } from '../services/api/EstablishmentApi';
+import {
+    IEstablishment,
+    IEstablishmentDTO,
+} from '../interfaces/IEstablishment';
+import {
+    getEstablishmentByParams as getEstablishmentByParamsApi,
+    postEstablishment,
+    getAllEstablishments as getAllEstablishmentsApi,
+} from '../services/api/EstablishmentApi';
 import { handleGetErrorMessage } from '../utils';
 export const useEstablishment = () => {
     const [success, setSuccess] = useState(false);
@@ -25,7 +32,7 @@ export const useEstablishment = () => {
     const getEstablishmentByParams = async ({
         params,
         page,
-    }: IGetByParams<IEstablishment>) => {
+    }: IGetByParams<Partial<IEstablishment>>) => {
         try {
             setLoading(true);
             const { items, totalCount } = await getEstablishmentByParamsApi({

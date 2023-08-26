@@ -1,5 +1,8 @@
 import { api } from '.';
-import { IEstablishment, IEstablishmentDTO } from '../../interfaces/IEstablishment';
+import {
+    IEstablishment,
+    IEstablishmentDTO,
+} from '../../interfaces/IEstablishment';
 import { ApiResponseInterface } from '../../interfaces/IResponse';
 
 const getAllEstablishments = async (): Promise<
@@ -14,11 +17,10 @@ const getAllEstablishments = async (): Promise<
 const getEstablishmentByParams = async ({
     params,
     page,
-}: IGetByParams<IEstablishment>): Promise<
+}: IGetByParams<Partial<IEstablishment>>): Promise<
     ApiResponseInterface<IEstablishment>
 > => {
     //convert string to boolean
-    if (params?.active) params.active = params.active === '1';
     const { data } = await api.get<
         Promise<ApiResponseInterface<IEstablishment>>
     >(`establishment`, { params: { ...params, page } });
@@ -28,10 +30,7 @@ const getEstablishmentByParams = async ({
 const postEstablishment = async (
     estab: IEstablishmentDTO,
 ): Promise<{ id: string }> => {
-    const { data } = await api.post<{ id: string }>(
-        '/estabelecimento',
-        estab,
-    );
+    const { data } = await api.post<{ id: string }>('/estabelecimento', estab);
     return { id: data.id };
 };
 

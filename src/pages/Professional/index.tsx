@@ -16,6 +16,7 @@ import {
 } from '@material-tailwind/react';
 import { formatPhoneNumber } from '../../utils/format';
 import { Filter } from '../../components/filters/establishment';
+import { FilterProfessional } from '../../components/filters/professional';
 
 const Professional = () => {
     const { error, loading, professionals, getAll, totalCount, getByParams } =
@@ -74,11 +75,7 @@ const Professional = () => {
                                     </button>
                                 )}
                             </div>
-                            <Filter
-                                options={{
-                                    name: 'Nome',
-                                    crmv: 'CRMV',
-                                }}
+                            <FilterProfessional
                                 onSubmit={(data) => {
                                     handleFilter(data);
                                 }}
