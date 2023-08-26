@@ -61,6 +61,9 @@ const Establishment = () => {
                             <Button
                                 className="flex items-center gap-3 bg-primary my-2"
                                 size="sm"
+                                onClick={() => {
+                                    navigate('/cadastrarEstabelecimento');
+                                }}
                             >
                                 <AiOutlineShop
                                     strokeWidth={2}

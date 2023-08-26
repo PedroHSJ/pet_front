@@ -61,12 +61,15 @@ const Professional = () => {
     return (
         <Template>
             <MainContainer>
-                <ContainerHeader title="Estabelecimentos">
+                <ContainerHeader title="Profissionais">
                     <>
                         {role === 'ADMIN' && (
                             <Button
                                 className="flex items-center gap-3 h-full bg-primary my-2"
                                 size="sm"
+                                onClick={() => {
+                                    navigate('/cadastrarProfissional');
+                                }}
                             >
                                 <AiOutlineUserAdd
                                     strokeWidth={2}
