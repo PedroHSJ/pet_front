@@ -116,9 +116,15 @@ export function Header() {
 
     const professionalNavItems = [
         {
+            name: 'Dashboard',
+            icon: PresentationChartBarIcon,
+            current: true,
+            href: '/home',
+        },
+        {
             name: 'Agendamentos',
             icon: CalendarIcon,
-            current: true,
+            current: false,
             href: '/agendamentos',
         },
     ];
