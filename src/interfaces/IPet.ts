@@ -9,4 +9,5 @@ export interface IPet extends IBaseInterface {
     breed: IBreed;
     specie: Specie;
     gender: Gender;
+    dateOfBirth: Date;
 }

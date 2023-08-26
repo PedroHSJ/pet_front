@@ -1,9 +1,22 @@
+import { useLocation } from 'react-router';
+import { Template } from '../../components/layouts/Template';
 import { ISchedule } from '../../interfaces/ISchedule';
+import { HeaderMedicalCare } from '../../components/medicalCare/Header';
+import { PacientInfo } from '../../components/medicalCare/PacientInfo';
+import { Textarea } from '@material-tailwind/react';
+import { useState } from 'react';
+import { TreatmentRecord } from '../../components/medicalCare/TreatmentRecord';
 
 export const MedicalCare = () => {
+    const location = useLocation();
+    const schedule = location.state as ISchedule;
+
     return (
-        <>
-            <h1>MedicalCare</h1>
-        </>
+        <Template>
+            <HeaderMedicalCare schedule={schedule} />
+            <PacientInfo schedule={schedule} />
+
+            <TreatmentRecord />
+        </Template>
     );
 };
