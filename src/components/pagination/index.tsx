@@ -103,12 +103,7 @@ export function Pagination({
             <div className="flex flex-row justify-between w-full">
                 <div className="flex flex-col">
                     <Typography color="gray" className="font-normal">
-                        Total{' '}
-                        {total ? (
-                            <strong className="text-gray-900">{total}</strong>
-                        ) : (
-                            'ERRO'
-                        )}
+                        Total <strong className="text-gray-900">{total}</strong>
                     </Typography>
                     <Typography color="gray" className="font-normal">
                         Página{' '}
