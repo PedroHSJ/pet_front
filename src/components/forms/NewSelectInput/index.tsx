@@ -9,6 +9,7 @@ import {
 import { useTheme } from 'styled-components';
 import { Input, Select, Option } from '@material-tailwind/react';
 import { EyeIcon, EyeSlashIcon, HeartIcon } from '@heroicons/react/24/solid';
+import { IOptions } from '../../../interfaces/IOptions';
 
 type variant = 'standard' | 'outlined' | 'static';
 
@@ -20,11 +21,6 @@ interface IInputProps extends InputHTMLAttributes<HTMLInputElement> {
     options: IOptions[];
     defaultValueComponent?: IOptions;
     onValueChange?: (value: string) => void;
-}
-
-interface IOptions {
-    value: string;
-    label: string;
 }
 
 export const SelectComponent = ({

@@ -15,7 +15,7 @@ import {
     Typography,
 } from '@material-tailwind/react';
 import { formatPhoneNumber } from '../../utils/format';
-import { Filter } from '../../components/filter';
+import { Filter } from '../../components/filters/establishment';
 
 const Professional = () => {
     const { error, loading, professionals, getAll, totalCount, getByParams } =

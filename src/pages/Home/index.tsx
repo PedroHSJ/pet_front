@@ -6,7 +6,7 @@ import { Form } from '../../components/forms/Form';
 import { useForm } from 'react-hook-form';
 import { InputComponent } from '../../components/forms/NewInput';
 import { SelectComponent } from '../../components/forms/NewSelectInput';
-import { Filter } from '../../components/filter';
+import { Filter } from '../../components/filters/establishment';
 import { useVerificationCode } from '../../hooks/useVerificationCode';
 import { toast } from 'react-toastify';
 import { Button, Input } from '@material-tailwind/react';

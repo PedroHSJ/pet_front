@@ -101,7 +101,15 @@ export function Pagination({
         // </div>
         <div className="flex items-center gap-5 p-4 bg-background shadow-2xl">
             <div className="flex flex-row justify-between w-full">
-                <div>
+                <div className="flex flex-col">
+                    <Typography color="gray" className="font-normal">
+                        Total{' '}
+                        {total ? (
+                            <strong className="text-gray-900">{total}</strong>
+                        ) : (
+                            'ERRO'
+                        )}
+                    </Typography>
                     <Typography color="gray" className="font-normal">
                         Página{' '}
                         <strong className="text-gray-900">{active}</strong> de{' '}
