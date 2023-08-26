@@ -12,6 +12,7 @@ import { toast } from 'react-toastify';
 import { Button, Input } from '@material-tailwind/react';
 import { compare } from 'bcryptjs';
 import { useBreed } from '../../hooks/useBreed';
+import { RadioHorizontalList } from '../../components/forms/RadioButtons';
 const Home = () => {
     return (
         <>
@@ -23,6 +24,12 @@ const Home = () => {
                                 Dashboard
                             </h1>
                         </div>
+                        <RadioHorizontalList
+                            handleClick={(value) => {
+                                console.log(value);
+                            }}
+                            options={['option 1', 'option 2', 'option 3']}
+                        />
                     </header>
                 </>
             </Template>
