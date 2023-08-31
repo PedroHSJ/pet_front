@@ -6,10 +6,12 @@ import {
     ListItemPrefix,
     Typography,
 } from '@material-tailwind/react';
+import { useEffect } from 'react';
 
 interface IRadioButtonsArrayProps {
     title: string;
     options: string[];
+    name: string;
 }
 interface IRadioButtonsProps {
     list: IRadioButtonsArrayProps[];
@@ -17,49 +19,53 @@ interface IRadioButtonsProps {
 }
 
 export function RadioHorizontalList({ list, handleClick }: IRadioButtonsProps) {
+    useEffect(() => {
+        console.log(list);
+    }, [list]);
+
     return (
-        <Card className="w-full justify-between flex-col items-center p-2">
-            {list.map((item) => {
-                return (
-                    <div className="flex flex-row items-center justify-between w-full">
-                        <Typography variant="small">{item.title}</Typography>
-                        {item.options.map((option) => {
-                            return (
-                                <List className="flex flex-row">
-                                    <ListItem className="p-0">
-                                        <label
-                                            htmlFor="horizontal-list-react"
-                                            className="flex w-full cursor-pointer items-center px-3 py-2"
-                                        >
-                                            <ListItemPrefix className="mr-3">
-                                                <Radio
-                                                    name="horizontal-list"
-                                                    id="horizontal-list-react"
-                                                    ripple={false}
-                                                    className="hover:before:opacity-0"
-                                                    containerProps={{
-                                                        className: 'p-0',
-                                                    }}
-                                                    onChange={() => {
-                                                        handleClick &&
-                                                            handleClick(option);
-                                                    }}
-                                                    // onClick={() => {
-                                                    //     handleClick && handleClick(option);
-                                                    // }}
-                                                />
-                                            </ListItemPrefix>
-                                            <Typography variant="small">
-                                                {option}
-                                            </Typography>
-                                        </label>
-                                    </ListItem>
-                                </List>
-                            );
-                        })}
-                    </div>
-                );
-            })}
+        <Card className="bg-white w-full justify-between flex-col items-center p-2">
+            {list &&
+                list.map((item) => {
+                    return (
+                        <div className="flex flex-col w-full">
+                            <div className="flex-start">
+                                <Typography
+                                    key={item.title}
+                                    variant="lead"
+                                    className="text-primary"
+                                >
+                                    {item.title}
+                                </Typography>
+                            </div>
+
+                            <div className="flex flex-row gap-10 flex-wrap">
+                                {item.options.map((option) => {
+                                    return (
+                                        <Radio
+                                            key={option}
+                                            name={item.name}
+                                            value={option}
+                                            label={
+                                                <Typography
+                                                    variant="small"
+                                                    className="text-primary"
+                                                >
+                                                    {option}
+                                                </Typography>
+                                            }
+                                            onClick={() => {
+                                                if (handleClick) {
+                                                    handleClick(option);
+                                                }
+                                            }}
+                                        />
+                                    );
+                                })}
+                            </div>
+                        </div>
+                    );
+                })}
         </Card>
     );
 }

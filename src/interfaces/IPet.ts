@@ -1,5 +1,5 @@
-import { Gender } from '../enums/Gender';
-import { Specie } from '../enums/Specie';
+import { Gender } from '../enums/gender.enum';
+import { Specie } from '../enums/specie.enum';
 import { IBaseInterface } from './IBaseInterface';
 import { IBreed } from './IBreed';
 
