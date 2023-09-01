@@ -32,14 +32,14 @@ export function RadioHorizontalList({ list, handleClick }: IRadioButtonsProps) {
                             <div className="flex-start">
                                 <Typography
                                     key={item.title}
-                                    variant="lead"
-                                    className="text-primary"
+                                    variant="small"
+                                    className="text-primary uppercase font-bold"
                                 >
                                     {item.title}
                                 </Typography>
                             </div>
 
-                            <div className="flex flex-row gap-10 flex-wrap">
+                            <div className="flex flex-row flex-wrap">
                                 {item.options.map((option) => {
                                     return (
                                         <Radio
@@ -49,7 +49,7 @@ export function RadioHorizontalList({ list, handleClick }: IRadioButtonsProps) {
                                             label={
                                                 <Typography
                                                     variant="small"
-                                                    className="text-primary"
+                                                    className="text-black m-0"
                                                 >
                                                     {option}
                                                 </Typography>

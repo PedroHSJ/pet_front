@@ -3,11 +3,13 @@ import { useState } from 'react';
 import { TitleTreatmentRecord } from '../Title';
 import { SubTitleTreatmentRecord } from '../Subtitle';
 import { RadioHorizontalList } from '../../forms/RadioButtons';
-import { DigestiveSystem } from '../../../enums/digestiveSystem.enum';
-import { UrogenitalSystem } from '../../../enums/urogenitalSystem.enum';
-import { CardioRespiratorySystem } from '../../../enums/cardiorespiratorySystem.enum';
-import { LocomotorSystem } from '../../../enums/locomotorSystem.enum';
-import { NeurologicalSystem } from '../../../enums/neurologicalSystem.enum';
+import { CardioRespiratorySystem } from '../../../enums/anamnese/cardiorespiratorySystem.enum';
+import { DigestiveSystem } from '../../../enums/anamnese/digestiveSystem.enum';
+import { LocomotorSystem } from '../../../enums/anamnese/locomotorSystem.enum';
+import { NeurologicalSystem } from '../../../enums/anamnese/neurologicalSystem.enum';
+import { UrogenitalSystem } from '../../../enums/anamnese/urogenitalSystem.enum';
+import { Portion } from '../../../enums/foods/portion.enum';
+import { NaturalFood } from '../../../enums/foods/naturalFood.enum';
 
 export const TreatmentRecord = () => {
     const [options, setOptions] = useState(['SIM', 'NÃO']);
@@ -110,6 +112,38 @@ export const TreatmentRecord = () => {
                         handleClick={(value) => {
                             console.log(value);
                         }}
+                    />
+                </div>
+
+                <div className="w-full">
+                    <SubTitleTreatmentRecord>
+                        Alimentação
+                    </SubTitleTreatmentRecord>
+                    <RadioHorizontalList
+                        key={2}
+                        list={[
+                            {
+                                name: 'portion',
+                                title: 'Ração',
+                                options: [
+                                    Portion.DRY,
+                                    Portion.LIQUID,
+                                    Portion.SEMILIQUID,
+                                    Portion.SOFT,
+                                    Portion.OTHER,
+                                ],
+                            },
+                            {
+                                name: 'naturalFood',
+                                title: 'Alimento natural',
+                                options: [
+                                    NaturalFood.RAW_WHITH_BONES,
+                                    NaturalFood.RAW_WHITHOUT_BONES,
+                                    NaturalFood.COOKED,
+                                    NaturalFood.NO_NATURAL_FOOD,
+                                ],
+                            },
+                        ]}
                     />
                 </div>
             </div>
