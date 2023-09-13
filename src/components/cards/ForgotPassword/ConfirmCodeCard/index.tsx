@@ -1,6 +1,6 @@
 import { useEffect } from 'react';
 import { useForm } from 'react-hook-form';
-import { useNavigate } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { useComponent } from '../../../../hooks/useComponent';
 import { Button } from '../../../buttons/Button';
@@ -23,13 +23,17 @@ import {
 import { ForgotPasswordSchema } from '../../../../validations/ForgotPasswordSchema';
 import { IForgotPasswordForm } from '../../../../interfaces/IForgotPasswordForm';
 import { InputComponent } from '../../../forms/NewInput';
+import { useVerificationCode } from '../../../../hooks/useVerificationCode';
+import { toast } from 'react-toastify';
+import { compare } from 'bcryptjs';
 
 interface IConfirmCodeCardProps {
     form: IForgotPasswordForm;
 }
 
 const ConfirmCodeCard = ({ form }: IConfirmCodeCardProps) => {
-    const navigation = useNavigate();
+    const location = useLocation();
+    const state = location.state as IForgotPasswordForm;
     const { dialog } = useComponent();
     const {
         control,
@@ -39,8 +43,21 @@ const ConfirmCodeCard = ({ form }: IConfirmCodeCardProps) => {
         resolver: yupResolver(ForgotPasswordSchema),
     });
 
+    const { getVerificationCode, verificationCode, loading } =
+        useVerificationCode();
+
+    useEffect(() => {
+        if (!state) return;
+        getVerificationCode(state.email);
+    }, [state]);
+
     const onSubmit = async (data: { code: string }) => {
-        console.log('Data: ', data);
+        if (!verificationCode)
+            return dialog(errorTitleText, 'Código não encontrado');
+        if (!data.code) return dialog(errorTitleText, 'O código é obrigatório');
+        const isTrue = await compare(data.code, verificationCode);
+        if (!isTrue) return toast.error('Código incorreto, tente novamente');
+        toast.success('Código confirmado com sucesso');
     };
 
     useEffect(() => {
@@ -66,7 +83,11 @@ const ConfirmCodeCard = ({ form }: IConfirmCodeCardProps) => {
                 <ForwardContainer>
                     <ForwardText>Não recebeu o código?</ForwardText>
                     <ForwardButton>
-                        <ForwardButtonLabel>Re-enviar</ForwardButtonLabel>
+                        <ForwardButtonLabel
+                            onClick={() => getVerificationCode(state.email)}
+                        >
+                            Re-enviar
+                        </ForwardButtonLabel>
                     </ForwardButton>
                 </ForwardContainer>
                 <Button

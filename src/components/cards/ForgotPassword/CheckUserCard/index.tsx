@@ -9,25 +9,18 @@ import { CheckUserSchema } from '../../../../validations/CheckUserSchema';
 import LogoPrimary from '../../../../assets/images/LogoPrimary.png';
 import { Container, Logo, Title, Description } from './styles';
 import {
-    errorTitleText,
     requiredFieldsText,
-    successTitleText,
     warningText,
 } from '../../../../constants/messages';
-import { SelectInput } from '../../../forms/SelectInput';
 import { IForgotPasswordForm } from '../../../../interfaces/IForgotPasswordForm';
-import usePassword from '../../../../hooks/usePassword';
 import { InputComponent } from '../../../forms/NewInput';
+import { useProfessional } from '../../../../hooks/useProfessional';
 
 const CheckUserCard = () => {
     const navigation = useNavigate();
     const { dialog } = useComponent();
-    const {
-        recover,
-        loading,
-        error: passwordError,
-        success: passwordSuccess,
-    } = usePassword();
+    const { verifyEmailProfessionalExist, loading } = useProfessional();
+
     const {
         control,
         handleSubmit,
@@ -38,30 +31,10 @@ const CheckUserCard = () => {
     });
 
     const onSubmit = async (data: IForgotPasswordForm) => {
-        recover(data);
+        const exist = await verifyEmailProfessionalExist(data.email);
+        if (!exist) return dialog(warningText, 'Email não encontrado');
+        navigation('/confirmCode', { state: getValues() });
     };
-
-    useEffect(() => {
-        if (!passwordSuccess) return;
-        dialog(successTitleText, passwordSuccess, [
-            {
-                text: 'OK',
-                onPress: () =>
-                    navigation('/confirmCode', {
-                        state: {
-                            cpf: getValues('cpf'),
-                            method: getValues('method'),
-                        },
-                    }),
-                styleButton: 'primary',
-            },
-        ]);
-    }, [passwordSuccess]);
-
-    useEffect(() => {
-        if (!passwordError) return;
-        dialog(errorTitleText, passwordError);
-    }, [passwordError]);
 
     useEffect(() => {
         if (!Object.keys(errors).length) return;
@@ -71,38 +44,20 @@ const CheckUserCard = () => {
     return (
         <Container>
             <Logo src={LogoPrimary} />
-            <Title>Informe seu CPF para recuperação de senha</Title>
+            <Title>Informe seu email para recuperação de senha</Title>
             <Description>
-                Será enviado um código de autenticação por Email ou SMS
+                Será enviado um código de autenticação por Email
             </Description>
             <Form onSubmit={handleSubmit(onSubmit)}>
                 <InputComponent
                     control={control}
-                    name="cpf"
-                    placeholder="CPF"
-                    label="Digite o CPF"
+                    name="email"
+                    placeholder="Email"
+                    label="Digite o email"
                     type="text"
-                    error={errors.cpf?.message}
+                    error={errors.email?.message}
                 />
-                <SelectInput
-                    label="Tipo de comunicação"
-                    name="method"
-                    control={control}
-                    options={[
-                        {
-                            key: 'Email',
-                            label: 'Email',
-                        },
-                        {
-                            key: 'SMS',
-                            label: 'SMS',
-                        },
-                        /* {
-							key: 'WhatsApp', label: 'Whatsapp'
-						} */
-                    ]}
-                    error={errors.method?.message}
-                />
+
                 <Button type="submit" loading={loading} style={'primary'}>
                     Enviar
                 </Button>

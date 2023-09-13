@@ -6,7 +6,7 @@ import { Form } from '../../../forms/Form';
 import { Button } from '../../../buttons/Button';
 import { useComponent } from '../../../../hooks/useComponent';
 import { IChoseRole } from '../../../../interfaces/IRegisterForm';
-import LogoPrimary from '../../../../assets/images/pet_logo.png';
+import LogoPrimary from '../../../../assets/images/LogoPrimary.png';
 import { Container, Title, LogoImage } from './styles';
 
 import {

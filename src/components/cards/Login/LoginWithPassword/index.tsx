@@ -6,7 +6,7 @@ import { useComponent } from '../../../../hooks/useComponent';
 import { Container, Logo, ViewTerms } from '../styles';
 import { Form } from '../../../forms/Form';
 import { Button } from '../../../buttons/Button';
-import LogoVerticalPrimary from '../../../../assets/images/pet_logo.png';
+import LogoVerticalPrimary from '../../../../assets/images/LogoPrimary.png';
 import { ILoginFormWithPassword } from '../../../../interfaces/ILoginForm';
 import { LoginSchemaWithPassword } from '../../../../validations/LoginSchema';
 import {

@@ -2,7 +2,7 @@ import { Typography } from '@material-tailwind/react';
 import { ISchedule } from '../../../interfaces/ISchedule';
 import { formatDate, formatPhoneNumber } from '../../../utils/format';
 import { AiFillMail, AiOutlineMail } from 'react-icons/ai';
-import Logo from '../../../assets/images/pet_logo.png';
+import Logo from '../../../assets/images/LogoPrimary.png';
 import { BsPhone, BsPhoneFill, BsWhatsapp } from 'react-icons/bs';
 interface IHeaderProps {
     schedule: ISchedule;

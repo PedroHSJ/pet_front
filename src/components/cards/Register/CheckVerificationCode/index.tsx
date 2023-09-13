@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import { Form } from '../../../forms/Form';
-import LogoPrimary from '../../../../assets/images/pet_logo.png';
+import LogoPrimary from '../../../../assets/images/LogoPrimary.png';
 
 import { useVerificationCode } from '../../../../hooks/useVerificationCode';
 import { toast } from 'react-toastify';

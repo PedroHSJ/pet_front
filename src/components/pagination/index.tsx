@@ -99,7 +99,7 @@ export function Pagination({
         //         </IconButton>
         //     </div>
         // </div>
-        <div className="flex items-center gap-5 p-4 bg-background shadow-2xl">
+        <div className="flex items-center gap-5 p-4 bg-background rounded-lg">
             <div className="flex flex-row justify-between w-full">
                 <div className="flex flex-col">
                     <Typography color="gray" className="font-normal">

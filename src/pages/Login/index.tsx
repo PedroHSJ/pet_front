@@ -7,11 +7,11 @@ const Login = () => {
         <Container>
             <LoginCard />
             <LinksContainer>
-                {/* <LinkButton
+                <LinkButton
                     type="button"
                     path="checkUser"
                     label="Esqueci senha"
-                /> */}
+                />
                 <LinkButton
                     type="button"
                     path="checkRegister"
