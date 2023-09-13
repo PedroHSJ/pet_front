@@ -16,7 +16,6 @@ import {
     Typography,
 } from '@material-tailwind/react';
 import { formatPhoneNumber } from '../../utils/format';
-import { Filter } from '../../components/filters/establishment';
 import { FilterProfessional } from '../../components/filters/professional';
 import { AiOutlineShop, AiOutlineUserAdd } from 'react-icons/ai';
 import { MainContainer } from '../../components/MainContainer';
@@ -80,9 +79,9 @@ const Professional = () => {
                         )}
                     </>
                 </ContainerHeader>
-                <Filter
+                <FilterProfessional
                     onSubmit={(data) => {
-                        getEstablishmentByParams({ params: data });
+                        handleFilter(data);
                     }}
                 />
                 {loading && (

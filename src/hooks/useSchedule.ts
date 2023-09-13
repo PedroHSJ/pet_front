@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import ScheduleApi from '../services/api/ScheduleApi';
-import { ISchedule } from '../interfaces/ISchedule';
+import { ISchedule, IScheduleGetByParams } from '../interfaces/ISchedule';
+import { handleGetErrorMessage } from '../utils';
 
 const useSchedule = () => {
     const [loading, setLoading] = useState(false);
@@ -21,8 +22,22 @@ const useSchedule = () => {
         }
     };
 
+    const getSchedulesByParams = async (params: IScheduleGetByParams) => {
+        try {
+            setLoading(true);
+            setError('');
+            const { items } = await ScheduleApi.getByParams(params);
+            setSchedules(items);
+        } catch (error) {
+            setError(handleGetErrorMessage(error));
+        } finally {
+            setLoading(false);
+        }
+    };
+
     return {
         getSchedules,
+        getSchedulesByParams,
         loading,
         error,
         schedules,

@@ -13,3 +13,8 @@ export interface ISchedule extends IBaseInterface {
     pet: IPet;
     cancellationStatus?: string;
 }
+
+export interface IScheduleGetByParams {
+    day?: string;
+    professionalId?: string;
+}

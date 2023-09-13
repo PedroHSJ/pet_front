@@ -18,18 +18,19 @@ import { formatDate } from '../../utils/format';
 import { useNavigate } from 'react-router-dom';
 import { ScheduleTable } from '../../components/scheduleTable';
 import { Pagination } from '../../components/pagination';
+import { useAuth } from '../../hooks/auth';
 
 export const Schedule = () => {
-    const { getSchedules, schedules, loading } = useSchedule();
+    const { getSchedulesByParams, schedules, loading } = useSchedule();
     const [itemsPerPage, setItemsPerPage] = useState(10);
     const navigate = useNavigate();
-    useEffect(() => {
-        getSchedules();
-    }, []);
+    const { professional } = useAuth();
 
     useEffect(() => {
-        console.log(schedules);
-    }, [schedules]);
+        if (!professional) return;
+        console.log('professional', professional);
+        getSchedulesByParams({ professionalId: professional.id });
+    }, [professional]);
 
     const handlePageChange = (page: any) => {
         //TODO - implementar paginação
@@ -57,7 +58,7 @@ export const Schedule = () => {
     return (
         <>
             <Template>
-                <div className="bg-white shadow">
+                <div className="bg-white shadow h-screen">
                     <div className="mx-auto max-w-7xl px-4 py-6 sm:px-6 lg:px-8">
                         <div className="flex-col">
                             <div className="flex flex-row justify-between">
@@ -82,25 +83,43 @@ export const Schedule = () => {
                                 </span>
                             </div>
                         )}
-                        {!loading && (
-                            <ScheduleTable
-                                schedules={schedules}
-                                tableHead={TABLE_HEAD}
-                                key={1}
-                            />
+                        {!loading && schedules.length > 0 && (
+                            <>
+                                <ScheduleTable
+                                    schedules={schedules}
+                                    tableHead={TABLE_HEAD}
+                                    key={1}
+                                />
+                                <Pagination
+                                    page={1}
+                                    total={schedules.length}
+                                    pageSize={itemsPerPage}
+                                    onChange={(page) => {
+                                        handlePageChange(page);
+                                    }}
+                                    onPaginationChange={(value) => {
+                                        handlePaginationChange(value);
+                                    }}
+                                />
+                            </>
+                        )}
+                        {!loading && schedules.length === 0 && (
+                            <div
+                                className="
+                              flex 
+                              items-center 
+                              justify-center 
+                              h-full
+                              flex-col
+                              mt-16
+                              "
+                            >
+                                <span className="text-xl font-bold tracking-tight text-gray-900">
+                                    Nenhum agendamento encontrado
+                                </span>
+                            </div>
                         )}
                     </div>
-                    <Pagination
-                        page={1}
-                        total={schedules.length}
-                        pageSize={itemsPerPage}
-                        onChange={(page) => {
-                            handlePageChange(page);
-                        }}
-                        onPaginationChange={(value) => {
-                            handlePaginationChange(value);
-                        }}
-                    />
                 </div>
             </Template>
         </>
