@@ -11,19 +11,36 @@ import { useEffect } from 'react';
 import { useComponent } from '../../../hooks/useComponent';
 import { toast } from 'react-toastify';
 import { useNavigate } from 'react-router';
+import { Switch } from '@material-tailwind/react';
+import { SelectComponent } from '../../../components/forms/NewSelectInput';
+import { SwitchComponent } from '../../../components/forms/SwitchComponent';
 
 export const NewProfessional = () => {
     const {
         control,
         handleSubmit,
         formState: { errors },
+        getValues,
     } = useForm<IProfessionalDTO>({
         resolver: yupResolver(ProfessionalSchema),
     });
     const navigate = useNavigate();
     const { createProfessional, error, loading, success } = useProfessional();
     const { dialog } = useComponent();
-    const onSubmit = async (data: IProfessionalDTO) => {
+
+    const verifyPassword = (value: string) => {
+        const password = getValues('password');
+        if (password !== value) {
+            return false;
+        }
+        return true;
+    };
+    const onSubmit = async (data: any) => {
+        if (!verifyPassword(data.confirmPassword)) {
+            toast.error('As senhas não conferem!');
+            return;
+        }
+
         createProfessional(data);
     };
 
@@ -41,6 +58,10 @@ export const NewProfessional = () => {
         }
         return;
     }, [error]);
+
+    useEffect(() => {
+        console.log(errors);
+    }, [errors]);
 
     return (
         <Template>
@@ -83,11 +104,24 @@ export const NewProfessional = () => {
                             error={errors.email?.message}
                             type="email"
                         />
+                        <SwitchComponent
+                            control={control}
+                            name="active"
+                            error={errors.active?.message}
+                        />
+
                         <InputComponent
                             control={control}
                             name="password"
                             label="Senha"
                             error={errors.password?.message}
+                            type="password"
+                        />
+                        <InputComponent
+                            control={control}
+                            name="confirmPassword"
+                            label="Confirmar Senha"
+                            error={errors.confirmPassword?.message}
                             type="password"
                         />
                         <Button loading={loading} style="primary" type="submit">
