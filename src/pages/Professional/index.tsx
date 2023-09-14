@@ -12,6 +12,7 @@ import {
     List,
     ListItem,
     ListItemPrefix,
+    ListItemSuffix,
     Select,
     Typography,
 } from '@material-tailwind/react';
@@ -118,6 +119,7 @@ const Professional = () => {
                                             src="https://avatars.githubusercontent.com/u/60005589?v=4"
                                         />
                                     </ListItemPrefix>
+
                                     <div>
                                         <Typography
                                             variant="h6"
@@ -142,6 +144,43 @@ const Professional = () => {
                                             )}
                                         </Typography>
                                     </div>
+                                    <ListItemSuffix>
+                                        {professional.active && (
+                                            <span
+                                                className="
+                                                      inline-flex
+                                                      items-center
+                                                      px-2.5
+                                                      py-0.5
+                                                      rounded-full
+                                                      text-xs
+                                                      font-medium
+                                                      bg-green-100
+                                                      text-green-800
+                                                      "
+                                            >
+                                                Ativo
+                                            </span>
+                                        )}
+
+                                        {!professional.active && (
+                                            <span
+                                                className="
+                                                         inline-flex
+                                                         items-center
+                                                         px-2.5
+                                                         py-0.5
+                                                         rounded-full
+                                                         text-xs
+                                                         font-medium
+                                                         bg-red-100
+                                                         text-red-800
+                                                         "
+                                            >
+                                                Inativo
+                                            </span>
+                                        )}
+                                    </ListItemSuffix>
                                 </ListItem>
                             );
                         })}

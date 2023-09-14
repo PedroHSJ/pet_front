@@ -8,6 +8,7 @@ export interface IProfessional extends IBaseInterface {
     crmv: string;
     phone?: string;
     role: IRole;
+    active: boolean;
 }
 
 export interface IProfessionalDTO {
@@ -16,6 +17,7 @@ export interface IProfessionalDTO {
     password: string;
     crmv: string;
     phone: string;
+    active: boolean;
 }
 
 export interface IProfessionalGetByParams {
@@ -23,4 +25,5 @@ export interface IProfessionalGetByParams {
     email?: string;
     crmv?: string;
     phone?: string;
+    active?: boolean;
 }

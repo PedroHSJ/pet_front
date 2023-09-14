@@ -79,24 +79,24 @@ export function Header() {
             current: false,
             href: '/profissionais',
         },
-        {
-            name: 'Clientes',
-            icon: InboxIcon,
-            current: false,
-            href: '/clientes',
-        },
-        {
-            name: 'Estabelecimentos',
-            icon: ShoppingBagIcon,
-            current: false,
-            href: '/estabelecimentos',
-        },
-        {
-            name: 'Configurações',
-            icon: Cog6ToothIcon,
-            current: false,
-            href: '/configuracoes',
-        },
+        // {
+        //     name: 'Clientes',
+        //     icon: InboxIcon,
+        //     current: false,
+        //     href: '/clientes',
+        // },
+        // {
+        //     name: 'Estabelecimentos',
+        //     icon: ShoppingBagIcon,
+        //     current: false,
+        //     href: '/estabelecimentos',
+        // },
+        // {
+        //     name: 'Configurações',
+        //     icon: Cog6ToothIcon,
+        //     current: false,
+        //     href: '/configuracoes',
+        // },
     ];
 
     const commomItems = [
