@@ -43,12 +43,12 @@ const ConfirmCodeCard = ({ form }: IConfirmCodeCardProps) => {
         resolver: yupResolver(ForgotPasswordSchema),
     });
 
-    const { getVerificationCode, verificationCode, loading } =
+    const { postVerificationCode, verificationCode, loading } =
         useVerificationCode();
 
     useEffect(() => {
         if (!state) return;
-        getVerificationCode(state.email);
+        postVerificationCode(state.email);
     }, [state]);
 
     const onSubmit = async (data: { code: string }) => {

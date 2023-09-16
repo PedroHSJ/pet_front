@@ -33,6 +33,7 @@ const CheckUserCard = () => {
     const onSubmit = async (data: IForgotPasswordForm) => {
         const exist = await verifyEmailProfessionalExist(data.email);
         if (!exist) return dialog(warningText, 'Email não encontrado');
+
         navigation('/confirmCode', { state: getValues() });
     };
 
@@ -46,7 +47,7 @@ const CheckUserCard = () => {
             <Logo src={LogoPrimary} />
             <Title>Informe seu email para recuperação de senha</Title>
             <Description>
-                Será enviado um código de autenticação por Email
+                Será enviado um código de autenticação por email
             </Description>
             <Form onSubmit={handleSubmit(onSubmit)}>
                 <InputComponent

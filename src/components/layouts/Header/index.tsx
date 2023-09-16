@@ -85,12 +85,12 @@ export function Header() {
         //     current: false,
         //     href: '/clientes',
         // },
-        // {
-        //     name: 'Estabelecimentos',
-        //     icon: ShoppingBagIcon,
-        //     current: false,
-        //     href: '/estabelecimentos',
-        // },
+        {
+            name: 'Estabelecimentos',
+            icon: ShoppingBagIcon,
+            current: false,
+            href: '/estabelecimentos',
+        },
         // {
         //     name: 'Configurações',
         //     icon: Cog6ToothIcon,

@@ -1,5 +1,8 @@
 import { useState } from 'react';
-import { getVerificationCode as getVerificationCodeAPI } from '../services/api/VerificationCodeApi';
+import {
+    getVerificationCode as getVerificationCodeAPI,
+    getAndSaveVerificationCode,
+} from '../services/api/VerificationCodeApi';
 import { handleGetErrorMessage } from '../utils';
 
 export const useVerificationCode = () => {
@@ -20,8 +23,22 @@ export const useVerificationCode = () => {
         }
     };
 
+    const postVerificationCode = async (email: string): Promise<void> => {
+        try {
+            setLoading(true);
+            setError('');
+            const code = await getAndSaveVerificationCode(email);
+            setVerificationCode(code);
+        } catch (error) {
+            setError(handleGetErrorMessage(error));
+        } finally {
+            setLoading(false);
+        }
+    };
+
     return {
         getVerificationCode,
+        postVerificationCode,
         verificationCode,
         loading,
         error,
