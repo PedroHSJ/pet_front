@@ -66,7 +66,7 @@ export const EditProfessional = () => {
     useEffect(() => {
         if (!professional) return;
         setValue('name', professional.name);
-        setValue('phone', professional.phone);
+        setValue('phone', professional.phone ? professional.phone : '');
         setValue('email', professional.email);
         setValue('active', professional.active);
         setValue('crmv', professional.crmv);
