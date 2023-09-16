@@ -11,6 +11,7 @@ import { NewProfessional } from '../pages/Professional/NewProfessional';
 import { NewEstablishment } from '../pages/Establishment/NewEstablishment';
 import { Schedule } from '../pages/Schedule';
 import { MedicalCare } from '../pages/MedicalCare';
+import { EditProfessional } from '../pages/Professional/EditProfessional';
 
 export const AuthRoutes = createBrowserRouter([
     {
@@ -28,6 +29,10 @@ export const AuthRoutes = createBrowserRouter([
     {
         path: '/cadastrarProfissional',
         element: <NewProfessional />,
+    },
+    {
+        path: '/editarProfissional',
+        element: <EditProfessional />,
     },
     {
         path: '/estabelecimentos',

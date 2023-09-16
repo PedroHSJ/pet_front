@@ -46,6 +46,7 @@ const Professional = () => {
 
     const handleProfessionalClick = (row: IProfessional) => {
         console.log(row);
+        navigate(`/editarProfissional`, { state: row });
     };
 
     //PAGINAÇÃO

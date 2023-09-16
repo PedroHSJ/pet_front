@@ -51,10 +51,22 @@ const postProfessional = async (
     return { id: data.id };
 };
 
+const putProfessional = async (
+    id: string,
+    professional: IProfessionalDTO,
+): Promise<{ id: string }> => {
+    const { data } = await api.put<{ id: string }>(
+        `/professional/${id}`,
+        professional,
+    );
+    return { id: data.id };
+};
+
 export {
     getAllProfessionals,
     postProfessional,
     getProfessionalById,
     getProfessinalByParams,
     verifyEmailProfessional,
+    putProfessional,
 };

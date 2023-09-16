@@ -35,7 +35,7 @@ export const NewProfessional = () => {
         }
         return true;
     };
-    const onSubmit = async (data: any) => {
+    const onSubmit = async (data: IProfessionalDTO) => {
         if (!verifyPassword(data.confirmPassword)) {
             toast.error('As senhas não conferem!');
             return;

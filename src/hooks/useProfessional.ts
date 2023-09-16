@@ -3,9 +3,14 @@ import {
     getAllProfessionals,
     getProfessinalByParams,
     postProfessional,
+    putProfessional,
     verifyEmailProfessional,
 } from '../services/api/ProfissionalApi';
-import { IProfessional, IProfessionalDTO, IProfessionalGetByParams } from '../interfaces/IProfessional';
+import {
+    IProfessional,
+    IProfessionalDTO,
+    IProfessionalGetByParams,
+} from '../interfaces/IProfessional';
 import { handleGetErrorMessage } from '../utils';
 
 export const useProfessional = () => {
@@ -78,6 +83,24 @@ export const useProfessional = () => {
         }
     };
 
+    const updateProfessional = async (
+        id: string,
+        professional: IProfessionalDTO,
+    ) => {
+        try {
+            setSuccess(false);
+            setError('');
+            setLoading(true);
+            await putProfessional(id, professional);
+            setSuccess(true);
+        } catch (error) {
+            setSuccess(false);
+            setError(handleGetErrorMessage(error));
+        } finally {
+            setLoading(false);
+        }
+    };
+
     return {
         loading,
         professionals,
@@ -88,5 +111,6 @@ export const useProfessional = () => {
         getByParams,
         createProfessional,
         verifyEmailProfessionalExist,
+        updateProfessional,
     };
 };
