@@ -13,19 +13,107 @@ import { Button, Input } from '@material-tailwind/react';
 import { compare } from 'bcryptjs';
 import { useBreed } from '../../hooks/useBreed';
 import { RadioHorizontalList } from '../../components/forms/RadioButtons';
+import Chart from 'react-apexcharts';
+import { useProfessional } from '../../hooks/useProfessional';
+import { useEstablishment } from '../../hooks/useEstablishment';
+import { Typography } from '@material-tailwind/react';
+import { MainContainer } from '../../components/MainContainer';
+import { ContainerHeader } from '../../components/containerHeader';
+import { useClient } from '../../hooks/useClient';
+
 const Home = () => {
+    const {
+        getAll,
+        totalCount: totalCountProf,
+        professionals,
+    } = useProfessional();
+    const { getAllEstablishments, totalCount: totalCountEstab } =
+        useEstablishment();
+    const { getAll: getAllClients, clients } = useClient();
+
+    useEffect(() => {
+        getAll();
+        getAllEstablishments();
+        getAllClients();
+    }, []);
+
+    const optionsGeneral = {
+        chart: {
+            id: 'basic-bar',
+        },
+        xaxis: {
+            categories: [''],
+        },
+        plotOptions: {
+            bar: {
+                borderRadius: 4,
+                horizontal: true,
+            },
+        },
+    };
+
+    const seriesGeneral = [
+        {
+            name: 'Profissionais',
+            data: [totalCountProf],
+        },
+        {
+            name: 'Estabelecimentos',
+            data: [totalCountEstab],
+        },
+        {
+            name: 'Clientes',
+            data: [clients.length],
+        },
+    ];
+
+    const optionsProfessionalGender = {
+        chart: {
+            id: 'basic-pie',
+        },
+        labels: ['Masculino', 'Feminino'],
+        //CHOOSING COLORS
+        colors: ['#247BA0', '#FF165D'],
+    };
+
+    const seriesProfessionalGender = [
+        professionals.filter((prof) => prof.gender === 'MASCULINO').length,
+        professionals.filter((prof) => prof.gender === 'FEMININO').length,
+    ];
+
     return (
         <>
             <Template>
-                <>
-                    <header className="bg-white shadow my-8">
-                        <div className="mx-auto max-w-7xl px-4 py-6 sm:px-6 lg:px-8">
-                            <h1 className="text-3xl font-bold tracking-tight text-gray-900">
-                                Dashboard
-                            </h1>
-                        </div>
-                    </header>
-                </>
+                <MainContainer>
+                    <ContainerHeader title="Dashboard" />
+                    <div className="mx-auto max-w-7xl px-4 py-6 sm:px-6 lg:px-8 ">
+                        <Typography variant="h5">
+                            Quantidade de profissionais, estabelecimentos e
+                            clientes cadastrados
+                        </Typography>
+
+                        <Chart
+                            options={optionsGeneral}
+                            series={seriesGeneral}
+                            type="bar"
+                            width="100%"
+                            height="500"
+                        />
+
+                        {/* QUANTIDADE DE PROFISSIONAIS POR SEXO */}
+                        <Typography variant="h5">
+                            Quantidade de profissionais por sexo
+                        </Typography>
+
+                        <Chart
+                            type="pie"
+                            width="100%"
+                            height="500"
+                            options={optionsProfessionalGender}
+                            series={seriesProfessionalGender}
+                        />
+                    </div>
+                </MainContainer>
             </Template>
         </>
     );

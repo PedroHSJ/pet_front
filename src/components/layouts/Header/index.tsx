@@ -185,7 +185,7 @@ export function Header() {
                 >
                     <div className="mb-2 p-4">
                         <Typography variant="h5" color="white">
-                            Pet Api
+                            Pet Care
                         </Typography>
                     </div>
                     <List>
@@ -241,7 +241,7 @@ export function Header() {
                             variant="h6"
                             className="mr-4 cursor-pointer py-1.5"
                         >
-                            Pet API
+                            Pet Care
                         </Typography>
 
                         <IconButton
