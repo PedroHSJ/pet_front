@@ -23,31 +23,31 @@ export const NewEstablishment = () => {
         watch,
         formState: { errors },
     } = useForm<IEstablishmentDTO>({
-        resolver: yupResolver(EstablishmentSchema)
+        resolver: yupResolver(EstablishmentSchema),
     });
     const navigate = useNavigate();
-    const { createEstablishment, success, loading, error} = useEstablishment();
-    const { getCep, cep, error: errorCep, loading: loadingCep  } = useCep();
+    const { createEstablishment, success, loading, error } = useEstablishment();
+    const { getCep, cep, error: errorCep, loading: loadingCep } = useCep();
     const { dialog } = useComponent();
 
-    const inputCep = watch("address.postalCode");
+    const inputCep = watch('address.postalCode');
 
     const onSubmit = async (data: IEstablishmentDTO) => {
         createEstablishment(data);
     };
 
     useEffect(() => {
-		if (!inputCep) return;
-		getCep(inputCep);
-	}, [inputCep]);
+        if (!inputCep) return;
+        getCep(inputCep);
+    }, [inputCep]);
 
     useEffect(() => {
-		if (!cep) return;
-		setValue('address.state', cep.state);
-		setValue('address.city', cep?.city);
-		setValue('address.neighborhood', cep.neighborhood);
-		setValue('address.street', cep.street);
-	}, [cep]);
+        if (!cep) return;
+        setValue('address.state', cep.state);
+        setValue('address.city', cep?.city);
+        setValue('address.neighborhood', cep.neighborhood);
+        setValue('address.street', cep.street);
+    }, [cep]);
 
     useEffect(() => {
         if (success) {
@@ -85,21 +85,22 @@ export const NewEstablishment = () => {
                         <InputComponent
                             control={control}
                             name="name"
-                            label="Digite o Nome"
+                            label="Nome fantasia"
                             error={errors.name?.message}
-                            type="text"
-                        />
-                         <InputComponent
-                            control={control}
-                            name="cnpj"
-                            label="Digite o CNPJ"
-                            error={errors.cnpj?.message}
                             type="text"
                         />
                         <InputComponent
                             control={control}
+                            name="cnpj"
+                            label="CNPJ"
+                            error={errors.cnpj?.message}
+                            type="text"
+                            mask="cnpj"
+                        />
+                        <InputComponent
+                            control={control}
                             name="address.postalCode"
-                            label="Digite o CEP"
+                            label="CEP"
                             error={errors.address?.postalCode?.message}
                             type="text"
                         />
@@ -113,39 +114,39 @@ export const NewEstablishment = () => {
                         <InputComponent
                             control={control}
                             name="address.city"
-                            label="Digite a cidade"
+                            label="Cidade"
                             error={errors.address?.city?.message}
                             type="text"
                         />
                         <InputComponent
                             control={control}
                             name="address.neighborhood"
-                            label="Digite o bairro"
+                            label="Bairro"
                             error={errors.address?.neighborhood?.message}
                             type="text"
                         />
                         <InputComponent
                             control={control}
                             name="address.street"
-                            label="Digite a rua"
+                            label="Rua"
                             error={errors.address?.street?.message}
                             type="text"
                         />
                         <InputComponent
                             control={control}
                             name="address.number"
-                            label="Digite o número"
+                            label="Número"
                             error={errors.address?.number?.message}
                             type="text"
                         />
                         <InputComponent
                             control={control}
                             name="address.complement"
-                            label="Digite o complemento"
+                            label="Complemento"
                             error={errors.address?.complement?.message}
                             type="text"
                         />
-                        
+
                         <Button loading={loading} style="primary" type="submit">
                             Cadastrar
                         </Button>
