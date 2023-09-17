@@ -27,7 +27,7 @@ const Professional = () => {
     const { error, loading, professionals, getAll, totalCount, getByParams } =
         useProfessional();
 
-    const [itemsPerPage, setItemsPerPage] = useState(10);
+    const [itemsPerPage, setItemsPerPage] = useState(5);
 
     const { role } = useAuth();
     const navigate = useNavigate();
@@ -51,12 +51,8 @@ const Professional = () => {
 
     //PAGINAÇÃO
     const handlePageChange = (page: any) => {
-        getByParams({ page });
-    };
-
-    const handlePaginationChange = (value: number) => {
-        setItemsPerPage(value);
-        getByParams({ page: 1, pageSize: value });
+        console.log(page);
+        getByParams({ page, pageSize: itemsPerPage });
     };
 
     return (
@@ -205,9 +201,6 @@ const Professional = () => {
                     pageSize={itemsPerPage}
                     onChange={(page) => {
                         handlePageChange(page);
-                    }}
-                    onPaginationChange={(value) => {
-                        handlePaginationChange(value);
                     }}
                 />
             </MainContainer>

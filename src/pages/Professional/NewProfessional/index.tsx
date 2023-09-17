@@ -11,12 +11,9 @@ import { useEffect, useState } from 'react';
 import { useComponent } from '../../../hooks/useComponent';
 import { toast } from 'react-toastify';
 import { useNavigate } from 'react-router';
-import { Switch } from '@material-tailwind/react';
 import { SelectComponent } from '../../../components/forms/NewSelectInput';
 import { SwitchComponent } from '../../../components/forms/SwitchComponent';
-import { SelectInput } from '../../../components/forms/SelectInput';
 import { Gender } from '../../../enums/gender.enum';
-import { SwitchGenericComponent } from '../../../components/forms/SwitchGenericComponent';
 
 export const NewProfessional = () => {
     const {

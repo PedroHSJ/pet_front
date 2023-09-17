@@ -8,7 +8,6 @@ interface IPaginationProps {
     total: number;
     pageSize: number;
     onChange: (page: number) => void;
-    onPaginationChange: (pageSize: number) => void;
 }
 
 export function Pagination({
@@ -16,7 +15,6 @@ export function Pagination({
     total,
     pageSize,
     onChange,
-    onPaginationChange,
 }: IPaginationProps) {
     const totalPages = Math.ceil(total / pageSize);
     const [active, setActive] = useState(page);

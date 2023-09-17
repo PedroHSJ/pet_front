@@ -54,7 +54,7 @@ export const FilterProfessional = ({ onSubmit }: IFilterProps) => {
                         className="flex-1"
                         control={control}
                         name="name"
-                        label="nome"
+                        label="Nome"
                         type="text"
                     />
                     <InputComponent

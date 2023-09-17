@@ -30,7 +30,8 @@ const getEstablishmentByParams = async ({
 const postEstablishment = async (
     estab: IEstablishmentDTO,
 ): Promise<{ id: string }> => {
-    const { data } = await api.post<{ id: string }>('/estabelecimento', estab);
+    const { data } = await api.post<{ id: string }>('establishment', estab);
+    console.log(data);
     return { id: data.id };
 };
 

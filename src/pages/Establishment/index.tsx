@@ -22,7 +22,7 @@ import { ContainerHeader } from '../../components/containerHeader';
 import { AiOutlineShop } from 'react-icons/ai';
 
 const Establishment = () => {
-    const [itemsPerPage, setItemsPerPage] = useState(10);
+    const [itemsPerPage, setItemsPerPage] = useState(5);
     const {
         error,
         loading,
@@ -44,12 +44,7 @@ const Establishment = () => {
 
     //PAGINAÇÃO
     const handlePageChange = (page: any) => {
-        getEstablishmentByParams({ page });
-    };
-
-    const handlePaginationChange = (value: number) => {
-        setItemsPerPage(value);
-        getEstablishmentByParams({ page: 1, pageSize: value });
+        getEstablishmentByParams({ page, pageSize: itemsPerPage });
     };
 
     return (
@@ -158,18 +153,15 @@ const Establishment = () => {
                         );
                     })}
                 </List>
+                <Pagination
+                    page={1}
+                    total={totalCount}
+                    pageSize={itemsPerPage}
+                    onChange={(page) => {
+                        handlePageChange(page);
+                    }}
+                />
             </MainContainer>
-            <Pagination
-                page={1}
-                total={totalCount}
-                pageSize={itemsPerPage}
-                onChange={(page) => {
-                    handlePageChange(page);
-                }}
-                onPaginationChange={(value) => {
-                    handlePaginationChange(value);
-                }}
-            />
         </Template>
     );
 };

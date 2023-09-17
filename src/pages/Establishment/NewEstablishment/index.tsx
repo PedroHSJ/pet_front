@@ -14,6 +14,7 @@ import { EstablishmentSchema } from '../../../validations/EstablishmentSchema';
 import { useEstablishment } from '../../../hooks/useEstablishment';
 import { useCep } from '../../../hooks/useCep';
 import { SelectComponent } from '../../../components/forms/NewSelectInput';
+import { SwitchComponent } from '../../../components/forms/SwitchComponent';
 
 export const NewEstablishment = () => {
     const {
@@ -22,9 +23,7 @@ export const NewEstablishment = () => {
         setValue,
         watch,
         formState: { errors },
-    } = useForm<IEstablishmentDTO>({
-        resolver: yupResolver(EstablishmentSchema),
-    });
+    } = useForm<IEstablishmentDTO>();
     const navigate = useNavigate();
     const { createEstablishment, success, loading, error } = useEstablishment();
     const { getCep, cep, error: errorCep, loading: loadingCep } = useCep();
@@ -32,8 +31,9 @@ export const NewEstablishment = () => {
 
     const inputCep = watch('address.postalCode');
 
-    const onSubmit = async (data: IEstablishmentDTO) => {
-        createEstablishment(data);
+    const onSubmit = async (data: any) => {
+        console.log(data);
+        await createEstablishment(data);
     };
 
     useEffect(() => {
@@ -58,10 +58,9 @@ export const NewEstablishment = () => {
     }, [success]);
 
     useEffect(() => {
-        if (error) {
-            toast.error(error);
-        }
-        return;
+        if (!error) return;
+        console.log(error);
+        toast.error(error);
     }, [error]);
 
     useEffect(() => {
@@ -103,6 +102,7 @@ export const NewEstablishment = () => {
                             label="CEP"
                             error={errors.address?.postalCode?.message}
                             type="text"
+                            mask="cep"
                         />
                         <InputComponent
                             control={control}
@@ -145,6 +145,12 @@ export const NewEstablishment = () => {
                             label="Complemento"
                             error={errors.address?.complement?.message}
                             type="text"
+                        />
+
+                        <SwitchComponent
+                            control={control}
+                            name="active"
+                            error={errors.active?.message}
                         />
 
                         <Button loading={loading} style="primary" type="submit">
