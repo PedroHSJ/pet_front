@@ -114,11 +114,22 @@ const Professional = () => {
                                     }
                                 >
                                     <ListItemPrefix>
-                                        <Avatar
-                                            variant="circular"
-                                            alt="candice"
-                                            src="https://avatars.githubusercontent.com/u/60005589?v=4"
-                                        />
+                                        {professional.gender ===
+                                            'MASCULINO' && (
+                                            <Avatar
+                                                variant="circular"
+                                                alt="Avatar"
+                                                src="https://avatars.githubusercontent.com/u/60005589?v=4"
+                                            />
+                                        )}
+                                        {/* AVATAR FEMALE */}
+                                        {professional.gender === 'FEMININO' && (
+                                            <Avatar
+                                                variant="circular"
+                                                alt="Avatar"
+                                                src="https://avatars.githubusercontent.com/u/36752347?v=4"
+                                            />
+                                        )}
                                     </ListItemPrefix>
 
                                     <div>

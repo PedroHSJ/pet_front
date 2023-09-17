@@ -44,7 +44,7 @@ export const InputComponent = ({
     mask,
     ...rest
 }: IInputProps) => {
-    const [viewPass, setViewPass] = useState(true);
+    const [viewPass, setViewPass] = useState(false);
     const [changePassType, setChangePassType] = useState(type);
     const { colors } = useTheme();
     const form = useForm();
@@ -134,7 +134,7 @@ export const InputComponent = ({
                                 <EyeIcon
                                     onClick={() => {
                                         setViewPass(!viewPass);
-                                        setChangePassType('text');
+                                        setChangePassType('password');
                                     }}
                                     className="cursor-pointer"
                                 />
@@ -142,7 +142,7 @@ export const InputComponent = ({
                                 <EyeSlashIcon
                                     onClick={() => {
                                         setViewPass(!viewPass);
-                                        setChangePassType('password');
+                                        setChangePassType('text');
                                     }}
                                     className="cursor-pointer"
                                 />

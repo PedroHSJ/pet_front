@@ -7,13 +7,16 @@ import { yupResolver } from '@hookform/resolvers/yup';
 import { ProfessionalSchema } from '../../../validations/ProfessionalSchema';
 import { InputComponent } from '../../../components/forms/NewInput';
 import { useProfessional } from '../../../hooks/useProfessional';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { useComponent } from '../../../hooks/useComponent';
 import { toast } from 'react-toastify';
 import { useNavigate } from 'react-router';
 import { Switch } from '@material-tailwind/react';
 import { SelectComponent } from '../../../components/forms/NewSelectInput';
 import { SwitchComponent } from '../../../components/forms/SwitchComponent';
+import { SelectInput } from '../../../components/forms/SelectInput';
+import { Gender } from '../../../enums/gender.enum';
+import { SwitchGenericComponent } from '../../../components/forms/SwitchGenericComponent';
 
 export const NewProfessional = () => {
     const {
@@ -27,6 +30,7 @@ export const NewProfessional = () => {
     const navigate = useNavigate();
     const { createProfessional, error, loading, success } = useProfessional();
     const { dialog } = useComponent();
+    const [sex, setSex] = useState(0);
 
     const verifyPassword = (value: string) => {
         const password = getValues('password');
@@ -58,10 +62,6 @@ export const NewProfessional = () => {
         }
         return;
     }, [error]);
-
-    useEffect(() => {
-        console.log(errors);
-    }, [errors]);
 
     return (
         <Template>
@@ -103,6 +103,15 @@ export const NewProfessional = () => {
                             label="Email"
                             error={errors.email?.message}
                             type="email"
+                        />
+                        <SelectComponent
+                            control={control}
+                            label="Sexo"
+                            name="gender"
+                            options={Object.keys(Gender).map((key) => ({
+                                value: Gender[key],
+                                label: Gender[key],
+                            }))}
                         />
                         <SwitchComponent
                             control={control}

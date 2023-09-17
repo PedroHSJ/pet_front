@@ -53,6 +53,7 @@ export const EditProfessional = () => {
             delete data.password;
             delete data.confirmPassword;
         }
+        if (changePassword) delete data.confirmPassword;
 
         updateProfessional(professional.id, data);
     };

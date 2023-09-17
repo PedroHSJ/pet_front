@@ -1,3 +1,4 @@
+import { Gender } from '../enums/gender.enum';
 import { IBaseInterface } from './IBaseInterface';
 import { IRole } from './IRole';
 
@@ -9,6 +10,7 @@ export interface IProfessional extends IBaseInterface {
     phone?: string;
     role: IRole;
     active: boolean;
+    gender: Gender;
 }
 
 export interface IProfessionalDTO {
@@ -19,6 +21,7 @@ export interface IProfessionalDTO {
     crmv: string;
     phone: string;
     active: boolean;
+    gender: Gender;
 }
 
 export interface IProfessionalGetByParams {
@@ -27,4 +30,5 @@ export interface IProfessionalGetByParams {
     crmv?: string;
     phone?: string;
     active?: boolean;
+    gender?: Gender;
 }
