@@ -43,7 +43,7 @@ export const TabComponent = ({
     };
 
     return (
-        <Tabs className="min-w-fit" value={field.value}>
+        <Tabs className="min-w-fit mb-3" value={field.value}>
             <TabsHeader>
                 {options.map(({ label, value }) => (
                     <Tab

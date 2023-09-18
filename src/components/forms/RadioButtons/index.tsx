@@ -24,7 +24,7 @@ export function RadioHorizontalList({ list, handleClick }: IRadioButtonsProps) {
     }, [list]);
 
     return (
-        <Card className="bg-white w-full justify-between flex-col items-center p-2">
+        <Card className="bg-white w-full justify-between flex-col items-center p-2 mb-3">
             {list &&
                 list.map((item) => {
                     return (

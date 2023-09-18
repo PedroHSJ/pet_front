@@ -117,7 +117,7 @@ export const InputComponent = ({
     };
 
     return (
-        <div className="w-full my-2">
+        <div className="w-full mb-3">
             {type === 'password' ? (
                 <>
                     <Input

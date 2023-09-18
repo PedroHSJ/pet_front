@@ -62,7 +62,7 @@ export const SelectComponent = ({
     }, [defaultValueComponent]);
 
     return (
-        <div className="w-full my-2">
+        <div className="w-full mb-3">
             <Select
                 defaultValue={defaultValueComponent?.value}
                 label={label}

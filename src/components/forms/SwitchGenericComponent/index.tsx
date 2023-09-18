@@ -17,7 +17,7 @@ export const SwitchGenericComponent = ({
     };
 
     return (
-        <div>
+        <div className="mb-3">
             <Typography
                 color="gray"
                 style={{ fontSize: '14px', fontWeight: 'bold' }}
