@@ -86,7 +86,7 @@ const Home = () => {
             <Template>
                 <MainContainer>
                     <ContainerHeader title="Dashboard" />
-                    <div className="mx-auto max-w-7xl px-4 py-6 sm:px-6 lg:px-8 ">
+                    <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
                         <Typography variant="h5">
                             Quantidade de profissionais, estabelecimentos e
                             clientes cadastrados
@@ -97,7 +97,7 @@ const Home = () => {
                             series={seriesGeneral}
                             type="bar"
                             width="100%"
-                            height="500"
+                            height="350px"
                         />
 
                         {/* QUANTIDADE DE PROFISSIONAIS POR SEXO */}
@@ -108,7 +108,7 @@ const Home = () => {
                         <Chart
                             type="pie"
                             width="100%"
-                            height="500"
+                            height="350px"
                             options={optionsProfessionalGender}
                             series={seriesProfessionalGender}
                         />
