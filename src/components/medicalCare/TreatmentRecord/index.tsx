@@ -41,7 +41,7 @@ export const TreatmentRecord = () => {
                     }}
                 />
                 <div className="w-full">
-                    <SubTitleTreatmentRecord>Anamense</SubTitleTreatmentRecord>
+                    <SubTitleTreatmentRecord>Anamnese</SubTitleTreatmentRecord>
                     <RadioHorizontalList
                         key={1}
                         list={[
