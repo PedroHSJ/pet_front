@@ -18,10 +18,16 @@ import {
 } from '@material-tailwind/react';
 import { formatPhoneNumber } from '../../utils/format';
 import { FilterProfessional } from '../../components/filters/professional';
-import { AiOutlineShop, AiOutlineUserAdd } from 'react-icons/ai';
+import {
+    AiFillProfile,
+    AiOutlineShop,
+    AiOutlineUserAdd,
+    AiOutlineUserSwitch,
+} from 'react-icons/ai';
 import { MainContainer } from '../../components/MainContainer';
 import { ContainerHeader } from '../../components/containerHeader';
 import { getEstablishmentByParams } from '../../services/api/EstablishmentApi';
+import { UserIcon } from '@heroicons/react/24/solid';
 
 const Professional = () => {
     const { error, loading, professionals, getAll, totalCount, getByParams } =
@@ -110,22 +116,15 @@ const Professional = () => {
                                     }
                                 >
                                     <ListItemPrefix>
-                                        {professional.gender ===
-                                            'MASCULINO' && (
-                                            <Avatar
-                                                variant="circular"
-                                                alt="Avatar"
-                                                src="https://avatars.githubusercontent.com/u/60005589?v=4"
-                                            />
-                                        )}
-                                        {/* AVATAR FEMALE */}
-                                        {professional.gender === 'FEMININO' && (
-                                            <Avatar
-                                                variant="circular"
-                                                alt="Avatar"
-                                                src="https://avatars.githubusercontent.com/u/36752347?v=4"
-                                            />
-                                        )}
+                                        <UserIcon
+                                            strokeWidth={6}
+                                            className={`w-10 text-gray-600 border-2 rounded-full p-1 ${
+                                                professional.gender ===
+                                                'MASCULINO'
+                                                    ? 'border-blue-500'
+                                                    : 'border-pink-300'
+                                            }`}
+                                        />
                                     </ListItemPrefix>
 
                                     <div>
@@ -209,3 +208,13 @@ const Professional = () => {
 };
 
 export default Professional;
+// <Avatar
+//     variant="circular"
+//     alt="Avatar"
+//     src="https://avatars.githubusercontent.com/u/60005589?v=4"
+// // />
+// <Avatar
+//                                                 variant="circular"
+//                                                 alt="Avatar"
+//                                                 src="https://avatars.githubusercontent.com/u/36752347?v=4"
+//                                             />

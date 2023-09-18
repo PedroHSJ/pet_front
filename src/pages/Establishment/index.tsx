@@ -19,7 +19,13 @@ import { useAuth } from '../../hooks/auth';
 import { useNavigate } from 'react-router';
 import { MainContainer } from '../../components/MainContainer';
 import { ContainerHeader } from '../../components/containerHeader';
-import { AiOutlineShop } from 'react-icons/ai';
+import { AiOutlineShop, AiTwotoneShopping } from 'react-icons/ai';
+import {
+    BuildingLibraryIcon,
+    BuildingOffice2Icon,
+    ShoppingBagIcon,
+    ShoppingCartIcon,
+} from '@heroicons/react/24/solid';
 
 const Establishment = () => {
     const [itemsPerPage, setItemsPerPage] = useState(5);
@@ -96,10 +102,14 @@ const Establishment = () => {
                         return (
                             <ListItem key={estab.id} onClick={() => {}}>
                                 <ListItemPrefix>
-                                    <Avatar
+                                    {/* <Avatar
                                         variant="circular"
                                         alt="error"
                                         src={EstablishmentImage}
+                                    /> */}
+                                    <BuildingOffice2Icon
+                                        strokeWidth={2}
+                                        className="w-10 text-gray-600 border-2 rounded-full p-1 border-gray-400"
                                     />
                                 </ListItemPrefix>
 
