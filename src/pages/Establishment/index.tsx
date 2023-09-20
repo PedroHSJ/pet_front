@@ -100,7 +100,14 @@ const Establishment = () => {
                 <List>
                     {establishments.map((estab) => {
                         return (
-                            <ListItem key={estab.id} onClick={() => {}}>
+                            <ListItem
+                                key={estab.id}
+                                onClick={() => {
+                                    navigate(`/editEstablishment`, {
+                                        state: estab,
+                                    });
+                                }}
+                            >
                                 <ListItemPrefix>
                                     {/* <Avatar
                                         variant="circular"
