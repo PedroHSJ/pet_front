@@ -9,6 +9,7 @@ import {
 } from 'react-hook-form';
 import {
     Container,
+    SelectWrapper,
     RemoveValueButton,
     Placeholder,
     Label,
@@ -23,14 +24,15 @@ import {
     TextError,
 } from './styles';
 import { IPicker } from '../../../interfaces/IPicker';
+import { Loading } from '../../resources/Loading';
 
 interface ISelectInputProps {
     label: string;
     name: string;
     control: Control<FieldValue<FieldValues>>;
-    options: IPicker[];
+    options?: IPicker[];
     error?: string;
-    disabled?: boolean;
+    loading?: boolean;
 }
 
 export const SelectInput = ({
@@ -39,20 +41,12 @@ export const SelectInput = ({
     control,
     options,
     error,
-    disabled,
+    loading,
 }: ISelectInputProps): JSX.Element => {
     const [isVisibleOptions, setIsVisibleOptions] = useState(false);
     const { colors } = useTheme();
     const [selectText, setSelectText] = useState('');
-    const { field, fieldState, formState } = useController({ name, control });
-
-    useEffect(() => {
-        options.map((picker) => {
-            if (picker.key == field.value) {
-                setSelectText(picker.label);
-            }
-        });
-    }, [field.value, fieldState]);
+    const { field } = useController({ name, control });
 
     const handleSelect = ({ key, label }: IPicker) => {
         setIsVisibleOptions(false);
@@ -73,31 +67,37 @@ export const SelectInput = ({
     };
 
     useEffect(() => {
-        if (!options || !field.value) return;
+        //alterado o if de !options || !field.value para
+        if (!options || field.value == null || field.value == undefined) return;
         options.map((picker) => {
-            if (picker.label == field.value) setSelectText(picker.label);
+            if (picker.key == field.value) setSelectText(picker.label);
         });
     }, [field]);
 
     return (
         <Container>
-            <Label>{label}</Label>
-            <ButtonSelect
-                type="button"
-                onClick={() => (disabled ? null : setIsVisibleOptions(true))}
-            >
-                {field.value == undefined || selectText == '' ? (
-                    <Placeholder>Selecione...</Placeholder>
-                ) : (
-                    <RemoveValueButton
-                        onClick={(e: any) => (disabled ? null : handleReset(e))}
-                    >
-                        <SelectedValue>{selectText}</SelectedValue>
-                        <AiFillCloseCircle size={15} color={colors?.dark} />
-                    </RemoveValueButton>
-                )}
-                <AiFillCaretDown color={colors?.primary} />
-            </ButtonSelect>
+            <SelectWrapper>
+                <Label>{label}</Label>
+                <ButtonSelect
+                    disabled={loading}
+                    type="button"
+                    onClick={() => setIsVisibleOptions(true)}
+                >
+                    {field.value == undefined || selectText == '' ? (
+                        <Placeholder>Selecione...</Placeholder>
+                    ) : (
+                        <RemoveValueButton onClick={(e: any) => handleReset(e)}>
+                            <SelectedValue>{selectText}</SelectedValue>
+                            <AiFillCloseCircle size={15} color={colors?.dark} />
+                        </RemoveValueButton>
+                    )}
+                    {loading ? (
+                        <Loading color={colors.primary} size={20} />
+                    ) : (
+                        <AiFillCaretDown color={colors?.primary} />
+                    )}
+                </ButtonSelect>
+            </SelectWrapper>
             <TextError>{error}</TextError>
             {isVisibleOptions && (
                 <ModalWithValues onClick={() => setIsVisibleOptions(false)}>
@@ -106,14 +106,15 @@ export const SelectInput = ({
                     >
                         <ModalTitle>{label}</ModalTitle>
                         <ModalDescription>
-                            Selecione um valor dentre os listados abaixo ou
-                            clique fora para cancelar a seleção.
+                            {!options?.length
+                                ? 'Nenhuma opção disponível.'
+                                : 'Selecione um valor dentre os listados abaixo ou clique fora para cancelar a seleção.'}
                         </ModalDescription>
-                        {options.map((option) => {
+                        {options?.map((option) => {
                             return (
                                 <ItemOption
                                     type="button"
-                                    key={option.key}
+                                    key={String(option.key)}
                                     onClick={() => handleSelect(option)}
                                 >
                                     <LabelOption>{option.label}</LabelOption>

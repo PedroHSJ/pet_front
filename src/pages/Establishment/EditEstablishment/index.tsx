@@ -9,6 +9,8 @@ import { Button } from '../../../components/buttons/Button';
 import { IEstablishment } from '../../../interfaces/IEstablishment';
 import { useEffect } from 'react';
 import { useCep } from '../../../hooks/useCep';
+import { SelectComponent } from '../../../components/forms/NewSelectInput';
+import { UF } from '../../../enums/uf.enum';
 
 export const EditEstablishment = () => {
     const navigate = useNavigate();
@@ -17,14 +19,16 @@ export const EditEstablishment = () => {
         handleSubmit,
         formState: { errors },
         setValue,
+        watch,
     } = useForm<any>({});
     const location = useLocation();
     const establishment = location.state as IEstablishment;
     const { getCep, cep } = useCep();
 
+    const cepInput = watch('address.postalCode');
+
     useEffect(() => {
         if (!establishment) return;
-        console.log(establishment);
         setValue('name', establishment.name);
         setValue('address.postalCode', establishment.address.postalCode);
         setValue('address.active', establishment.active);
@@ -37,10 +41,18 @@ export const EditEstablishment = () => {
 
     useEffect(() => {
         if (!cep) return;
+        setValue('address.state', cep.state);
         setValue('address.city', cep.city);
         setValue('address.neighborhood', cep.neighborhood);
         setValue('address.street', cep.street);
     }, [cep]);
+
+    useEffect(() => {
+        if (!cepInput) return;
+        if (cepInput.length < 8) return;
+
+        getCep(cepInput);
+    }, [cepInput]);
 
     return (
         <Template>
@@ -74,12 +86,16 @@ export const EditEstablishment = () => {
                             type="text"
                             mask="cep"
                         />
-                        <InputComponent
+                        <SelectComponent
                             control={control}
                             name="address.state"
                             label="Digite a UF do estado"
                             error={errors.address?.state?.message}
                             type="text"
+                            options={Object.values(UF).map((uf) => ({
+                                key: uf,
+                                label: uf,
+                            }))}
                         />
                         <InputComponent
                             control={control}

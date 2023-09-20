@@ -1,4 +1,4 @@
 export interface IPicker {
-	key: string | number;
-	label: string;
+    key: string;
+    label: string;
 }
