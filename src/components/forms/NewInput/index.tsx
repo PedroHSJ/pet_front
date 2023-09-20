@@ -116,6 +116,11 @@ export const InputComponent = ({
         return value;
     };
 
+    useEffect(() => {
+        if (!field.value) return;
+        handleChangeValue(field.value);
+    }, [field.value]);
+
     return (
         <div className="w-full mb-3">
             {type === 'password' ? (

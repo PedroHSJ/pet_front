@@ -49,8 +49,6 @@ export const SelectComponent = ({
         //alterado o if de !options || !field.value para
         if (!options || field.value == null || field.value == undefined) return;
         options.map((picker) => {
-            console.log(picker);
-            console.log(field.value);
             if (picker.key == field.value) setSelectText(picker.label);
         });
     }, [field]);
