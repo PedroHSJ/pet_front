@@ -53,7 +53,7 @@ export function RadioHorizontalList({
                     <Typography
                         key={title}
                         variant="small"
-                        className="text-primary uppercase font-bold"
+                        className="text-black uppercase font-bold"
                     >
                         {title}
                     </Typography>

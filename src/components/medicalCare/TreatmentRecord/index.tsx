@@ -13,15 +13,31 @@ import { NaturalFood } from '../../../enums/foods/naturalFood.enum';
 import { Form } from '../../forms/Form';
 import { useForm } from 'react-hook-form';
 import { TextAreaComponent } from '../../forms/TextAreaComponent';
+import { ITreatmentRecord } from '../../../interfaces/ITreatmentRecord';
+import { Skin } from '../../../enums/anamnese/skin.enum';
+import { Eyes } from '../../../enums/anamnese/eyes.enum';
+import { Ears } from '../../../enums/anamnese/ears.enum';
+import { Environment } from '../../../enums/anamnese/environment.enum';
+import { useLocation, useNavigate } from 'react-router-dom';
+import { ISchedule } from '../../../interfaces/ISchedule';
+import { MeasurementCondition } from '../../../enums/measurement/measurementCondition.enum';
+import { InputComponent } from '../../forms/NewInput';
 
 export const TreatmentRecord = () => {
+    const location = useLocation();
+    const schedule = location.state as ISchedule;
+    const navigate = useNavigate();
     const [options, setOptions] = useState(['SIM', 'NÃO']);
     const [mainComplaint, setMainComplaint] = useState('');
 
     const { control, handleSubmit } = useForm({});
 
-    const onSubmit = (data: any) => {
-        console.log(data);
+    const onSubmit = (data: ITreatmentRecord) => {
+        const treatmentRecord = {
+            ...data,
+            scheduleId: schedule.id,
+        };
+        console.log(treatmentRecord);
     };
 
     return (
@@ -52,20 +68,14 @@ export const TreatmentRecord = () => {
                         <SubTitleTreatmentRecord>
                             Anamnese
                         </SubTitleTreatmentRecord>
-                        <RadioHorizontalList
-                            key={1}
-                            control={control}
-                            name="previousDiseases"
-                            options={options}
-                            title="Doenças pregressas"
-                        />
+
                         <RadioHorizontalList
                             control={control}
                             title="Sistema Digestório"
                             options={Object.keys(DigestiveSystem).map(
                                 (key) => DigestiveSystem[key as any],
                             )}
-                            name="digestiveSystem"
+                            name="anamnesis.digestiveSystem"
                             key={2}
                         />
                         <RadioHorizontalList
@@ -74,7 +84,7 @@ export const TreatmentRecord = () => {
                             options={Object.keys(UrogenitalSystem).map(
                                 (key) => UrogenitalSystem[key as any],
                             )}
-                            name="urogenitalSystem"
+                            name="anamnesis.urogenitalSystem"
                             key={3}
                         />
                         <RadioHorizontalList
@@ -83,7 +93,7 @@ export const TreatmentRecord = () => {
                             options={Object.keys(CardioRespiratorySystem).map(
                                 (key) => CardioRespiratorySystem[key as any],
                             )}
-                            name="cardioRespiratorySystem"
+                            name="anamnesis.cardioRespiratorySystem"
                             key={4}
                         />
                         <RadioHorizontalList
@@ -92,7 +102,7 @@ export const TreatmentRecord = () => {
                             options={Object.keys(LocomotorSystem).map(
                                 (key) => LocomotorSystem[key as any],
                             )}
-                            name="locomotorSystem"
+                            name="anamnesis.locomotorSystem"
                             key={5}
                         />
 
@@ -102,8 +112,96 @@ export const TreatmentRecord = () => {
                             options={Object.keys(NeurologicalSystem).map(
                                 (key) => NeurologicalSystem[key as any],
                             )}
-                            name="neurologicalSystem"
+                            name="anamnesis.neurologicSystem"
                             key={6}
+                        />
+
+                        <RadioHorizontalList
+                            control={control}
+                            title="Pele"
+                            options={Object.keys(Skin).map(
+                                (key) => Skin[key as any],
+                            )}
+                            name="anamnesis.skin"
+                            key={7}
+                        />
+                        <RadioHorizontalList
+                            control={control}
+                            title="Olhos"
+                            options={Object.keys(Eyes).map(
+                                (key) => Eyes[key as any],
+                            )}
+                            name="anamnesis.eyes"
+                            key={8}
+                        />
+                        <RadioHorizontalList
+                            control={control}
+                            title="Ouvidos"
+                            options={Object.keys(Ears).map(
+                                (key) => Ears[key as any],
+                            )}
+                            name="anamnesis.ears"
+                            key={9}
+                        />
+
+                        <RadioHorizontalList
+                            control={control}
+                            title="Ambiente"
+                            options={Object.keys(Environment).map(
+                                (key) => Environment[key as any],
+                            )}
+                            name="anamnesis.environment"
+                            key={10}
+                        />
+
+                        <RadioHorizontalList
+                            control={control}
+                            title="Hidratação"
+                            options={Object.keys(MeasurementCondition).map(
+                                (key) => MeasurementCondition[key as any],
+                            )}
+                            name="anamnesis.hydration"
+                            key={11}
+                        />
+
+                        <RadioHorizontalList
+                            control={control}
+                            title="Mucosas"
+                            options={Object.keys(MeasurementCondition).map(
+                                (key) => MeasurementCondition[key as any],
+                            )}
+                            name="anamnesis.mucous"
+                            key={12}
+                        />
+
+                        <RadioHorizontalList
+                            control={control}
+                            title="Cavidade Oral"
+                            options={Object.keys(MeasurementCondition).map(
+                                (key) => MeasurementCondition[key as any],
+                            )}
+                            name="anamnesis.oralCavity"
+                            key={13}
+                        />
+
+                        <RadioHorizontalList
+                            control={control}
+                            title="Cavidade Nasal"
+                            options={Object.keys(MeasurementCondition).map(
+                                (key) => MeasurementCondition[key as any],
+                            )}
+                            name="anamnesis.nasalCavity"
+                            key={14}
+                        />
+
+                        <RadioHorizontalList
+                            control={control}
+                            title="Linfonodos"
+                            options={Object.keys(MeasurementCondition).map(
+                                (key) => MeasurementCondition[key as any],
+                            )}
+                            name="anamnesis.lymphNodes"
+                            key={15}
                         />
                     </div>
 
@@ -117,7 +215,7 @@ export const TreatmentRecord = () => {
                             options={Object.keys(NaturalFood).map(
                                 (key) => NaturalFood[key as any],
                             )}
-                            name="naturalFood"
+                            name="food.naturalFood"
                             key={7}
                         />
                         <RadioHorizontalList
@@ -126,10 +224,64 @@ export const TreatmentRecord = () => {
                             options={Object.keys(Portion).map(
                                 (key) => Portion[key as any],
                             )}
-                            name="portion"
+                            name="food.portion"
                             key={8}
                         />
                     </div>
+
+                    <div className="w-full">
+                        <SubTitleTreatmentRecord>
+                            Sinais Vitais
+                        </SubTitleTreatmentRecord>
+
+                        <InputComponent
+                            control={control}
+                            label="Temperatura"
+                            name="measurement.temperature"
+                            type="number"
+                            disabled={false}
+                        />
+
+                        <InputComponent
+                            control={control}
+                            label="Pressão Arterial"
+                            name="measurement.bloodPressure"
+                            type="text"
+                            disabled={false}
+                        />
+
+                        <InputComponent
+                            control={control}
+                            label="Frequência Cardíaca"
+                            name="measurement.heartRate"
+                            type="number"
+                            disabled={false}
+                        />
+
+                        <InputComponent
+                            control={control}
+                            label="Frequência Respiratória"
+                            name="measurement.respiratoryRate"
+                            type="number"
+                            disabled={false}
+                        />
+
+                        <InputComponent
+                            control={control}
+                            label="Glicemia"
+                            name="measurement.glycemia"
+                            type="number"
+                            disabled={false}
+                        />
+                    </div>
+
+                    <TextAreaComponent
+                        control={control}
+                        label="Tratamento realizado"
+                        name="treatmentPerformed"
+                        disabled={false}
+                    />
+
                     <Button
                         type="submit"
                         onClick={() => {
