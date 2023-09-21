@@ -1,5 +1,6 @@
-import styled from "styled-components";
+import styled from 'styled-components';
 
 export const Container = styled.form`
-  background-color: ${({ theme }) => theme.colors?.transparent};
+    width: 100%;
+    background-color: ${({ theme }) => theme.colors?.transparent};
 `;

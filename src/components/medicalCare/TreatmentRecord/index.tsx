@@ -1,4 +1,4 @@
-import { Textarea, Typography } from '@material-tailwind/react';
+import { Button, Radio, Textarea, Typography } from '@material-tailwind/react';
 import { useState } from 'react';
 import { TitleTreatmentRecord } from '../Title';
 import { SubTitleTreatmentRecord } from '../Subtitle';
@@ -10,10 +10,19 @@ import { NeurologicalSystem } from '../../../enums/anamnese/neurologicalSystem.e
 import { UrogenitalSystem } from '../../../enums/anamnese/urogenitalSystem.enum';
 import { Portion } from '../../../enums/foods/portion.enum';
 import { NaturalFood } from '../../../enums/foods/naturalFood.enum';
+import { Form } from '../../forms/Form';
+import { useForm } from 'react-hook-form';
+import { TextAreaComponent } from '../../forms/TextAreaComponent';
 
 export const TreatmentRecord = () => {
     const [options, setOptions] = useState(['SIM', 'NÃO']);
     const [mainComplaint, setMainComplaint] = useState('');
+
+    const { control, handleSubmit } = useForm({});
+
+    const onSubmit = (data: any) => {
+        console.log(data);
+    };
 
     return (
         <div className="bg-white flex flex-col p-4">
@@ -32,120 +41,106 @@ export const TreatmentRecord = () => {
             shadow-lg
             "
             >
-                <Textarea
-                    size="lg"
-                    label="Queixa principal"
-                    success
-                    onChange={(e) => {
-                        setMainComplaint(e.target.value);
-                    }}
-                />
-                <div className="w-full">
-                    <SubTitleTreatmentRecord>Anamnese</SubTitleTreatmentRecord>
-                    <RadioHorizontalList
-                        key={1}
-                        list={[
-                            {
-                                title: 'Doenças pregressas',
-                                options,
-                                name: 'previousDiseases',
-                            },
-                            {
-                                title: 'Sistema Digestório',
-                                options: [
-                                    DigestiveSystem.NORMAL,
-                                    DigestiveSystem.VOMITING,
-                                    DigestiveSystem.DIARRHEA,
-                                    DigestiveSystem.CONSTIPATION,
-                                    DigestiveSystem.REGURGITATION,
-                                    DigestiveSystem.OTHER,
-                                ],
-                                name: 'digestiveSystem',
-                            },
-                            {
-                                title: 'Sistema Urinário',
-                                options: [
-                                    UrogenitalSystem.NORMAL,
-                                    UrogenitalSystem.BLOOD_IN_URINE,
-                                    UrogenitalSystem.DIFFICULTY_URINATING,
-                                    UrogenitalSystem.INCONTINENCE,
-                                    UrogenitalSystem.OTHER,
-                                ],
-                                name: 'urogenitalSystem',
-                            },
-                            {
-                                title: 'Sistema Cardiorrespiratório',
-                                options: [
-                                    CardioRespiratorySystem.NORMAL,
-                                    CardioRespiratorySystem.BREATHING_DIFFICULTY,
-                                    CardioRespiratorySystem.COUGH,
-                                    CardioRespiratorySystem.NASAL_CONGESTION,
-                                    CardioRespiratorySystem.OTHER,
-                                ],
-                                name: 'cardioRespiratorySystem',
-                            },
-                            {
-                                title: 'Sistema Locomotor',
-                                options: [
-                                    LocomotorSystem.NORMAL,
-                                    LocomotorSystem.DIFFICULTY,
-                                    LocomotorSystem.FRACTURES,
-                                    LocomotorSystem.SWELLING,
-                                    LocomotorSystem.STIFFNESS,
-                                    LocomotorSystem.PAIN,
-                                    LocomotorSystem.POSTURAL_CHANGES,
-                                    LocomotorSystem.OTHER,
-                                ],
-                                name: 'locomotorSystem',
-                            },
-                            {
-                                title: 'Sistema Nervoso',
-                                options: [
-                                    NeurologicalSystem.NORMAL,
-                                    NeurologicalSystem.ATAXIA,
-                                    NeurologicalSystem.FAINTING,
-                                    NeurologicalSystem.OTHER,
-                                ],
-                                name: 'neurologicalSystem',
-                            },
-                        ]}
-                        handleClick={(value) => {
-                            console.log(value);
-                        }}
+                <Form onSubmit={handleSubmit(onSubmit)}>
+                    <TextAreaComponent
+                        control={control}
+                        label="Queixa principal"
+                        name="mainComplaint"
+                        disabled={false}
                     />
-                </div>
+                    <div className="w-full">
+                        <SubTitleTreatmentRecord>
+                            Anamnese
+                        </SubTitleTreatmentRecord>
+                        <RadioHorizontalList
+                            key={1}
+                            control={control}
+                            name="previousDiseases"
+                            options={options}
+                            title="Doenças pregressas"
+                        />
+                        <RadioHorizontalList
+                            control={control}
+                            title="Sistema Digestório"
+                            options={Object.keys(DigestiveSystem).map(
+                                (key) => DigestiveSystem[key as any],
+                            )}
+                            name="digestiveSystem"
+                            key={2}
+                        />
+                        <RadioHorizontalList
+                            control={control}
+                            title="Sistema Urinário"
+                            options={Object.keys(UrogenitalSystem).map(
+                                (key) => UrogenitalSystem[key as any],
+                            )}
+                            name="urogenitalSystem"
+                            key={3}
+                        />
+                        <RadioHorizontalList
+                            control={control}
+                            title="Sistema Cardiorrespiratório"
+                            options={Object.keys(CardioRespiratorySystem).map(
+                                (key) => CardioRespiratorySystem[key as any],
+                            )}
+                            name="cardioRespiratorySystem"
+                            key={4}
+                        />
+                        <RadioHorizontalList
+                            control={control}
+                            title="Sistema Locomotor"
+                            options={Object.keys(LocomotorSystem).map(
+                                (key) => LocomotorSystem[key as any],
+                            )}
+                            name="locomotorSystem"
+                            key={5}
+                        />
 
-                <div className="w-full">
-                    <SubTitleTreatmentRecord>
-                        Alimentação
-                    </SubTitleTreatmentRecord>
-                    <RadioHorizontalList
-                        key={2}
-                        list={[
-                            {
-                                name: 'portion',
-                                title: 'Ração',
-                                options: [
-                                    Portion.DRY,
-                                    Portion.LIQUID,
-                                    Portion.SEMILIQUID,
-                                    Portion.SOFT,
-                                    Portion.OTHER,
-                                ],
-                            },
-                            {
-                                name: 'naturalFood',
-                                title: 'Alimento natural',
-                                options: [
-                                    NaturalFood.RAW_WHITH_BONES,
-                                    NaturalFood.RAW_WHITHOUT_BONES,
-                                    NaturalFood.COOKED,
-                                    NaturalFood.NO_NATURAL_FOOD,
-                                ],
-                            },
-                        ]}
-                    />
-                </div>
+                        <RadioHorizontalList
+                            control={control}
+                            title="Sistema Nervoso"
+                            options={Object.keys(NeurologicalSystem).map(
+                                (key) => NeurologicalSystem[key as any],
+                            )}
+                            name="neurologicalSystem"
+                            key={6}
+                        />
+                    </div>
+
+                    <div className="w-full">
+                        <SubTitleTreatmentRecord>
+                            Alimentação
+                        </SubTitleTreatmentRecord>
+                        <RadioHorizontalList
+                            control={control}
+                            title="Alimentação Natural"
+                            options={Object.keys(NaturalFood).map(
+                                (key) => NaturalFood[key as any],
+                            )}
+                            name="naturalFood"
+                            key={7}
+                        />
+                        <RadioHorizontalList
+                            control={control}
+                            title="Porção"
+                            options={Object.keys(Portion).map(
+                                (key) => Portion[key as any],
+                            )}
+                            name="portion"
+                            key={8}
+                        />
+                    </div>
+                    <Button
+                        type="submit"
+                        onClick={() => {
+                            console.log('Finalizar atendimento');
+                        }}
+                        className="bg-primary"
+                        size="sm"
+                    >
+                        Finalizar Atendimento
+                    </Button>
+                </Form>
             </div>
         </div>
     );

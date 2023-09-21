@@ -108,7 +108,7 @@ export const ScheduleTable = ({ schedules, tableHead }: ScheduleTableProps) => {
                                         color="blue-gray"
                                         className="font-normal"
                                     >
-                                        {schedule.pet.gender === 'MALE'
+                                        {schedule.pet.gender === 'MASCULINO'
                                             ? 'Macho'
                                             : 'Fêmea'}
                                     </Typography>

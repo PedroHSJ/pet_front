@@ -28,6 +28,7 @@ const LoginWithPassword = () => {
         control,
         handleSubmit,
         formState: { errors },
+        setValue,
     } = useForm<ILoginFormWithPassword>({
         resolver: yupResolver(LoginSchemaWithPassword),
     });
@@ -56,6 +57,10 @@ const LoginWithPassword = () => {
         ]);
     }, [error]);
 
+    useEffect(() => {
+        setValue('scope', 'PROFESSIONAL');
+    }, []);
+
     return (
         <Container>
             <Logo src={LogoVerticalPrimary} />
@@ -80,7 +85,6 @@ const LoginWithPassword = () => {
                     label="Tipo de usuário"
                     error={errors.scope?.message}
                     options={scopeOptions}
-                    defaultValueComponent={scopeOptions[1]}
                 />
                 <ViewTerms>
                     <Checkbox
