@@ -20,13 +20,7 @@ interface IRadioButtonsArrayProps {
     options: string[];
     name: string;
     control: Control<FieldValue<FieldValues>>;
-}
-interface IRadioButtonsProps {
-    title: string;
-    options: string[];
-    name: string;
-    control: Control<FieldValue<FieldValues>>;
-    handleClick?: (value: string) => void;
+    error?: string;
 }
 
 export function RadioHorizontalList({
@@ -34,6 +28,7 @@ export function RadioHorizontalList({
     options,
     name,
     control,
+    error,
 }: IRadioButtonsArrayProps) {
     const form = useForm();
     const { field } = useController({
@@ -47,7 +42,10 @@ export function RadioHorizontalList({
     };
 
     return (
-        <Card className="bg-white shadow-none w-full justify-between flex-col items-center p-2 mb-3">
+        <Card
+            className={`bg-white shadow-none w-full justify-between flex-col items-center p-2 mb-3 
+        ${error ? 'border border-red-500' : ''}`}
+        >
             <div className="flex flex-col w-full">
                 <div className="flex-start">
                     <Typography
@@ -59,7 +57,7 @@ export function RadioHorizontalList({
                     </Typography>
                 </div>
 
-                <div className="flex flex-row flex-wrap">
+                <div className="flex flex-row flex-wrap ">
                     {options.map((option) => {
                         return (
                             <Radio

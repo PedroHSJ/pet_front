@@ -22,6 +22,8 @@ import { useLocation, useNavigate } from 'react-router-dom';
 import { ISchedule } from '../../../interfaces/ISchedule';
 import { MeasurementCondition } from '../../../enums/measurement/measurementCondition.enum';
 import { InputComponent } from '../../forms/NewInput';
+import { yupResolver } from '@hookform/resolvers/yup';
+import { TreatmentRecordSchema } from '../../../validations/TreatmentRecordSchema';
 
 export const TreatmentRecord = () => {
     const location = useLocation();
@@ -30,7 +32,13 @@ export const TreatmentRecord = () => {
     const [options, setOptions] = useState(['SIM', 'NÃO']);
     const [mainComplaint, setMainComplaint] = useState('');
 
-    const { control, handleSubmit } = useForm({});
+    const {
+        control,
+        handleSubmit,
+        formState: { errors },
+    } = useForm({
+        resolver: yupResolver(TreatmentRecordSchema),
+    });
 
     const onSubmit = (data: ITreatmentRecord) => {
         const treatmentRecord = {
@@ -63,6 +71,7 @@ export const TreatmentRecord = () => {
                         label="Queixa principal"
                         name="mainComplaint"
                         disabled={false}
+                        error={errors.mainComplaint?.message}
                     />
                     <div className="w-full">
                         <SubTitleTreatmentRecord>
@@ -77,6 +86,7 @@ export const TreatmentRecord = () => {
                             )}
                             name="anamnesis.digestiveSystem"
                             key={2}
+                            error={errors.anamnesis?.digestiveSystem?.message}
                         />
                         <RadioHorizontalList
                             control={control}
@@ -86,6 +96,7 @@ export const TreatmentRecord = () => {
                             )}
                             name="anamnesis.urogenitalSystem"
                             key={3}
+                            error={errors.anamnesis?.urogenitalSystem?.message}
                         />
                         <RadioHorizontalList
                             control={control}
@@ -93,8 +104,12 @@ export const TreatmentRecord = () => {
                             options={Object.keys(CardioRespiratorySystem).map(
                                 (key) => CardioRespiratorySystem[key as any],
                             )}
-                            name="anamnesis.cardioRespiratorySystem"
+                            name="anamnesis.cardiorespiratorySystem"
                             key={4}
+                            error={
+                                errors.anamnesis?.cardiorespiratorySystem
+                                    ?.message
+                            }
                         />
                         <RadioHorizontalList
                             control={control}
@@ -104,6 +119,7 @@ export const TreatmentRecord = () => {
                             )}
                             name="anamnesis.locomotorSystem"
                             key={5}
+                            error={errors.anamnesis?.locomotorSystem?.message}
                         />
 
                         <RadioHorizontalList
@@ -114,6 +130,7 @@ export const TreatmentRecord = () => {
                             )}
                             name="anamnesis.neurologicSystem"
                             key={6}
+                            error={errors.anamnesis?.neurologicSystem?.message}
                         />
 
                         <RadioHorizontalList
@@ -124,6 +141,7 @@ export const TreatmentRecord = () => {
                             )}
                             name="anamnesis.skin"
                             key={7}
+                            error={errors.anamnesis?.skin?.message}
                         />
                         <RadioHorizontalList
                             control={control}
@@ -133,6 +151,7 @@ export const TreatmentRecord = () => {
                             )}
                             name="anamnesis.eyes"
                             key={8}
+                            error={errors.anamnesis?.eyes?.message}
                         />
                         <RadioHorizontalList
                             control={control}
@@ -142,6 +161,7 @@ export const TreatmentRecord = () => {
                             )}
                             name="anamnesis.ears"
                             key={9}
+                            error={errors.anamnesis?.ears?.message}
                         />
 
                         <RadioHorizontalList
@@ -152,6 +172,7 @@ export const TreatmentRecord = () => {
                             )}
                             name="anamnesis.environment"
                             key={10}
+                            error={errors.anamnesis?.environment?.message}
                         />
 
                         <RadioHorizontalList
@@ -162,6 +183,7 @@ export const TreatmentRecord = () => {
                             )}
                             name="anamnesis.hydration"
                             key={11}
+                            error={errors.anamnesis?.hydration?.message}
                         />
 
                         <RadioHorizontalList
@@ -172,6 +194,7 @@ export const TreatmentRecord = () => {
                             )}
                             name="anamnesis.mucous"
                             key={12}
+                            error={errors.anamnesis?.mucous?.message}
                         />
 
                         <RadioHorizontalList
@@ -182,6 +205,7 @@ export const TreatmentRecord = () => {
                             )}
                             name="anamnesis.oralCavity"
                             key={13}
+                            error={errors.anamnesis?.oralCavity?.message}
                         />
 
                         <RadioHorizontalList
@@ -192,6 +216,7 @@ export const TreatmentRecord = () => {
                             )}
                             name="anamnesis.nasalCavity"
                             key={14}
+                            error={errors.anamnesis?.nasalCavity?.message}
                         />
 
                         <RadioHorizontalList
@@ -200,8 +225,9 @@ export const TreatmentRecord = () => {
                             options={Object.keys(MeasurementCondition).map(
                                 (key) => MeasurementCondition[key as any],
                             )}
-                            name="anamnesis.lymphNodes"
+                            name="anamnesis.lymphnodes"
                             key={15}
+                            error={errors.anamnesis?.lymphnodes?.message}
                         />
                     </div>
 
@@ -280,6 +306,7 @@ export const TreatmentRecord = () => {
                         label="Tratamento realizado"
                         name="treatmentPerformed"
                         disabled={false}
+                        error={errors.treatmentPerformed?.message}
                     />
 
                     <Button

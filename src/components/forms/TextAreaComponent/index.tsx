@@ -40,15 +40,19 @@ export const TextAreaComponent = ({
     }, [field.value]);
 
     return (
-        <Textarea
-            size="lg"
-            label={label}
-            success={error ? false : true}
-            disabled={disabled}
-            value={field.value}
-            onChange={(e) => {
-                handleChangeValue(e.target.value);
-            }}
-        />
+        <>
+            <Textarea
+                size="lg"
+                label={label}
+                success={!!error ? false : true}
+                error={!!error ? true : false}
+                disabled={disabled}
+                value={field.value}
+                onChange={(e) => {
+                    handleChangeValue(e.target.value);
+                }}
+            />
+            <div className="text-red-600 text-sm mb-1">{error}</div>
+        </>
     );
 };
