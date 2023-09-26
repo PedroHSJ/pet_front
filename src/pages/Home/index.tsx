@@ -20,6 +20,7 @@ import { Typography } from '@material-tailwind/react';
 import { MainContainer } from '../../components/MainContainer';
 import { ContainerHeader } from '../../components/containerHeader';
 import { useClient } from '../../hooks/useClient';
+import { useTreatmentRecord } from '../../hooks/useTreatmentRecord';
 
 const Home = () => {
     const {
@@ -30,12 +31,30 @@ const Home = () => {
     const { getAllEstablishments, totalCount: totalCountEstab } =
         useEstablishment();
     const { getAll: getAllClients, clients } = useClient();
+    const { getTreatments, treatmentRecordList } = useTreatmentRecord();
 
     useEffect(() => {
         getAll();
         getAllEstablishments();
         getAllClients();
+        getTreatments();
     }, []);
+
+    useEffect(() => {
+        if (!professionals) return;
+        const array = professionals.map((prof) => {
+            return {
+                name: prof.name,
+                data: [
+                    treatmentRecordList?.filter(
+                        (treat) => treat.schedule.professional.id === prof.id,
+                    ).length,
+                ],
+            };
+        });
+
+        console.log(array);
+    }, [professionals]);
 
     const optionsGeneral = {
         chart: {
@@ -81,6 +100,32 @@ const Home = () => {
         professionals.filter((prof) => prof.gender === 'FEMININO').length,
     ];
 
+    const optionsProfessionalAttendance = {
+        chart: {
+            id: 'professional-attendance',
+        },
+        xaxis: {
+            categories: [''],
+        },
+        plotOptions: {
+            bar: {
+                borderRadius: 4,
+                horizontal: false,
+            },
+        },
+    };
+
+    const seriesProfessionalAttendance = professionals.map((prof) => {
+        return {
+            name: prof.name,
+            data: [
+                treatmentRecordList?.filter(
+                    (treat) => treat.schedule.professional.id === prof.id,
+                ).length,
+            ],
+        };
+    });
+
     return (
         <>
             <Template>
@@ -111,6 +156,18 @@ const Home = () => {
                             height="350px"
                             options={optionsProfessionalGender}
                             series={seriesProfessionalGender}
+                        />
+
+                        <Typography variant="h5">
+                            Quantidade de atendimentos por profissional
+                        </Typography>
+
+                        <Chart
+                            type="bar"
+                            width="100%"
+                            height="350px"
+                            options={optionsProfessionalAttendance}
+                            series={seriesProfessionalAttendance}
                         />
                     </div>
                 </MainContainer>

@@ -1,9 +1,12 @@
 import { api } from '.';
 import { ApiResponseInterface } from '../../interfaces/IResponse';
-import { ITreatmentRecord } from '../../interfaces/ITreatmentRecord';
+import {
+    ITreatmentRecord,
+    ITreatmentRecordDTO,
+} from '../../interfaces/ITreatmentRecord';
 
 const createTreatment = async (
-    treatment: ITreatmentRecord,
+    treatment: ITreatmentRecordDTO,
 ): Promise<{ id: string }> => {
     const { data } = await api.post<{ id: string }>(
         '/treatment-record',
@@ -18,6 +21,7 @@ const getTreatmentRecord = async (): Promise<
     const { data } = await api.get<ApiResponseInterface<ITreatmentRecord>>(
         '/treatment-record',
     );
+    console.log(data);
     return data;
 };
 
