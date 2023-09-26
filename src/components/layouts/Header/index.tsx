@@ -191,9 +191,21 @@ export function Header() {
          "
                 >
                     <div className="mb-2 p-4">
-                        <Typography variant="h5" color="white">
+                        <Typography variant="h4" color="white">
                             Pet Care
                         </Typography>
+                        {professional && (
+                            <Typography variant="small" color="white">
+                                {professional.gender === 'MASCULINO'
+                                    ? 'Bem-vindo, Dr. '
+                                    : 'Bem-vinda, Dra. '}
+                                {professional.name.charAt(0).toUpperCase() +
+                                    professional.name
+                                        .slice(1)
+                                        .toLowerCase()
+                                        .split(' ')[0]}
+                            </Typography>
+                        )}
                     </div>
                     <List>
                         {navItems?.map((item, index) => {
@@ -242,12 +254,7 @@ export function Header() {
             {screenSize.width <= 520 && (
                 <Navbar className="mx-auto max-w-screen-xl px-6 py-3 bg-primary rounded-none">
                     <div className="flex items-center justify-between text-white">
-                        <Typography
-                            as="a"
-                            href="#"
-                            variant="h6"
-                            className="mr-4 cursor-pointer py-1.5"
-                        >
+                        <Typography variant="h4" className="mr-4 py-1.5">
                             Pet Care
                         </Typography>
 
