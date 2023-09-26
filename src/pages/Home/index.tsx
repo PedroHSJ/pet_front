@@ -6,10 +6,6 @@ import HomeVet from './Vet';
 export const Home = () => {
     const { role } = useAuth();
 
-    useEffect(() => {
-        console.log(role);
-    }, [role]);
-
     return (
         <>
             {role === 'ADMIN' && <HomeAdmin />}

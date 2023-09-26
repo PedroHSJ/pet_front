@@ -21,7 +21,6 @@ const getTreatmentRecord = async (): Promise<
     const { data } = await api.get<ApiResponseInterface<ITreatmentRecord>>(
         '/treatment-record',
     );
-    console.log(data);
     return data;
 };
 

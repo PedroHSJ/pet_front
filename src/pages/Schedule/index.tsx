@@ -100,9 +100,6 @@ export const Schedule = () => {
                                     onChange={(page) => {
                                         handlePageChange(page);
                                     }}
-                                    onPaginationChange={(value) => {
-                                        handlePaginationChange(value);
-                                    }}
                                 />
                             </>
                         )}

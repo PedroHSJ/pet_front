@@ -12,6 +12,7 @@ export interface ISchedule extends IBaseInterface {
     client: IClient;
     pet: IPet;
     cancellationStatus?: string;
+    finished?: boolean;
 }
 
 export interface IScheduleGetByParams {

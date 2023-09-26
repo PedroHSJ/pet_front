@@ -1,5 +1,5 @@
 import { Radio, Textarea, Typography } from '@material-tailwind/react';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { TitleTreatmentRecord } from '../Title';
 import { SubTitleTreatmentRecord } from '../Subtitle';
 import { RadioHorizontalList } from '../../forms/RadioButtons';
@@ -27,6 +27,7 @@ import { TreatmentRecordSchema } from '../../../validations/TreatmentRecordSchem
 import { useTreatmentRecord } from '../../../hooks/useTreatmentRecord';
 import { Button } from '../../buttons/Button';
 import { useComponent } from '../../../hooks/useComponent';
+import { toast } from 'react-toastify';
 
 export const TreatmentRecord = () => {
     const location = useLocation();
@@ -79,6 +80,17 @@ export const TreatmentRecord = () => {
         // console.log(treatmentRecord);
         // postTreatmentRecord(treatmentRecord);
     };
+
+    useEffect(() => {
+        if (!success) return;
+        navigate('/agendamentos');
+        toast.success('Atendimento finalizado com sucesso!');
+    }, [success]);
+
+    useEffect(() => {
+        if (!error) return;
+        toast.error('Erro ao finalizar atendimento');
+    }, [error]);
 
     return (
         <div className="bg-white flex flex-col p-4">
@@ -257,7 +269,7 @@ export const TreatmentRecord = () => {
                             options={Object.keys(MeasurementCondition).map(
                                 (key) => MeasurementCondition[key as any],
                             )}
-                            name="anamnesis.lymphNodes"
+                            name="anamnesis.lymphnodes"
                             key={15}
                             error={errors.anamnesis?.lymphnodes?.message}
                         />

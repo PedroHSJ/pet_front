@@ -2,7 +2,7 @@ import { Card, Typography, Button } from '@material-tailwind/react';
 import { ISchedule } from '../../interfaces/ISchedule';
 import { formatDate } from '../../utils/format';
 import { Pagination } from '../pagination';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 interface ScheduleTableProps {
@@ -17,6 +17,11 @@ export const ScheduleTable = ({
     buttonActionName,
 }: ScheduleTableProps) => {
     const navigate = useNavigate();
+    useEffect(() => {
+        console.log('schedules', schedules);
+        console.log('tableHead', tableHead);
+        console.log('buttonActionName', buttonActionName);
+    }, [schedules, tableHead, buttonActionName]);
     return (
         <Card className="h-full w-full my-4 ">
             <table className="w-full min-w-max table-auto text-left">
