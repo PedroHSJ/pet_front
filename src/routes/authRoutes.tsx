@@ -1,5 +1,5 @@
 import { Navigate, createBrowserRouter } from 'react-router-dom';
-import Home from '../pages/Home';
+import { Home } from '../pages/Home';
 import Video from '../pages/Video';
 import Login from '../pages/Login';
 import Professional from '../pages/Professional';
