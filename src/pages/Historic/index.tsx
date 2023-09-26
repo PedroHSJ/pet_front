@@ -1,26 +1,13 @@
-import { useEffect, useState } from 'react';
+import { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router';
 import { Template } from '../../components/layouts/Template';
-import useSchedule from '../../hooks/useSchedule';
-import { Loading } from '../../components/resources/Loading';
-import {
-    Avatar,
-    Button,
-    Card,
-    CardBody,
-    CardFooter,
-    CardHeader,
-    List,
-    ListItem,
-    ListItemPrefix,
-    Typography,
-} from '@material-tailwind/react';
-import { formatDate } from '../../utils/format';
-import { useNavigate } from 'react-router-dom';
-import { ScheduleTable } from '../../components/scheduleTable';
 import { Pagination } from '../../components/pagination';
+import { Loading } from '../../components/resources/Loading';
+import { ScheduleTable } from '../../components/scheduleTable';
 import { useAuth } from '../../hooks/auth';
+import useSchedule from '../../hooks/useSchedule';
 
-export const Schedule = () => {
+export const Historic = () => {
     const { getSchedulesByParams, schedules, loading } = useSchedule();
     const [itemsPerPage, setItemsPerPage] = useState(10);
     const navigate = useNavigate();
@@ -31,7 +18,7 @@ export const Schedule = () => {
         console.log('professional', professional);
         getSchedulesByParams({
             professionalId: professional.id,
-            finished: false,
+            finished: true,
         });
     }, [professional]);
 
@@ -66,7 +53,7 @@ export const Schedule = () => {
                         <div className="flex-col">
                             <div className="flex flex-row justify-between">
                                 <h1 className="text-3xl font-bold tracking-tight text-gray-900">
-                                    Agenda
+                                    Histórico
                                 </h1>
                             </div>
                         </div>
@@ -92,6 +79,7 @@ export const Schedule = () => {
                                     schedules={schedules}
                                     tableHead={TABLE_HEAD}
                                     key={1}
+                                    buttonActionName="Visualizar"
                                 />
                                 <Pagination
                                     page={1}
@@ -99,9 +87,6 @@ export const Schedule = () => {
                                     pageSize={itemsPerPage}
                                     onChange={(page) => {
                                         handlePageChange(page);
-                                    }}
-                                    onPaginationChange={(value) => {
-                                        handlePaginationChange(value);
                                     }}
                                 />
                             </>
@@ -128,84 +113,3 @@ export const Schedule = () => {
         </>
     );
 };
-
-// <div>
-// <List>
-//     {schedules.map((schedule) => {
-//         return (
-//             <ListItem
-//                 onClick={() => {
-//                     navigate(
-//                         '/agendamento/info',
-//                         { state: schedule },
-//                     );
-//                 }}
-//             >
-//                 <div>
-//                     <div className="flex flex-row">
-//                         <Typography
-//                             variant="h6"
-//                             color="black"
-//                             className="mr-2"
-//                         >
-//                             Paciente:
-//                         </Typography>
-//                         <Typography>
-//                             {
-//                                 schedule.client
-//                                     .name
-//                             }
-//                         </Typography>
-//                     </div>
-//                     <div className="flex flex-row">
-//                         <Typography
-//                             variant="h6"
-//                             color="black"
-//                             className="mr-2"
-//                         >
-//                             Data:
-//                         </Typography>
-//                         <Typography>
-//                             {formatDate(
-//                                 schedule.day.substring(
-//                                     0,
-//                                     10,
-//                                 ),
-//                             )}
-//                         </Typography>
-//                     </div>
-//                     <div className="flex flex-row">
-//                         <Typography
-//                             variant="h6"
-//                             color="black"
-//                             className="mr-2"
-//                         >
-//                             Horário:
-//                         </Typography>
-//                         <Typography>
-//                             {schedule.day.substring(
-//                                 11,
-//                                 16,
-//                             )}
-//                             h
-//                         </Typography>
-//                     </div>
-//                     {/* {CARD PET INFO} */}
-//                     <div className="flex flex-row">
-//                         <Typography
-//                             variant="h6"
-//                             color="black"
-//                             className="mr-2"
-//                         >
-//                             Pet:
-//                         </Typography>
-//                         <Typography>
-//                             {schedule.pet.name}
-//                         </Typography>
-//                     </div>
-//                 </div>
-//             </ListItem>
-//         );
-//     })}
-// </List>
-// </div>

@@ -13,6 +13,7 @@ import { Schedule } from '../pages/Schedule';
 import { MedicalCare } from '../pages/MedicalCare';
 import { EditProfessional } from '../pages/Professional/EditProfessional';
 import { EditEstablishment } from '../pages/Establishment/EditEstablishment';
+import { Historic } from '../pages/Historic';
 
 export const AuthRoutes = createBrowserRouter([
     {
@@ -71,6 +72,10 @@ export const AuthRoutes = createBrowserRouter([
     {
         path: '/agendamento/:id',
         element: <Video />,
+    },
+    {
+        path: '/historico',
+        element: <Historic />,
     },
     {
         path: '*', // qualquer rota que não foi definida anteriormente

@@ -8,9 +8,14 @@ import { useNavigate } from 'react-router-dom';
 interface ScheduleTableProps {
     schedules: ISchedule[];
     tableHead: string[];
+    buttonActionName?: string;
 }
 
-export const ScheduleTable = ({ schedules, tableHead }: ScheduleTableProps) => {
+export const ScheduleTable = ({
+    schedules,
+    tableHead,
+    buttonActionName,
+}: ScheduleTableProps) => {
     const navigate = useNavigate();
     return (
         <Card className="h-full w-full my-4 ">
@@ -132,7 +137,9 @@ export const ScheduleTable = ({ schedules, tableHead }: ScheduleTableProps) => {
                                         className="bg-primary"
                                         size="sm"
                                     >
-                                        Atender
+                                        {buttonActionName
+                                            ? buttonActionName
+                                            : 'Atender'}
                                     </Button>
                                 </td>
                             </tr>

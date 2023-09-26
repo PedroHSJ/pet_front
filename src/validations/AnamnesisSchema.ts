@@ -63,7 +63,7 @@ export const AnamnesisSchema = Yup.object().shape({
     nasalCavity: Yup.mixed()
         .oneOf(Object.values(MeasurementCondition))
         .required(REQUIRED),
-    lymphnodes: Yup.mixed()
+    lymphNodes: Yup.mixed()
         .oneOf(Object.values(MeasurementCondition))
         .required(REQUIRED),
 });

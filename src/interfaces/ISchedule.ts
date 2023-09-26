@@ -17,4 +17,5 @@ export interface ISchedule extends IBaseInterface {
 export interface IScheduleGetByParams {
     day?: string;
     professionalId?: string;
+    finished?: boolean;
 }

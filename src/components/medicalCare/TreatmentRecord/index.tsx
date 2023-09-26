@@ -1,4 +1,4 @@
-import { Button, Radio, Textarea, Typography } from '@material-tailwind/react';
+import { Radio, Textarea, Typography } from '@material-tailwind/react';
 import { useState } from 'react';
 import { TitleTreatmentRecord } from '../Title';
 import { SubTitleTreatmentRecord } from '../Subtitle';
@@ -24,14 +24,21 @@ import { MeasurementCondition } from '../../../enums/measurement/measurementCond
 import { InputComponent } from '../../forms/NewInput';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { TreatmentRecordSchema } from '../../../validations/TreatmentRecordSchema';
+import { useTreatmentRecord } from '../../../hooks/useTreatmentRecord';
+import { Button } from '../../buttons/Button';
+import { useComponent } from '../../../hooks/useComponent';
 
 export const TreatmentRecord = () => {
     const location = useLocation();
     const schedule = location.state as ISchedule;
     const navigate = useNavigate();
-    const [options, setOptions] = useState(['SIM', 'NÃO']);
-    const [mainComplaint, setMainComplaint] = useState('');
-
+    const {
+        postTreatmentRecord,
+        error,
+        loading,
+        success,
+        treatmentRecordList,
+    } = useTreatmentRecord();
     const {
         control,
         handleSubmit,
@@ -39,13 +46,38 @@ export const TreatmentRecord = () => {
     } = useForm({
         resolver: yupResolver(TreatmentRecordSchema),
     });
+    const { dialog } = useComponent();
 
     const onSubmit = (data: ITreatmentRecord) => {
-        const treatmentRecord = {
-            ...data,
-            scheduleId: schedule.id,
-        };
-        console.log(treatmentRecord);
+        dialog(
+            'Você tem certeza que deseja finalizar o atendimento?',
+            'Ao finalizar o atendimento, não será possível editá-lo.',
+            [
+                {
+                    text: 'Finalizar',
+                    onPress: () => {
+                        const treatmentRecord = {
+                            ...data,
+                            scheduleId: schedule.id,
+                        };
+                        console.log(treatmentRecord);
+                        postTreatmentRecord(treatmentRecord);
+                    },
+                    styleButton: 'primary',
+                },
+                {
+                    text: 'Cancelar',
+                    onPress: () => console.log('Cancel Pressed'),
+                    styleButton: 'secondary',
+                },
+            ],
+        );
+        // const treatmentRecord = {
+        //     ...data,
+        //     scheduleId: schedule.id,
+        // };
+        // console.log(treatmentRecord);
+        // postTreatmentRecord(treatmentRecord);
     };
 
     return (
@@ -225,7 +257,7 @@ export const TreatmentRecord = () => {
                             options={Object.keys(MeasurementCondition).map(
                                 (key) => MeasurementCondition[key as any],
                             )}
-                            name="anamnesis.lymphnodes"
+                            name="anamnesis.lymphNodes"
                             key={15}
                             error={errors.anamnesis?.lymphnodes?.message}
                         />
@@ -309,14 +341,7 @@ export const TreatmentRecord = () => {
                         error={errors.treatmentPerformed?.message}
                     />
 
-                    <Button
-                        type="submit"
-                        onClick={() => {
-                            console.log('Finalizar atendimento');
-                        }}
-                        className="bg-primary"
-                        size="sm"
-                    >
+                    <Button type="submit" loading={loading} style={'primary'}>
                         Finalizar Atendimento
                     </Button>
                 </Form>

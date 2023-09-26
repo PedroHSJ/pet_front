@@ -21,6 +21,7 @@ import {
     XMarkIcon,
     Bars3Icon,
     CalendarIcon,
+    DocumentArrowDownIcon,
 } from '@heroicons/react/24/solid';
 import { Link, NavLink } from 'react-router-dom';
 import { useComponent } from '../../../hooks/useComponent';
@@ -126,6 +127,12 @@ export function Header() {
             icon: CalendarIcon,
             current: false,
             href: '/agendamentos',
+        },
+        {
+            name: 'Histórico',
+            icon: DocumentArrowDownIcon,
+            current: false,
+            href: '/historico',
         },
     ];
 
