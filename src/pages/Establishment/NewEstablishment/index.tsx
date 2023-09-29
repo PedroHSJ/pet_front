@@ -5,15 +5,13 @@ import { Button } from '../../../components/buttons/Button';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { InputComponent } from '../../../components/forms/NewInput';
 import { useEffect } from 'react';
-import { useComponent } from '../../../hooks/useComponent';
 import { toast } from 'react-toastify';
 import { useNavigate } from 'react-router';
 
 import { IEstablishmentDTO } from '../../../interfaces/IEstablishment';
-import { EstablishmentSchema } from '../../../validations/EstablishmentSchema';
+import { NewEstablishmentSchema } from '../../../validations/EstablishmentSchema';
 import { useEstablishment } from '../../../hooks/useEstablishment';
 import { useCep } from '../../../hooks/useCep';
-import { SelectComponent } from '../../../components/forms/NewSelectInput';
 import { SwitchComponent } from '../../../components/forms/SwitchComponent';
 
 export const NewEstablishment = () => {
@@ -23,16 +21,16 @@ export const NewEstablishment = () => {
         setValue,
         watch,
         formState: { errors },
-    } = useForm<IEstablishmentDTO>();
+    } = useForm<IEstablishmentDTO>({
+        resolver: yupResolver(NewEstablishmentSchema),
+    });
     const navigate = useNavigate();
     const { createEstablishment, success, loading, error } = useEstablishment();
     const { getCep, cep, error: errorCep, loading: loadingCep } = useCep();
-    const { dialog } = useComponent();
 
     const inputCep = watch('address.postalCode');
 
     const onSubmit = async (data: any) => {
-        console.log(data);
         await createEstablishment(data);
     };
 
@@ -73,10 +71,16 @@ export const NewEstablishment = () => {
     return (
         <Template>
             <div className="bg-white shadow h-screen">
-                <div className="mx-auto  px-4 py-6 sm:px-6 lg:px-8 ">
+                <div className="mx-auto  px-4 py-6 sm:px-6 lg:px-8 flex flex-row justify-between">
                     <h1 className="text-3xl font-bold tracking-tight text-gray-900">
                         Cadastrar Estabelecimento
                     </h1>
+                    <button
+                        className="bg-primary text-white px-4 py-2 rounded-md"
+                        onClick={() => navigate(-1)}
+                    >
+                        Voltar
+                    </button>
                 </div>
 
                 <div className=" mx-auto p-10 sm:px-6 lg:px-8 ">

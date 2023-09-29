@@ -6,6 +6,7 @@ import {
 import {
     getEstablishmentByParams as getEstablishmentByParamsApi,
     postEstablishment,
+    putEstablishment,
     getAllEstablishments as getAllEstablishmentsApi,
 } from '../services/api/EstablishmentApi';
 import { handleGetErrorMessage } from '../utils';
@@ -54,7 +55,27 @@ export const useEstablishment = () => {
             setError('');
             setSuccess(false);
             setLoading(true);
+
             await postEstablishment(estab);
+            setSuccess(true);
+        } catch (error) {
+            setSuccess(false);
+            setError(handleGetErrorMessage(error));
+        } finally {
+            setLoading(false);
+        }
+    };
+
+    //typado como IEstablishment porque ele vai receber o id do DB
+    const updateEstablishment = async (
+        estab: IEstablishmentDTO,
+        id: string,
+    ) => {
+        try {
+            setError('');
+            setSuccess(false);
+            setLoading(true);
+            await putEstablishment(estab, id);
             setSuccess(true);
         } catch (error) {
             setSuccess(false);
@@ -73,5 +94,6 @@ export const useEstablishment = () => {
         getAllEstablishments,
         getEstablishmentByParams,
         createEstablishment,
+        updateEstablishment,
     };
 };

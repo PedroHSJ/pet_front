@@ -35,4 +35,17 @@ const postEstablishment = async (
     return { id: data.id };
 };
 
-export { getAllEstablishments, getEstablishmentByParams, postEstablishment };
+const putEstablishment = async (
+    estab: IEstablishmentDTO,
+    idParams: string,
+): Promise<{ id: string }> => {
+    await api.put(`establishment/${idParams}`, estab);
+    return { id: idParams };
+};
+
+export {
+    getAllEstablishments,
+    getEstablishmentByParams,
+    postEstablishment,
+    putEstablishment,
+};

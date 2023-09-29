@@ -11,11 +11,11 @@ export interface IAddress extends IBaseInterface {
 }
 
 export interface IAddressDTO {
+    postalCode: string;
+    state: string;
+    city: string;
+    neighborhood: string;
     street: string;
     number: string;
     complement?: string;
-    neighborhood: string;
-    city: string;
-    state: string;
-    postalCode: string;
 }
