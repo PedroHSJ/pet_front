@@ -114,6 +114,8 @@ const AuthProvider = ({ children }: IAuthProviderProps) => {
     const logout = async () => {
         localStorage.clear();
         setIsAuthorized(false);
+        setUser(null);
+        setProfessional(null);
     };
 
     const gettingUserOrProfile = async (id: string, scope: string) => {
