@@ -24,6 +24,18 @@ export interface IProfessionalDTO {
     gender: Gender;
 }
 
+export interface IProfessionalEditDTO {
+    name: string;
+    email: string;
+    changePassword: boolean;
+    password: string | undefined;
+    confirmPassword: string | undefined;
+    crmv: string;
+    phone: string;
+    active: boolean;
+    gender: Gender;
+}
+
 export interface IProfessionalGetByParams {
     name?: string;
     email?: string;

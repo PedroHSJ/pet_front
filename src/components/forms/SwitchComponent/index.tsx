@@ -10,10 +10,16 @@ import {
 interface SwitchProps {
     control: Control<FieldValue<FieldValues>>;
     error?: string;
+    showLabel: boolean;
     name: string;
 }
 
-export const SwitchComponent = ({ control, name, error }: SwitchProps) => {
+export const SwitchComponent = ({
+    control,
+    name,
+    error,
+    showLabel,
+}: SwitchProps) => {
     const { field, fieldState, formState } = useController({ name, control });
 
     const handleSwitch = (event: any) => {
@@ -30,12 +36,13 @@ export const SwitchComponent = ({ control, name, error }: SwitchProps) => {
                 color="gray"
                 style={{ fontSize: '14px', fontWeight: 'bold' }}
             >
-                {field.value ? 'Ativo' : 'Inativo'}
+                {showLabel ? (field.value ? 'Ativo' : 'Inativo') : ''}
             </Typography>
             <Switch
                 color="green"
                 onChange={(event: any) => handleSwitch(event)}
                 checked={field.value}
+                crossOrigin={undefined}
             />
         </div>
     );

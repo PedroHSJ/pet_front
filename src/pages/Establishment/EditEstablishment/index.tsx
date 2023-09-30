@@ -177,6 +177,7 @@ export const EditEstablishment = () => {
                             control={control}
                             name="active"
                             error={errors.active?.message}
+                            showLabel={true}
                         />
 
                         <Button loading={loading} style="primary" type="submit">
