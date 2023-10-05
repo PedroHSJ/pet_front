@@ -14,6 +14,7 @@ import { MedicalCare } from '../pages/MedicalCare';
 import { EditProfessional } from '../pages/Professional/EditProfessional';
 import { EditEstablishment } from '../pages/Establishment/EditEstablishment';
 import { Historic } from '../pages/Historic';
+import { HistoricPreview } from '../pages/Historic/Preview';
 
 export const AuthRoutes = createBrowserRouter([
     {
@@ -76,6 +77,10 @@ export const AuthRoutes = createBrowserRouter([
     {
         path: '/historico',
         element: <Historic />,
+    },
+    {
+        path: '/historico/preview',
+        element: <HistoricPreview />,
     },
     {
         path: '*', // qualquer rota que não foi definida anteriormente

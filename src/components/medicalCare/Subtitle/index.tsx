@@ -9,7 +9,7 @@ export const SubTitleTreatmentRecord = ({
     children,
 }: SubTitleTreatmentRecordProps) => {
     return (
-        <div className="border-b border-gray w-1/4 p-1.5 my-2">
+        <div className="border-b border-gray w-full p-1.5 my-2">
             <Typography variant="h6" className="text-primary">
                 {children}
             </Typography>

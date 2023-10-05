@@ -15,7 +15,6 @@ export const Historic = () => {
 
     useEffect(() => {
         if (!professional) return;
-        console.log('professional', professional);
         getSchedulesByParams({
             professionalId: professional.id,
             finished: true,

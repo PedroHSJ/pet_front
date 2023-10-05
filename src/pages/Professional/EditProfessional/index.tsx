@@ -104,9 +104,9 @@ export const EditProfessional = () => {
                     </button>
                 </div>
 
-                <div className=" mx-auto p-10 sm:px-6 lg:px-8 ">
+                <div className=" mx-auto p-10 sm:px-6 lg:px-8">
                     <Form onSubmit={handleSubmit(onSubmit)}>
-                        <div className="flex flex-row gap-4">
+                        <div className="lg:flex lg:flex-row lg:gap-4">
                             <InputComponent
                                 control={control}
                                 name="name"
@@ -124,7 +124,7 @@ export const EditProfessional = () => {
                             />
                         </div>
 
-                        <div className="flex flex-row gap-4">
+                        <div className="lg:flex lg:flex-row lg:gap-4">
                             <InputComponent
                                 control={control}
                                 name="crmv"
@@ -142,8 +142,8 @@ export const EditProfessional = () => {
                             />
                         </div>
 
-                        <div className="flex flex-row gap-5">
-                            <div className="flex flex-row w-1/2">
+                        <div className="lg:flex lg:flex-row lg:gap-5">
+                            <div className="flex flex-row lg:w-1/2">
                                 <SelectComponent
                                     control={control}
                                     name="gender"
@@ -159,7 +159,7 @@ export const EditProfessional = () => {
                                 />
                             </div>
 
-                            <div className="flex flex-row gap-5 w-1/2">
+                            <div className="flex flex-row gap-5 justify-center lg:justify-start lg:w-1/2">
                                 <SwitchComponent
                                     control={control}
                                     name="active"
@@ -167,7 +167,7 @@ export const EditProfessional = () => {
                                     showLabel={true}
                                 />
 
-                                <div>
+                                <div className="flex flex-col justify-center items-center">
                                     <Typography
                                         color="gray"
                                         style={{
@@ -187,7 +187,7 @@ export const EditProfessional = () => {
                             </div>
                         </div>
 
-                        <div className="flex flex-row gap-4">
+                        <div className="lg:flex lg:flex-row lg:gap-4">
                             <InputComponent
                                 control={control}
                                 name="password"

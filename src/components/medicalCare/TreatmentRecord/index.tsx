@@ -34,6 +34,7 @@ export const TreatmentRecord = () => {
     const schedule = location.state as ISchedule;
     const navigate = useNavigate();
     const {
+        getTreatmentsByParams,
         postTreatmentRecord,
         error,
         loading,
@@ -43,6 +44,7 @@ export const TreatmentRecord = () => {
     const {
         control,
         handleSubmit,
+        setValue,
         formState: { errors },
     } = useForm({
         resolver: yupResolver(TreatmentRecordSchema),
@@ -80,6 +82,33 @@ export const TreatmentRecord = () => {
         // console.log(treatmentRecord);
         // postTreatmentRecord(treatmentRecord);
     };
+
+    useEffect(() => {
+        getTreatmentsByParams({
+            page: 1,
+            pageSize: 10,
+            params: { scheduleId: schedule.id },
+        });
+    }, [schedule]);
+
+    useEffect(() => {
+        if (treatmentRecordList === undefined) return;
+        if (treatmentRecordList.length === 0) return;
+
+        const treatmentRecord = treatmentRecordList[0];
+
+        setValue('mainComplaint', treatmentRecord.mainComplaint);
+        setValue('food.naturalFood', treatmentRecord.food.naturalFood);
+        setValue('food.portion', treatmentRecord.food.portion);
+        setValue('treatmentPerformed', treatmentRecord.treatmentPerformed);
+
+        setValue(
+            'anamnesis.digestiveSystem',
+            treatmentRecord.anamnesis.digestiveSystem,
+        );
+
+        console.log('treatmentRecordList', treatmentRecordList);
+    }, [treatmentRecordList]);
 
     useEffect(() => {
         if (!success) return;
