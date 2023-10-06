@@ -29,7 +29,9 @@ interface IInputProps extends InputHTMLAttributes<HTMLInputElement> {
         | 'date'
         | 'time'
         | 'money'
-        | 'crmv';
+        | 'crmv'
+        | 'temperature'
+        | 'bloodPressure';
 }
 
 export const InputComponent = ({
@@ -112,6 +114,21 @@ export const InputComponent = ({
         if (mask === 'crmv') {
             //this field has only 5 digits
             return value.replace(/\D/g, '').substr(0, 5);
+        }
+        if (mask === 'temperature') {
+            return value.replace(/\D/g, '').replace(/^(\d{2})(\d)/, '$1.$2');
+        }
+        if (mask === 'bloodPressure') {
+            if (value.length === 7) {
+                return value
+                    .replace(/\D/g, '')
+                    .replace(/^(\d{3})(\d{3})$/, '$1/$2');
+            } else if (value.length === 5) {
+                return value
+                    .replace(/\D/g, '')
+                    .replace(/^(\d{3})(\d{2})$/, '$1/$2');
+            }
+            return value;
         }
         return value;
     };

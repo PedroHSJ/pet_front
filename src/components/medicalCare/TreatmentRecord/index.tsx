@@ -51,7 +51,7 @@ export const TreatmentRecord = () => {
     });
     const { dialog } = useComponent();
 
-    const onSubmit = (data: ITreatmentRecord) => {
+    const onSubmit = (data: any) => {
         dialog(
             'Você tem certeza que deseja finalizar o atendimento?',
             'Ao finalizar o atendimento, não será possível editá-lo.',
@@ -155,7 +155,10 @@ export const TreatmentRecord = () => {
                             control={control}
                             title="Sistema Digestório"
                             options={Object.keys(DigestiveSystem).map(
-                                (key) => DigestiveSystem[key as any],
+                                (key) =>
+                                    DigestiveSystem[
+                                        key as keyof typeof DigestiveSystem
+                                    ],
                             )}
                             name="anamnesis.digestiveSystem"
                             key={2}
@@ -165,7 +168,10 @@ export const TreatmentRecord = () => {
                             control={control}
                             title="Sistema Urinário"
                             options={Object.keys(UrogenitalSystem).map(
-                                (key) => UrogenitalSystem[key as any],
+                                (key) =>
+                                    UrogenitalSystem[
+                                        key as keyof typeof UrogenitalSystem
+                                    ],
                             )}
                             name="anamnesis.urogenitalSystem"
                             key={3}
@@ -175,7 +181,10 @@ export const TreatmentRecord = () => {
                             control={control}
                             title="Sistema Cardiorrespiratório"
                             options={Object.keys(CardioRespiratorySystem).map(
-                                (key) => CardioRespiratorySystem[key as any],
+                                (key) =>
+                                    CardioRespiratorySystem[
+                                        key as keyof typeof CardioRespiratorySystem
+                                    ],
                             )}
                             name="anamnesis.cardiorespiratorySystem"
                             key={4}
@@ -188,7 +197,10 @@ export const TreatmentRecord = () => {
                             control={control}
                             title="Sistema Locomotor"
                             options={Object.keys(LocomotorSystem).map(
-                                (key) => LocomotorSystem[key as any],
+                                (key) =>
+                                    LocomotorSystem[
+                                        key as keyof typeof LocomotorSystem
+                                    ],
                             )}
                             name="anamnesis.locomotorSystem"
                             key={5}
@@ -199,7 +211,10 @@ export const TreatmentRecord = () => {
                             control={control}
                             title="Sistema Nervoso"
                             options={Object.keys(NeurologicalSystem).map(
-                                (key) => NeurologicalSystem[key as any],
+                                (key) =>
+                                    NeurologicalSystem[
+                                        key as keyof typeof NeurologicalSystem
+                                    ],
                             )}
                             name="anamnesis.neurologicSystem"
                             key={6}
@@ -210,7 +225,7 @@ export const TreatmentRecord = () => {
                             control={control}
                             title="Pele"
                             options={Object.keys(Skin).map(
-                                (key) => Skin[key as any],
+                                (key) => Skin[key as keyof typeof Skin],
                             )}
                             name="anamnesis.skin"
                             key={7}
@@ -220,7 +235,7 @@ export const TreatmentRecord = () => {
                             control={control}
                             title="Olhos"
                             options={Object.keys(Eyes).map(
-                                (key) => Eyes[key as any],
+                                (key) => Eyes[key as keyof typeof Eyes],
                             )}
                             name="anamnesis.eyes"
                             key={8}
@@ -230,7 +245,7 @@ export const TreatmentRecord = () => {
                             control={control}
                             title="Ouvidos"
                             options={Object.keys(Ears).map(
-                                (key) => Ears[key as any],
+                                (key) => Ears[key as keyof typeof Ears],
                             )}
                             name="anamnesis.ears"
                             key={9}
@@ -241,7 +256,10 @@ export const TreatmentRecord = () => {
                             control={control}
                             title="Ambiente"
                             options={Object.keys(Environment).map(
-                                (key) => Environment[key as any],
+                                (key) =>
+                                    Environment[
+                                        key as keyof typeof Environment
+                                    ],
                             )}
                             name="anamnesis.environment"
                             key={10}
@@ -252,7 +270,10 @@ export const TreatmentRecord = () => {
                             control={control}
                             title="Hidratação"
                             options={Object.keys(MeasurementCondition).map(
-                                (key) => MeasurementCondition[key as any],
+                                (key) =>
+                                    MeasurementCondition[
+                                        key as keyof typeof MeasurementCondition
+                                    ],
                             )}
                             name="anamnesis.hydration"
                             key={11}
@@ -263,7 +284,10 @@ export const TreatmentRecord = () => {
                             control={control}
                             title="Mucosas"
                             options={Object.keys(MeasurementCondition).map(
-                                (key) => MeasurementCondition[key as any],
+                                (key) =>
+                                    MeasurementCondition[
+                                        key as keyof typeof MeasurementCondition
+                                    ],
                             )}
                             name="anamnesis.mucous"
                             key={12}
@@ -274,7 +298,10 @@ export const TreatmentRecord = () => {
                             control={control}
                             title="Cavidade Oral"
                             options={Object.keys(MeasurementCondition).map(
-                                (key) => MeasurementCondition[key as any],
+                                (key) =>
+                                    MeasurementCondition[
+                                        key as keyof typeof MeasurementCondition
+                                    ],
                             )}
                             name="anamnesis.oralCavity"
                             key={13}
@@ -285,7 +312,10 @@ export const TreatmentRecord = () => {
                             control={control}
                             title="Cavidade Nasal"
                             options={Object.keys(MeasurementCondition).map(
-                                (key) => MeasurementCondition[key as any],
+                                (key) =>
+                                    MeasurementCondition[
+                                        key as keyof typeof MeasurementCondition
+                                    ],
                             )}
                             name="anamnesis.nasalCavity"
                             key={14}
@@ -296,7 +326,10 @@ export const TreatmentRecord = () => {
                             control={control}
                             title="Linfonodos"
                             options={Object.keys(MeasurementCondition).map(
-                                (key) => MeasurementCondition[key as any],
+                                (key) =>
+                                    MeasurementCondition[
+                                        key as keyof typeof MeasurementCondition
+                                    ],
                             )}
                             name="anamnesis.lymphnodes"
                             key={15}
@@ -312,18 +345,23 @@ export const TreatmentRecord = () => {
                             control={control}
                             title="Alimentação Natural"
                             options={Object.keys(NaturalFood).map(
-                                (key) => NaturalFood[key as any],
+                                (key) =>
+                                    NaturalFood[
+                                        key as keyof typeof NaturalFood
+                                    ],
                             )}
                             name="food.naturalFood"
+                            error={errors.food?.naturalFood?.message}
                             key={7}
                         />
                         <RadioHorizontalList
                             control={control}
                             title="Porção"
                             options={Object.keys(Portion).map(
-                                (key) => Portion[key as any],
+                                (key) => Portion[key as keyof typeof Portion],
                             )}
                             name="food.portion"
+                            error={errors.food?.portion?.message}
                             key={8}
                         />
                     </div>
@@ -337,8 +375,11 @@ export const TreatmentRecord = () => {
                             control={control}
                             label="Temperatura"
                             name="measurement.temperature"
-                            type="number"
+                            type="text"
+                            mask="temperature"
+                            maxLength={3}
                             disabled={false}
+                            error={errors.measurement?.temperature?.message}
                         />
 
                         <InputComponent
@@ -346,31 +387,39 @@ export const TreatmentRecord = () => {
                             label="Pressão Arterial"
                             name="measurement.bloodPressure"
                             type="text"
+                            mask="bloodPressure"
+                            maxLength={7}
                             disabled={false}
+                            error={errors.measurement?.bloodPressure?.message}
                         />
 
                         <InputComponent
                             control={control}
                             label="Frequência Cardíaca"
                             name="measurement.heartRate"
-                            type="number"
+                            type="text"
+                            maxLength={3}
                             disabled={false}
+                            error={errors.measurement?.heartRate?.message}
                         />
 
                         <InputComponent
                             control={control}
                             label="Frequência Respiratória"
                             name="measurement.respiratoryRate"
-                            type="number"
+                            type="text"
+                            maxLength={3}
                             disabled={false}
+                            error={errors.measurement?.respiratoryRate?.message}
                         />
 
                         <InputComponent
                             control={control}
                             label="Glicemia"
                             name="measurement.glycemia"
-                            type="number"
+                            type="text"
                             disabled={false}
+                            error={errors.measurement?.glycemia?.message}
                         />
                     </div>
 
