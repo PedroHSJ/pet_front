@@ -1,5 +1,5 @@
 import * as yup from 'yup';
-import { INVALID_CPF, REQUIRED } from '../constants/errors';
+import { INVALID_CPF, INVALID_EMAIL, REQUIRED } from '../constants/errors';
 import { isValidCPF } from '../utils';
 import { Role } from '../interfaces/IRole';
 
@@ -8,7 +8,7 @@ export const LoginSchemaWithPassword = yup.object().shape({
     // 	.string()
     // 	.test('isValidCPF', INVALID_CPF, isValidCPF)
     // 	.required(REQUIRED),
-    email: yup.string().email().required(REQUIRED),
+    email: yup.string().email(INVALID_EMAIL).required(REQUIRED),
     password: yup.string().required(REQUIRED),
     scope: yup.string().required(REQUIRED),
 });

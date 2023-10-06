@@ -164,12 +164,12 @@ export function Header() {
                 onPress: () => {
                     logout();
                 },
-                styleButton: 'secondary',
+                styleButton: 'primary',
             },
             {
                 text: 'Não',
                 onPress: () => {},
-                styleButton: 'primary',
+                styleButton: 'secondary',
             },
         ]);
     };
