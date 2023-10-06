@@ -42,6 +42,7 @@ export const SelectComponent = ({
     const [selectText, setSelectText] = useState('');
 
     const handleChangeValue = ({ key, label }: IPicker) => {
+        console.log(`${key}, ${label}`);
         field.onChange(key);
     };
 
@@ -54,16 +55,23 @@ export const SelectComponent = ({
     }, [field]);
     return (
         <div className="w-full my-2">
-            <Select label={label} disabled={disabled} value={selectText}>
+            <Select
+                label={label}
+                disabled={disabled}
+                value={selectText}
+                error={!!error}
+            >
                 {options?.map((option) => (
                     <Option
                         value={option.key}
+                        key={option.key}
                         onClick={() => handleChangeValue(option)}
                     >
                         {option.label}
                     </Option>
                 ))}
             </Select>
+            <span className="text-sm text-error font-bold">{error}</span>
         </div>
     );
 };

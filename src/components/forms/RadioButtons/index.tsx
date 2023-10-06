@@ -41,6 +41,11 @@ export function RadioHorizontalList({
         field.onChange(value);
     };
 
+    useEffect(() => {
+        if (!field.value) return;
+        handleChangeValue(field.value);
+    }, [field.value]);
+
     return (
         <Card
             className={`bg-white shadow-none w-full justify-between flex-col items-center p-2 mb-3 

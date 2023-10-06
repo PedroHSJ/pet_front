@@ -24,4 +24,13 @@ const getTreatmentRecord = async (): Promise<
     return data;
 };
 
-export { createTreatment, getTreatmentRecord };
+const getTreatmentsRecordByParams = async (
+    params: any,
+): Promise<ApiResponseInterface<ITreatmentRecord>> => {
+    const { data } = await api.get<
+        Promise<ApiResponseInterface<ITreatmentRecord>>
+    >(`/treatment-record`, { params });
+    return data;
+};
+
+export { createTreatment, getTreatmentRecord, getTreatmentsRecordByParams };

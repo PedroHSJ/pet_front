@@ -1,8 +1,12 @@
 import { useState } from 'react';
-import { ITreatmentRecord } from '../interfaces/ITreatmentRecord';
+import {
+    ITreatmentRecord,
+    ITreatmentsGetByParams,
+} from '../interfaces/ITreatmentRecord';
 import {
     createTreatment,
     getTreatmentRecord,
+    getTreatmentsRecordByParams,
 } from '../services/api/TreatmentRecordApi';
 import { handleGetErrorMessage } from '../utils';
 
@@ -40,6 +44,29 @@ export const useTreatmentRecord = () => {
         }
     };
 
+    const getTreatmentsByParams = async ({
+        params,
+        page,
+        pageSize,
+    }: IGetByParams<ITreatmentsGetByParams>) => {
+        try {
+            setLoading(true);
+            setError('');
+
+            const { items } = await getTreatmentsRecordByParams({
+                ...params,
+                page,
+                pageSize,
+            });
+
+            setTreatmentRecordList(items);
+        } catch (error) {
+            setError(handleGetErrorMessage(error));
+        } finally {
+            setLoading(false);
+        }
+    };
+
     return {
         treatmentRecordList,
         loading,
@@ -47,5 +74,6 @@ export const useTreatmentRecord = () => {
         success,
         postTreatmentRecord,
         getTreatments,
+        getTreatmentsByParams,
     };
 };

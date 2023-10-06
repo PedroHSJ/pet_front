@@ -1,6 +1,8 @@
 export const REQUIRED = 'Campo obrigatório';
 export const INVALID_CPF = 'CPF inválido';
 export const INVALID_CNS = 'CNS inválido';
-export const INVALID_EMAIL = 'Email inválido';
-export const INVALID_PASSWORD = 'Senha inválida';
+export const INVALID_EMAIL = 'Digite um endereço de e-mail válido';
+export const INVALID_PASSWORD =
+    'A senha deve conter no minimo 8 caracteres e 1 número';
+
 export const MIN_PASSWORD_LENGTH = 'A senha deve ter pelo menos 6 caracteres';

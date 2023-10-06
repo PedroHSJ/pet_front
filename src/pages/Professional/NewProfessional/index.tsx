@@ -4,11 +4,10 @@ import { Template } from '../../../components/layouts/Template';
 import { Button } from '../../../components/buttons/Button';
 import { IProfessionalDTO } from '../../../interfaces/IProfessional';
 import { yupResolver } from '@hookform/resolvers/yup';
-import { ProfessionalSchema } from '../../../validations/ProfessionalSchema';
+import { NewProfessionalSchema } from '../../../validations/ProfessionalSchema';
 import { InputComponent } from '../../../components/forms/NewInput';
 import { useProfessional } from '../../../hooks/useProfessional';
 import { useEffect, useState } from 'react';
-import { useComponent } from '../../../hooks/useComponent';
 import { toast } from 'react-toastify';
 import { useNavigate } from 'react-router';
 import { SelectComponent } from '../../../components/forms/NewSelectInput';
@@ -22,12 +21,10 @@ export const NewProfessional = () => {
         formState: { errors },
         getValues,
     } = useForm<IProfessionalDTO>({
-        resolver: yupResolver(ProfessionalSchema),
+        resolver: yupResolver(NewProfessionalSchema),
     });
     const navigate = useNavigate();
     const { createProfessional, error, loading, success } = useProfessional();
-    const { dialog } = useComponent();
-    const [sex, setSex] = useState(0);
 
     const verifyPassword = (value: string) => {
         const password = getValues('password');
@@ -59,6 +56,11 @@ export const NewProfessional = () => {
         }
         return;
     }, [error]);
+
+    useEffect(() => {
+        if (!errors) return;
+        console.log(errors);
+    }, [errors]);
 
     return (
         <Template>
@@ -103,17 +105,14 @@ export const NewProfessional = () => {
                         />
                         <SelectComponent
                             control={control}
-                            label="Sexo"
                             name="gender"
+                            label="Sexo"
+                            error={errors.gender?.message}
+                            type="text"
                             options={Object.keys(Gender).map((key) => ({
-                                value: Gender[key],
-                                label: Gender[key],
+                                key: Gender[key as keyof typeof Gender],
+                                label: Gender[key as keyof typeof Gender],
                             }))}
-                        />
-                        <SwitchComponent
-                            control={control}
-                            name="active"
-                            error={errors.active?.message}
                         />
 
                         <InputComponent
@@ -129,6 +128,13 @@ export const NewProfessional = () => {
                             label="Confirmar Senha"
                             error={errors.confirmPassword?.message}
                             type="password"
+                        />
+
+                        <SwitchComponent
+                            control={control}
+                            name="active"
+                            error={errors.active?.message}
+                            showLabel={true}
                         />
                         <Button loading={loading} style="primary" type="submit">
                             Cadastrar

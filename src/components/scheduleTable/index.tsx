@@ -4,6 +4,7 @@ import { formatDate } from '../../utils/format';
 import { Pagination } from '../pagination';
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { ButtonsContainer } from '../functional/Dialog/styles';
 
 interface ScheduleTableProps {
     schedules: ISchedule[];
@@ -17,10 +18,17 @@ export const ScheduleTable = ({
     buttonActionName,
 }: ScheduleTableProps) => {
     const navigate = useNavigate();
+
+    const handleClick = (schedule: ISchedule) => {
+        if (buttonActionName != 'Visualizar')
+            navigate('/atendimento', { state: schedule });
+        else navigate('/historico/preview', { state: schedule });
+    };
+
     useEffect(() => {
-        console.log('schedules', schedules);
-        console.log('tableHead', tableHead);
-        console.log('buttonActionName', buttonActionName);
+        // console.log('schedules', schedules);
+        // console.log('tableHead', tableHead);
+        // console.log('buttonActionName', buttonActionName);
     }, [schedules, tableHead, buttonActionName]);
     return (
         <Card className="h-full w-full my-4 ">
@@ -134,11 +142,7 @@ export const ScheduleTable = ({
                                 </td>
                                 <td className={classes}>
                                     <Button
-                                        onClick={() => {
-                                            navigate('/atendimento', {
-                                                state: schedule,
-                                            });
-                                        }}
+                                        onClick={() => handleClick(schedule)}
                                         className="bg-primary"
                                         size="sm"
                                     >
